@@ -1,0 +1,12 @@
+<nav>
+  <div class="nav nav-tabs nav-fill text-uppercase" id="nav-tab" role="tablist">
+
+    <a class="nav-item nav-link" active [routerLink]="'.'" id="{{category.id}}" role="tab" aria-selected="true"
+      (click)="onClickCategory(category)" *ngFor="let category of categories"><i><img height="18px"src="{{category.src}}"
+          class="mr-2" alt="" /></i> {{category.name | translate}}</a>
+
+  </div>
+  <div (click)="onShowDiv()" *ngIf="isGamePlay" class="arrow_slide">
+    <i><img src="../../../../assets/img/icons/arw_down.svg" alt="" /></i>
+  </div>
+</nav>

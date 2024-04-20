@@ -1,0 +1,48 @@
+@import '../../../../assets/css/base.scss';
+
+.stand-out-sec {
+    background: url(../../../../assets/img/front/standout_bg.png)no-repeat;
+    background-size: cover;
+    margin-left: -15px;
+    margin-right: -15px;
+	padding:40px 0 30px;
+    position: $relative;
+    &::after {
+        content: '';
+        background: linear-gradient(180deg, rgba(11, 28, 16, 0) 0%, #0B1C10 28.72%, #0B1C10 65.41%);
+        position: $absolute;
+        height:20%;
+        left:0;
+        bottom: -35px;
+        width:100%;
+    }
+	@media (max-width:991px){
+		padding:0 15px;
+	}
+}
+.stand_inner_sec {
+	margin-top:35px;
+    position: $relative;
+    z-index: 1;
+	.col-lg-2 {
+		margin-bottom:10px;
+	}
+}
+.stand-col {
+	width:100%; 
+	background-color: $green-dark-color;
+	background: radial-gradient(121.83% 62.91% at 0% 37.09%, rgba(26, 225, 142, 0.1) 0%, rgba(26, 225, 142, 0) 100%),
+	linear-gradient(180deg, $green-dark-color 0%, rgba(23, 40, 60, 0) 100%);
+	border: 1px solid $pantone-color;
+	@include transition(all,25s,ease-out);
+	@include border-radius(20px); 	
+	padding:10px; height:100%;
+	border: 1px solid $green-dark-color;
+	&:hover {
+		background: radial-gradient(rgba(26, 225, 142, 0.1) 0%, rgba(26, 225, 142, 0) 100%, 121.83% 62.91% at 0% 37.09%),
+		linear-gradient(180deg, #173121 0%, rgba(23, 40, 60, 0) 100%);
+	}
+	i { margin:15px 0 10px; display:$inline-block; min-height: 94px;}
+	h6 {text-transform:uppercase; font-size:$f16; margin:0 0 15px; color:$base-color; min-height: 30px;}
+	p {font-size:$f12+1; color:rgba(255,255,255,.8); font-weight:$font-regular;}
+}

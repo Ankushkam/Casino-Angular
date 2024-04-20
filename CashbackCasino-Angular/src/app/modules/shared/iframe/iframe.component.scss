@@ -1,0 +1,28 @@
+@import '../../../../assets/css/base.scss';
+@import '../../../modules/auth/signup/signup.component.scss';
+
+::ng-deep{
+    .modal-content{
+        background-color:$transparent!important;    
+        border:0;    
+    }
+    .modal-body{
+       padding: 0;
+    }
+}
+
+.form  {
+    display: $none;
+}
+.iframe{
+    min-height:450px!important;
+}
+ 
+.payment_block {
+    @include border-radius (20px);
+    background: #134b24;
+    padding: 0;
+    #iframecontainer {
+        height:480px;       
+    }    
+} 

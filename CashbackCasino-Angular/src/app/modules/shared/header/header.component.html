@@ -1,0 +1,263 @@
+<header class="header d-flex align-items-center" id="header" *ngIf="!showProgressBar">
+    <!-- <form class="search_bar">
+        <input type="search" name="search" placeholder="Search games" class="form-control" />
+    </form> -->
+    <div class="d-flex align-items-center d-lg-none w-100">
+        <button class="header-toggle btn btn-transparent mr-3" (click)="toggle()">
+            <img src="assets/img/icons/hamburger_icon.svg" alt="" />
+        </button>
+        <div class="logo-mob">
+            <a routerLink="/"><img src="assets/img/logo_mobile.svg" width="36" alt="Cashback Casino"
+                    class="img-fluid" /></a>
+        </div>
+
+        <!-- Mobile -->
+        <div class="d-flex hdr_mob_rht ml-auto">
+            <button (click)="login()" class="btn btn-md btn-outline" data-toggle="modal" *ngIf="!isLoginUser">
+                {{login_button | uppercase }}
+            </button>
+            <!-- <button (click)="openSignUp()" class="btn btn-md btn-primary text-uppercase mx-3" data-toggle="modal" -->
+            <button class="btn btn-md btn-primary text-uppercase ml-3" data-toggle="modal" *ngIf="!isLoginUser"
+                (click)="openSignUp()">{{signup_button}}</button>
+
+            <div *ngIf="isLoginUser" class="btn btn-sm btn-black d-flex align-items-center ds_select mr-3">
+                <div class="dropdown">
+                    <!-- <button type="button" class="btn-transparent" data-toggle="dropdown" (click)="login()"
+                        *ngIf="!isLoginUser">
+                        {{depositButton| uppercase}}
+                    </button> -->
+                    <!-- <button type="button" class="btn-transparent" data-toggle="dropdown" (click)="openDeposits()"
+                        *ngIf="isLoginUser && allCurrencies">
+                        {{((accountBalance || {}).amount_cents || empty) | convertCurrency:[currency,allCurrencies]}}
+                        {{(accountBalance || {}).currency}}
+                    </button> -->
+                    <!-- <i class="btn btn-sm btn-primary" (click)="login()" *ngIf="!isLoginUser"><img
+                            src="assets/img/icons/plus_icon.svg" alt="" /></i> -->
+                    <!-- <i class="btn btn-sm btn-primary ml-2" (click)="openDeposits()" *ngIf="isLoginUser"><img
+                            src="assets/img/icons/plus_icon.svg" alt="" /></i> -->
+                    <!-- <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item text-left" (click)="openDeposits()"><i class="mr-3"><img
+                                    src="assets/img/icons/deposit_icon.svg"
+                                    alt=""></i>{{'links_text.deposit' | translate}}</a>
+                        <a class="dropdown-item text-left" (click)="openDeposits()"><i class="mr-3"><img
+                                    src="assets/img/icons/withdraw_icon.svg"
+                                    alt=""></i>{{'title.withdrawal' | translate}}</a>
+                    </div> -->
+                </div>
+            </div>
+
+            <app-notification-centre *ngIf="isLoginUser" [type]="'mobile'"></app-notification-centre>
+
+            <div class="btn btn-sm btn-black d-flex align-items-center dropdown user_select" *ngIf="isLoginUser">
+                <button type="button" class="dropdown-toggle btn-transparent text-capitalize" data-toggle="dropdown">
+                    <i class="profile-pic"><img src="assets/img/icons/profile_icon.svg" alt="" /></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <!-- <span>{{userName}}</span> -->
+
+                    <!-- Removed loyalty program (15-06-2021) -->
+                    <!-- <div *ngIf="!hideTabs" class="drop_level">
+                        <div class="w-100">
+                            <i>{{currentLevel?.level}}</i>
+                            <span>{{'title.level' | translate}}</span>
+                        </div>
+                        <div class="score_point">
+
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{currentLevel.points}}"
+                                    aria-valuemin="{{currentLevel.minPoints}}"
+                                    aria-valuemax="{{currentLevel.maxPoints}}" [style.width.%]="currentLevel?.progress">
+                                </div>
+                            </div>
+                            <label>{{currentLevel?.points}} / {{nextLevel?.minPoints}}</label>
+                        </div>
+                    </div> -->
+                    <a class="dropdown-item" (click)="myProfile()">{{'links_text.my_profile' | translate }}</a>
+                    <a class="dropdown-item" (click)="myWallet()" translate> links_text.wallet</a>
+
+                    <a *ngIf="!(hideCashbackBonuses && hideBonuses)" class="dropdown-item" (click)="openBonuses()" translate>links_text.bonuses</a>
+                    <a class="dropdown-item logout_txt" routerLlink="." (click)="logout()">{{'links_text.logout' |
+                        translate}}</a>
+                </div>
+            </div>
+            <!-- <button *ngIf="!isLoginUser" class="header-toggle btn btn-transparent" (click)="toggle()">
+                <img src="assets/img/icons/hamburger_icon.svg" alt="" />
+            </button> -->
+        </div>
+    </div>
+
+    <div class="d-lg-flex ml-auto align-items-center hd_bar">
+        <!-- <div class="btn btn-black ml-lg-3 d-flex align-items-center eng_select">
+            <app-dropdown [show]="isSelectFlag" [btnSrc]="'assets/img/eng-flag.png'" [items]="flagItems" (onClick)="onFlagSelect($event)"></app-dropdown>
+        </div> -->
+        <div class="btn btn-black mr-lg-3 d-flex align-items-center eng_select">
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown">
+                    <i><img src="{{selectedFlag?.src}}" alt="" /></i>
+                </button>
+                <div class="dropdown-menu scroll">
+                    <a class="dropdown-item" href="javascript:void(0)" (click)="switchLang(flag)"
+                        *ngFor="let flag of flagItems"><i class="mr-1"><img src="{{flag.src}}" alt="" /></i>
+                        {{flag.value}}</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="btn btn-black ml-3 d-flex align-items-center noti_select">
+            <app-dropdown [show]="isSelectNotification" [btnSrc]="'assets/img/icons/bell_icon.svg'" [items]="notificationItems" (onClick)="onSelectNotification($event)"></app-dropdown>
+        </div> -->
+        <!-- <div class="btn btn-black ml-3 d-flex align-items-center noti_select">
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown">
+                    <i><img src="assets/img/icons/bell_icon.svg" alt="" /></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" routerLlink=".">Lorem Ipsum</a>
+                    <a class="dropdown-item" routerLlink=".">Lorem Ipsum</a>
+                    <a class="dropdown-item" routerLlink=".">Lorem Ipsum</a>
+                </div>
+            </div>
+        </div> -->
+        <app-notification-centre *ngIf="isLoginUser" [type]="'desktop'"></app-notification-centre>
+
+        <!-- Desktop -->
+        <!-- <div class="btn btn-sm btn-black d-flex align-items-center ds_select">
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown" (click)="login()"
+                    *ngIf="!isLoginUser">
+                    {{depositButton| uppercase}}
+                </button>
+                <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown" *ngIf="isLoginUser"
+                    (click)="openDeposits()">
+                    {{((accountBalance || {}).amount_cents || empty) | convertCurrency:[currency,allCurrencies]}}
+                    {{currency}}
+                </button>
+                <i class="btn btn-sm btn-primary ml-2" *ngIf="!isLoginUser"><img src="assets/img/icons/plus_icon.svg"
+                        (click)="login()" alt=""></i>
+                <i class="btn btn-sm btn-primary ml-2" *ngIf="isLoginUser"><img src="assets/img/icons/plus_icon.svg"
+                        (click)="openDeposits()" alt="" /></i>
+               
+            </div>
+        </div> -->
+
+
+        <!-- Removed Loyalty program (15-06-2021) -->
+        <!-- <div *ngIf="!hideTabs" class="d-flex align-items-center ml-3 level_score">
+            <div class="score_points">
+                <div class="lev_level active">
+                    {{currentLevel?.level}}
+                    <span class="level_text">{{'title.level' | translate}}</span>
+                </div>
+            </div>
+            <div class="score_point">
+                <label>{{currentLevel?.points}} / {{nextLevel?.minPoints}}</label>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{currentLevel?.points}}"
+                        aria-valuemin="{{currentLevel?.minPoints}}" aria-valuemax="{{currentLevel?.maxPoints}}"
+                        [style.width.%]="currentLevel?.progress">
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+
+        <!-- <div class="btn btn-sm btn-black d-flex align-items-center ml-3 ds_select">
+            <app-dropdown [show]="isSelectProfile" [btnText]="'Martin Shein'" [items]="profileItems" [iconClass]="'rounded ml-2 profile-pic'" [src]="'assets/img/user_pic.png'" (onClick)="onSelectProfile($event)"></app-dropdown>
+        </div> -->
+        <div class="btn btn-sm btn-black d-flex align-items-center ml-3 user_select" *ngIf="isLoginUser">
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle btn-transparent text-capitalize" data-toggle="dropdown">
+                    <span>{{userName}}</span>
+                    <i class="rounded ml-2 profile-pic"><img src="assets/img/icons/profile_icon.svg" alt="" /></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" (click)="myProfile()">{{'links_text.my_profile' | translate }}</a>
+                    <a class="dropdown-item" (click)="myWallet()"> {{'links_text.wallet' | translate }}</a>
+                    <a *ngIf="!(hideCashbackBonuses && hideBonuses)" class="dropdown-item" (click)="openBonuses()" translate>links_text.bonuses</a>
+                    <a class="dropdown-item" routerLlink="." (click)="logout()">{{'links_text.logout' | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--Game header-->
+<div class="game_header" *ngIf="showProgressBar">
+    <div class="d-flex game_sticky">
+        <div *ngIf="isLoginUser" class="ml-3">
+            <button (click)="openDeposits()" *ngIf="isLoginUser" class="btn btn-md btn-primary">
+               {{'links_text.deposit' | translate}}
+            </button>
+        </div>
+        <!-- <div class="deposit_game">
+            <div *ngIf="isLoginUser" class="btn btn-sm btn-black d-flex align-items-center ds_select mr-3">
+                <div class="dropdown">
+                    <i class="btn btn-sm btn-primary mr-1" (click)="openDeposits()" *ngIf="isLoginUser"><img
+                            src="assets/img/icons/plus_icon.svg" alt="" /></i>
+                    <button type="button" class="btn-transparent" data-toggle="dropdown" (click)="openDeposits()"
+                        *ngIf="isLoginUser && allCurrencies">
+                        {{((accountBalance || {}).amount_cents || empty) | convertCurrency:[currency,allCurrencies]}}
+                        {{(accountBalance || {}).currency}}
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="btm_rht hdr_mob_rht" >
+            <div class="search_mobile" [ngClass]="showSearchInput?'display_search':null" >
+                <button type="button" (click)="showSearchInput=!showSearchInput;" class="btn btn-transparent ml-2">
+                    <svg width="19" height="18" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.7417 10.8276C12.529 9.75242 12.9999 8.43176 12.9999 7.00005C12.9999 3.41608 10.0839 0.500061 6.49996 0.500061C2.91599 0.500061 0 3.41608 0 7.00005C0 10.584 2.91602 13.5 6.49999 13.5C7.93169 13.5 9.25248 13.029 10.3277 12.2417L14.586 16.5L16 15.0859C16 15.0859 11.7417 10.8276 11.7417 10.8276ZM6.49999 11.5C4.01854 11.5 2.00001 9.48149 2.00001 7.00005C2.00001 4.5186 4.01854 2.50007 6.49999 2.50007C8.98143 2.50007 11 4.5186 11 7.00005C11 9.48149 8.9814 11.5 6.49999 11.5Z"
+                            fill="#fff" />
+                    </svg>
+                    <i class="close_search"><img src="assets/img/icons/close_icon.svg" alt="" /></i>
+                </button>
+                <app-game-search *ngIf="allGames" (playGame)="playSearchGame($event)" [allKeys]="allKeys" [allGames]="allGames"></app-game-search>
+            </div>
+
+            <!-- <app-notification-centre *ngIf="isLoginUser" [type]="'mobile'"></app-notification-centre> -->
+
+            <div class="btn btn-sm d-flex align-items-center dropdown user_select" *ngIf="isLoginUser">
+                <button type="button" class="dropdown-toggle btn-transparent text-capitalize" data-toggle="dropdown">
+                    <i><img src="assets/img/icons/profile_icon.svg" alt="" /></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <!-- <span>{{userName}}</span>  -->
+
+
+                    <!-- Removed loyalty program (15-06-2021) -->
+                    <!-- <div class="drop_level">
+                        <div class="w-100">
+                            <i>{{currentLevel?.level}}</i>
+                            <span>{{'title.level' | translate}}</span>
+                        </div>
+                        <div class="score_point">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{currentLevel.points}}"
+                                    aria-valuemin="{{currentLevel.minPoints}}"
+                                    aria-valuemax="{{currentLevel.maxPoints}}" [style.width.%]="currentLevel?.progress">
+                                </div>
+                            </div>
+                            <label>{{currentLevel?.points}} / {{nextLevel?.minPoints}}</label>
+                        </div>
+                    </div> -->
+                    <a class="dropdown-item" (click)="myProfile()">{{'links_text.my_profile' | translate }}</a>
+                    <a class="dropdown-item" (click)="myWallet()"> {{'links_text.wallet' | translate}}</a>
+                    <a *ngIf="!(hideCashbackBonuses && hideBonuses)" class="dropdown-item" (click)="openBonuses()" translate>links_text.bonuses</a>
+                    <a class="dropdown-item logout_txt" routerLlink="." (click)="logout()">{{'links_text.logout' |
+                        translate}}</a>
+                </div>
+            </div>
+
+            <button class="game-toggle btn btn-transparent ml-auto" (click)="toggle()">
+                <img src="assets/img/icons/hamburger_icon.svg" alt="Menu" width="34" />
+            </button>
+        </div>
+
+        <div class="game_logo">
+            <a routerLink="/"><img src="assets/img/logo_mobile.svg" width="36" alt="Cashback Casino"
+                    class="img-fluid" /></a>
+        </div>
+    </div>
+</div>

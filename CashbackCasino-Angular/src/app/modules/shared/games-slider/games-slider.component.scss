@@ -1,0 +1,15 @@
+.game_slick_slider {
+    padding:20px 0;
+    @media(min-width:1680px) {
+        padding:40px 0;
+    }
+    .slick-slide  {
+        margin:0 10px;
+        &:focus, &:hover {
+            outline: 0;
+        }
+        .game_col {
+            box-shadow: 0 0 10px rgba(0,0,0,.5);            
+        }
+    }        
+}

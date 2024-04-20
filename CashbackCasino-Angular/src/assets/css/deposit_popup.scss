@@ -1,0 +1,185 @@
+.rht_popup_bar {
+    width:420px; 
+    position:$fixed; 
+    right:-420px;
+    top:0;
+    height:100%; 
+    color:$black-color1; 
+    transition: all .5s ease-in-out;  
+    -webkit-transition: all .5s ease-in-out; 
+    z-index:11;
+    background: $white-color;
+    box-shadow: 0px 0px 74px rgba(0, 0, 0, 0.55); 
+    @media (max-width:575px) {
+        width:100%;
+    }
+    .btn-md {
+        @include border-radius(12px);
+        min-height: 50px;
+    }
+} 
+.modal-active {
+    .rht_popup_bar {
+        right:0;
+    }
+}
+
+.side_header {
+    width:100%; 
+    height:60px; 
+    padding:10px; 
+    @include flexbox; 
+    @include align-items(center); 
+    @include justify-content(center);
+    background:$grey-color6;
+    position:$relative; 
+    @media (min-width:1680px) {
+        height:70px;
+    }
+    h5 {
+        color:$black-color1; 
+        margin:0; 
+        font-size:$f16+2; 
+        font-weight:$font-semi-bold;
+    }
+}
+.deposit_mid {
+    padding:40px 20px 30px; 
+    height: calc(100% - 60px); 
+    overflow-y:auto;
+    @media (min-width:1680px) {
+        padding: 70px 24px 50px; 
+        height: calc(100% - 60px);
+    }
+    @media (max-width:830px) {
+        padding:30px 20px; 
+    }
+    .offer_block{
+        margin:0 0 20px;
+    }
+    .offers_div {
+        width:calc(100% + 20px); 
+        height:150px;
+        @media (min-width:768px) {
+            height:240px;
+        }
+    }
+    label {
+        color: $grey-color2; 
+        font-size:$f12+2;
+    }
+    .form-group {
+        margin-bottom:30px;
+        @media (min-width:1680px) {
+            margin-bottom:50px;
+        }
+        @media (max-width:830px) {
+            margin-bottom:20px;
+        }
+    }
+    .input-group {
+        @include flex-wrap(nowrap);
+        border-width:0 0 1px 0; 
+        border-style:solid; 
+        border-color:$grey-color5;
+    }
+    .input-group-text {
+        font-size:$f24; 
+        font-weight:$font-bold; 
+        color:$grey-color2; 
+        background:$transparent; 
+        padding:0 10px 0 0; border:0;
+        @media (max-width:830px){
+            font-size:$f16; 
+            line-height: 1.1;
+        }
+    }
+    .input-fields {
+        border:0!important;
+        font-size: $f16;
+        box-shadow: $none;
+    }
+    .dots {
+        position:$static;
+        margin:10px 0 0;
+        @media (min-width:1680px) {
+            margin:20px 0 0;
+        }
+    }
+    .btn-full {
+        margin-top: 20px;
+    }
+}
+.sub-title {
+    color:$black-color1; 
+    margin:0 0 30px; 
+    font-size:$f16+2; 
+    font-weight:$font-semi-bold;
+    @media (min-width:1680px) {
+        margin-bottom:45px;
+    }
+}
+.btn-full {
+    margin-bottom: 15px;
+    .btn {
+        width:100%; 
+        box-shadow: 0px 2px 16px 0px rgba(255,196,0, .35);
+        color: $black-color2!important;
+    }
+}
+.pay_block {
+    background: rgba(32, 33, 47, 0.05); 
+    @include border-radius(10px); 
+    padding:13px; 
+    margin-bottom:16px; 
+    cursor: pointer;
+    i {
+        img {
+            width: 96px;
+            height: auto;
+            max-height: 60px;
+        }
+    }
+}
+.pay_info {
+    text-align:right;
+    h6 {
+        font-size:$f12+2;
+        margin:0 0 5px;
+    }
+    span {
+        color:$grey-color2; 
+        font-weight: $font-medium; 
+        font-size:$f12+2;
+    }
+}  
+.deposit_success  {
+    margin:10px 0 0;
+    p {
+        color:rgba(24, 25, 36, .8); 
+        font-weight:$font-medium; 
+        font-size:$f12+2;
+        margin:0 0 30px;
+    }
+}
+.selected {
+    margin-bottom:50px;
+    @media (min-width:1680px) {
+        margin-bottom: 70px;
+    }
+}
+.d-scroll {
+    max-height: calc(100% - 60px);
+}
+.pay_method_list {
+    overflow-y:auto; 
+    max-height: 65vh;
+    @media (min-width:1680px) {
+        overflow-y:auto; 
+        height:calc(100% - 250px - 80px);
+    }
+}
+.pay_lists {
+    overflow-y:auto; 
+    height:calc(100% - 250px - 40px);
+}

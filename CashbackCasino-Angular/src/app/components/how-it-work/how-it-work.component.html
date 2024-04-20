@@ -1,0 +1,36 @@
+<app-header [showProgressBar]="false"></app-header>
+
+<div class="work_shadow" [innerHtml]="content1"></div>
+
+<div class="container-fluid">
+  <app-divider></app-divider>
+  <div class="wrapper">
+
+    <section class="praise_process" [innerHtml]="content2"></section>
+    <app-divider></app-divider>
+
+    <section class="discover_sec">
+      <div class="d-flex position-relative">
+        <div class="d_fav_game">
+          <h2>
+           {{'text.discover_your' | translate}} <br />
+            {{'text.favourite_games' |translate}}
+          </h2>
+          <!-- <app-button [btnText]="'links_text.deposit_money'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+            (click)="openDeposits()"></app-button> -->
+        </div>
+        <figure class="m-0 discover_pic"><img src="assets/img/work/discover_pic.png" alt="" class="img-fluid" />
+        </figure>
+      </div>
+    </section>
+
+    <app-divider></app-divider>
+
+    <section class="game-section">
+      <app-games [allGames]="allGames" [gameProviders]="providers" [pageTitle]="GAME_LIST.HOME_TITLE"></app-games>
+      <app-divider></app-divider>
+    </section>
+    <app-footer></app-footer>
+
+  </div>
+</div>

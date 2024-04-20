@@ -1,0 +1,47 @@
+<div class="current-tournament_banner">
+	<div class="wrapper">
+
+		<div class="current_info text-center">
+			<span class="c_title" translate>text.current_tournament</span>
+			<h1 class="text-captialize">{{params.name}}</h1>
+
+			<div class="prize_pool">
+				<div class="prize_sec">
+					<app-countdown *ngIf="tournamentDate" [type]="'banner'" [endDate]="tournamentDate">
+					</app-countdown>
+
+					<div class="top_winners">
+						<span class="prize_txt">{{params.name}}</span>
+						<label>{{params?.pool}}</label>
+
+						<div class="prize_ranks d-flex align-items-end">
+							<div class="prize_rank">
+								<i class="d-block"><img src="assets/img/tournament/second_winner.svg" alt="" /></i>
+								<span>{{params.second_prize}}</span>
+							</div>
+							<div class="prize_rank">
+								<i class="d-block"><img src="assets/img/tournament/first_winner.svg" alt="" /></i>
+								<span>{{params.first_prize}}</span>
+							</div>
+							<div class="prize_rank">
+								<i class="d-block"><img src="assets/img/tournament/third_winner.svg" alt="" /></i>
+								<span>{{params.third_prize}}</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="text-center">
+		<button (click)="goToRoute()" class="btn btn-md btn-primary text-uppercase" tabindex="0">
+			{{'links_text.more_info' | translate }} <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+					width="20" alt=""></i>
+		</button>
+	</div><!-- Load Button -->
+
+</div><!-- END current_info -->

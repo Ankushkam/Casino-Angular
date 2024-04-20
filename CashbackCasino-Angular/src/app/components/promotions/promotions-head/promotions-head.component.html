@@ -1,0 +1,21 @@
+<div class="banner_sec promotion_banner">
+    <div class="wrapper">
+        <div class="hero_sec">
+            <div *ngIf="(isPNPAllowed && isLoginUser) || !isPNPAllowed" class="banner_info text-center" class="banner_info home_txt text-center">
+                    <h1 class="h2 text-white" translate>text.close_casino_msg</h1>
+                    <a href="mailto:support@praisecasino.com" class="text-primary">support@praisecasino.com</a>
+                <!-- <h6>{{params?.title}}</h6>
+                <h1><img [src]="params.img" class="img-fluid" /></h1>
+                <h3>{{params?.pool}}</h3>
+                <h3 *ngIf="params?.pool2">{{params?.pool2}}</h3>
+                <button (click)="getItNow()"
+                    class="btn btn-lg btn-primary text-uppercase">{{'links_text.get_it_now' | translate }}</button>
+                <a [routerLink]="['/cashback-terms']" translate>links_text.bonus_t&c</a> -->
+            </div>
+            <ng-container *ngIf="isPNPAllowed && !isLoginUser">
+                <app-pay-n-play [type]="'signup'" [content]="content"></app-pay-n-play>
+            </ng-container>
+        </div>
+    </div>
+    <div class="char_pic"><img [src]="params.imgBg" class="img-fluid" /></div>
+</div>

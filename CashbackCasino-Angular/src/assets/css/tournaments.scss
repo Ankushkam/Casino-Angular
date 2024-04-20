@@ -1,0 +1,307 @@
+.banner_sec.tournament_banner {
+    &:before {
+        display:$block; 
+        height: 27%;
+        @media (min-width: 1800px){
+            height:30%; 
+        }
+        @media (max-width: 767px){  
+            height:25%;
+        }
+    }
+} 
+
+.tournament_banner {
+    padding-left:15px!important;
+    @media (max-width: 767px){ 
+        padding-left:0!important;
+    }
+    #clockdiv {
+        height:118px;
+        padding:8px 10px;
+        @media (min-width: 1800px){ 
+            height:138px;
+            padding:16px 10px;
+        }
+        @media (max-width: 767px){    
+            height:92px; 
+            padding: 0px 10px;
+        }
+        @media (max-width: 420px){
+            padding: 12px 12px 19px;
+        }
+    }
+    .counter {
+        margin-top:-45px; 
+        @media (max-width: 767px){    
+            margin-top:-30px;
+        }
+        @media (max-width: 420px){
+            width: 90%; 
+            margin: 0 auto;
+        } 
+    }
+} 
+.tournament_info {
+    text-align:left;
+    position:$absolute; 
+    top:100px;
+    @media (min-width: 1800px){   
+        top:180px;
+    }
+    @media (max-width: 767px){    
+        padding:70px 15px 0; 
+        text-align: center; 
+        position:$static;
+    }
+    h1 { 
+        font-weight: $font-bold; 
+        font-size: 60px; 
+        line-height:73px; 
+        margin:0 0 30px;
+        @media (min-width: 1800px){   
+            margin:0 0 50px; 
+            font-size: 86px; 
+            line-height:100px;
+        }
+        @media (max-width: 1220px){ 
+            font-size: 4rem; 
+            line-height: 53px; 
+            margin: 0 0 20px;
+        }
+        @media (max-width: 767px){ 
+            font-size: 3.5rem;
+        }
+        @media (max-width: 420px){ 
+            font-size: 2.6rem;
+        }
+    }
+}
+.tomb_prize {
+    span{ 
+        font-family: $font-family-light; 
+        font-weight:$font-regular; 
+        font-size: $f24;
+    }
+    h6 {
+        font-weight:$font-regular; 
+        font-size: $f30;
+        @media (max-width: 1220px){ 
+            font-size: 1.5rem;
+        }
+    }
+}
+.tournament_pic {
+    margin-left:auto; max-width:60%;
+    @media (min-width: 1800px){   
+        max-width:1035px;
+    }
+    @media (max-width: 767px){ 
+        max-width:100%;
+    }
+}
+.title h2 {
+    font-weight:$font-semi-bold;
+}
+.tournament_des {
+    counter-reset: my-awesome-counter;
+    margin:40px 0; 
+    padding:0 15px;
+    @media (min-width: 1800px){  
+        margin:90px 0;
+    }
+    @media (max-width:768px) {
+        margin:30px 0; 
+    }
+    h2 {
+        @media (min-width: 1800px){   
+            margin-bottom:60px;
+        }
+    }
+    p {
+        font-size: $f16;
+        line-height:24px; 
+        margin:0 0 15px;
+        @media (min-width: 1800px){   
+            margin:0 0 30px;
+        }
+    }
+}
+.tournament_rules {
+    padding:30px 0 20px;
+    h3 {
+        font-weight:$font-semi-bold;
+    }
+    ul {
+        padding:0;
+        li {
+            color:rgba(255,255,255,.7); 
+            font-size:$f12+2; 
+            font-weight:$font-regular; 
+            list-style:none; 
+            position:$relative;    
+            counter-increment: my-awesome-counter; 
+            padding:23px 15px 23px 50px; 
+            &:before {
+                content: counter(my-awesome-counter) ". ";
+                position:$absolute;
+                top: 21px;
+                left:0;	
+                font-weight:$font-bold;
+                font-size: $f16;
+                color:$white-color;
+            }
+            &:after{
+                content:'';
+                background-image:url(src/assets/img/tournament/divider.svg);
+                background-repeat:no-repeat;
+                background-size:100%;
+                height:1px;
+                width: 100%;	
+                position:$absolute;
+                bottom:0;
+                left:0;
+            }
+        }
+    }
+} 
+.winner_table { 
+    position:$absolute;
+} 
+.leaderboard_table {
+    thead {
+       // position: $relative;
+        // &:after {
+        //     content:'';
+        //     background: url(src/assets/img/icons/divider-lg.svg)no-repeat;
+        //     background-size: 100%;
+        //     position:$absolute;
+        //     bottom:0;
+        //     left:0;
+        //     height:1px;
+        //     width:100%;
+        // }
+        tr {
+            position: $relative;            
+            th {
+                vertical-align: middle;
+                // height: 48px;
+                color: rgba(255,255,255,0.65);
+                // background-color: $black-color5;
+                font-weight: $font-bold;
+                font-size: $f16;
+                line-height: 16px;
+                text-transform: uppercase;
+                padding:6px 25px;
+                color: #787B96;
+                @media (max-width:767px){
+                    padding:6px 5px;    
+                    font-size: $f12+1;
+                }
+                &:first-child {
+                    text-align: center;
+                    @media (min-width: 600px) {
+                        width: 100px;
+                    }
+                }
+                &:nth-child(2) {    
+                    text-align: left;
+                }
+                &:last-child {       
+                    text-align: right;       
+                }
+            }
+        }
+    }
+}
+ 
+.leaderboard_table tbody {    
+    &:nth-child(even) {
+        background: linear-gradient(90deg, #20212F -0.78%, rgba(32, 33, 47, 0) 100.06%);
+    }    
+    tr {
+        border-bottom: 1px solid #525472;
+        td {
+            vertical-align: middle;
+            // height: 48px; 
+            background-color: $transparent; 
+            font-weight: $font-bold;              
+            color: $white-color; 
+            font-size: $f16; 
+            line-height: 16px; 
+            padding:10px 3px;
+            text-align: center;      
+            @media (max-width:767px){
+                font-size: $f12+1;
+                padding:7px 0px;
+            }     
+            &:first-child {
+                span { 
+                    @include justify-content(center); 
+                }
+            }  
+            span {
+                @include flexbox; 
+                @include align-items(center);
+                border-left: 1px solid rgba(93, 96, 130, 0.3);
+                padding:6px 25px;
+                height:40px;
+                text-align: center;                
+                @media (max-width:767px){
+                    padding:6px 5px;    
+                    border-left: 0;
+                }
+            }            
+            &:last-child{
+                span { 
+                    @include justify-content(flex-end); 
+                }
+             }
+        }
+    }
+}
+.leaderboard_table tbody {
+     &:nth-child(2){ 
+        td:first-child {
+            span {
+                border-left:0;
+                font-size: 0;
+                background: url(src/assets/img/tournament/rank1.png)no-repeat;
+                background-position: center;
+                background-size: 100%;
+                height:40px;
+            }
+        }
+    }
+    &:nth-child(3){ 
+         td:first-child {
+            span {
+                border-left:0;
+                font-size: 0;
+                background: url(src/assets/img/tournament/rank2.png)no-repeat;
+                background-position: center;
+                background-size: 100%;
+                height:40px;
+            }
+        }
+    }
+    &:nth-child(4){ 
+        td:first-child {
+            span {
+                border-left:0;
+                font-size: 0;
+                background: url(src/assets/img/tournament/rank3.png)no-repeat;
+                background-position: center;
+                background-size: 100%;
+                height:40px;
+            }
+        }
+    }
+}
+
+.leaderboard_table tbody tr td:nth-child(2) span{
+    text-align: left;
+}
+.leaderboard_table tbody tr td:last-child span{
+    text-align: right;
+}

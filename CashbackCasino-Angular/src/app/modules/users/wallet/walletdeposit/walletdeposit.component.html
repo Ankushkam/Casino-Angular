@@ -1,0 +1,320 @@
+<div class="" *ngIf="step!==STEPS.REDIRECT">
+    <!-- Enter amount and select bonuses step -->
+    <form [formGroup]="form" class="d-block">
+        <!-- <h6 class="sub-title">{{'title.amount' | translate}} <span *ngIf="methodData" class="btn btn-sm float-right"><i><img [src]="getUrl(methodData)" class="img-logo"
+                            [alt]="methodData.brand" /></i></span></h6> -->
+        <div class="form-group balanceMargin">
+            <label>{{'links_text.balance' | translate}} </label>
+            <!-- {{'forms.label.your_amount_in' | translate}} {{ currency| currencySymbol}}-->
+            <!-- <div class="input-group-prepend">
+                    <span class="input-group-text">{{ currency| currencySymbol}}</span>
+                </div> -->
+            <div class="input_currency">
+                <input type="number" formControlName="balanceAmount" class="input-fields" disabled />
+                <div class="btn btn-black">
+                    <div class="dropdown">
+                        <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown">
+                            {{formControls.currency.value}}
+                        </button>
+                        <div class="dropdown-menu scroll">
+                            <a class="dropdown-item" *ngFor="let curr of dropDownCurrency" href="javascript:void(0)"
+                                (click)="changeCurrency($event)">{{curr}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div *ngIf="invalidAmount && methodData" class="change-color text-center">
+                {{invalidAmountMessage}}
+            </div> -->
+        </div>
+
+    </form>
+
+    <!-- Listing of all payment methods -->
+    <div class="d_payment">
+        <!-- <h6 class="sub-title" translate>links_text.payment_methods <span
+                    class="btn btn-sm btn-success float-right">{{controls.amount.value |currency:currency:true}}</span>
+            </h6> -->
+        <div *ngIf="(paymentMethods || []).length>0; else noPaymentMethods" class="pay_methods">
+            <div *ngFor="let method of paymentMethods ; let i= index" (click)="onClickingPaymentMethod(method, i)"
+                class="d-flex align-items-center flex-column justify-content-center pay_block"
+                [ngClass]="selectedPaymentMethod==i ?'active':'null'">
+                <i><img [src]="getUrl(method,i)" width="60px" alt="" /></i>
+
+                <span *ngIf="method?.deposit?.min || method?.deposit?.max"
+                            class="price_limit">{{'text.min' | translate}}.
+                            {{method.deposit?.min | currency : currency : 'symbol' : '1.0-0' }}/{{'text.max' | translate}}.
+                            {{method.deposit?.max | currency : currency : 'symbol' : '2.0-0' }}</span>
+            </div>
+        </div>
+        <div *ngIf="invalidAmount" class="change-color text-center">
+            {{invalidAmountMessage}}
+        </div>
+    </div>
+
+    <form [formGroup]="depositForm" class="d-block">
+
+        <div *ngFor="let item of selectedMethodFields" class="form-group marginBottom">
+            <div *ngIf="item?.html_content" [innerHtml]="item?.html_content"></div>
+            <label>{{item.label }}</label>
+            <div *ngIf="item?.type=='select'" class="input-group">
+                <select formControlName="{{item.field}}" class="custom-select form-control input-fields">
+                    <option value="" selected disabled>{{item?.placeholder}}
+                    </option>
+                    <option *ngFor="let option of item?.options" [value]="option[0]">{{option[0].split('_').join(' ') || option}}</option>
+                </select>
+                <display-field-error fieldName="{{item?.field}}" [formControls]="formControls">
+                </display-field-error>
+            </div>
+            <div *ngIf="item?.type=='text' || item.type=='card_holder'" class="input-group">
+                <input type="text" class="form-control" formControlName="{{item.field}}" class="input-fields" />
+                <display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+                </display-field-error>
+            </div>
+            <!-- <div *ngIf="item?.type=='email'" class="input-group">
+                <input [type]="item.type" class="form-control" formControlName="{{item.field}}" class="input-fields" />
+                <display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+                </display-field-error>
+            </div> -->
+            <!-- <div *ngIf="item?.type=='number'" class="input-group">
+                <div *ngIf="item.field=='amount'" class="input-group-prepend">
+                    <span class="input-group-text">{{ currency| currencySymbol}}</span>
+                </div>
+                <input [type]="item.type" class="form-control" formControlName="{{item.field}}"
+                    [min]='item?.validations?.min' [max]='item?.validations?.max' [step]='item?.step'
+                    class="input-fields" />
+                <display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+                </display-field-error>
+            </div> -->
+            <div *ngIf="item?.type=='number' || item?.type=='amount'">
+                <div class="histroy_cal">
+                    <!-- <h5>Deposit sum </h5> -->
+                    <button (click)="selectedValue($event)" [ngClass]="show25?'show':'null'"
+                        class="btn btn-sm btn-cancel">25</button>
+                    <button (click)="selectedValue($event)" [ngClass]="show50?'show':'null'"
+                        class="btn btn-sm btn-cancel">50</button>
+                    <button (click)="selectedValue($event)" [ngClass]="show100?'show':'null'"
+                        class="btn btn-sm btn-cancel">100</button>
+                    <button (click)="selectedValue($event)" [ngClass]="show200?'show':'null'"
+                        class="btn btn-sm btn-cancel">200</button>
+                    <button (click)="selectedValue($event)" [ngClass]="show500?'show':'null'"
+                        class="btn btn-sm btn-cancel">500</button>
+                </div>
+
+                <div class="input_currency">
+                    <!-- [(ngModel)]="depositSum" [ngModelOptions]="{standalone: true}" formControlName="amount" -->
+                    <input type="number" [(ngModel)]="depositSum" (keyup)="onAmountChange()" [ngModelOptions]="{standalone: true}"
+                        class="input-fields" (change)="depositValueChange($event)" [min]='item?.validations?.min'
+                        [max]='item?.validations?.max' [step]='item?.step' class="input-fields" />
+                    <div class="btn btn-black">
+                        <div class="dropdown">
+                            <button class="btn-transparent">
+                                {{formControls.currency.value}}
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="invalidAmount && methodData" class="change-color text-center">
+                    {{invalidAmountMessage}}
+                </div>
+            </div>
+
+            <div *ngIf="item?.type=='credit_card_number' ||item?.type=='cvv' " class="input-group">
+                <input [type]="'number'" class="form-control" formControlName="{{item.field}}" class="input-fields" />
+                <display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+                </display-field-error>
+            </div>
+            
+            <div *ngIf="item?.type=='crypto_address'" class="form-group">
+                <div><p class="message">Send {{item?.currency}} (plus miner fee) to</p><p class="bitcoin-address">{{item?.placeholder}}</p></div>
+                <a [href]="sanitize(item?.app_path)" target="_blank">
+                    <qrcode [qrdata]="item?.placeholder" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+                    </a>
+                    <div translate>text.private_depositing_address</div>
+                    
+                <!-- <display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+                </display-field-error> -->
+            </div>
+            <div *ngIf="item?.type=='card_expiry_date'" class="row">
+                <div class="col-6">
+                    <select formControlName="{{item.month}}" class="custom-select input-fields">
+                        <option [value]="null" selected disabled>MM</option>
+                        <option *ngFor="let month of range(1,12,1);" [value]="getTwoDigitNumber(month.toString())">{{getTwoDigitNumber(month.toString())}}</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <select formControlName="{{item.year}}" class="custom-select input-fields">
+                        <option [value]="null" selected disabled>YY</option>
+                        <option *ngFor="let year of getExpiryYear(item)" [value]="year">{{year.toString().slice(-2)}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="item?.type=='cascade_select'" class="row">
+                <div class="col-6">
+                    <select #countrySelect formControlName="{{item.country}}" class="custom-select input-fields" (change)='onCountrySelected(countrySelect.value)'>
+                        <!-- <option [value]="null" selected disabled>MM</option> -->
+                        <option *ngFor="let country of item.values" [value]="country.value">{{country.name}}</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <select formControlName="{{item.bank_code}}" class="custom-select input-fields">
+                        <!-- <option [value]="null" selected disabled>YY</option> -->
+                        <option *ngFor="let bank of getBankCodes(countrySelect.value,item.values)" [value]="bank[1]">{{bank[0]}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="available_bonus" *ngIf="selectedMethodIndex != -1 && !(hideCashbackBonuses && hideBonuses)">
+            <!-- <h6>{{'text.available_bonuses' |translate}}
+                <span class="ml-4">{{'title.use_bonuses' | translate}}</span>
+            </h6> -->
+            <div class="row mb-2">
+                <div class="text-left col-md-6">
+                    <div class="custom-control custom-switch">
+                        <input [checked]="isRecieveBonuses" type="checkbox" (click)="useBonus($event)" class="custom-control-input"
+                            id="customSwitch1">
+                        <label class="custom-control-label"
+                            for="customSwitch1">{{'title.use_bonuses' | translate}}</label>
+                    </div>
+                    <!-- <div class="d-flex align-items-center justify-content-center switch_toggle">
+                            <label class="switch">
+                                <input (click)="useBonus($event)" type="checkbox">
+                                <span class="slider round"></span>
+                                <span class="text-uppercase">Use Bonuses</span>
+                            </label>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+           <!-- Removed on 11th dec 2020 -->
+        <div class="form-group marginBottom" *ngIf="isRecieveBonuses && !(hideCashbackBonuses && hideBonuses)">
+            <label translate>title.promocode</label>
+            <div class="input-group">
+                <input type="text" [placeholder]="getTranslatedText('forms.placeholder.enter_promocode')" [(ngModel)]="promocode" 
+                    [ngModelOptions]="{standalone: true}" class="input-fields" />
+                    <div class="btn-join">
+                        <button *ngIf="!promocodeFlag" (click)="promocodeCheck()" type="button" class="btn btn-md btn-primary mr-1 text-uppercase">{{'links_text.apply' | translate}}</button>
+                        <button *ngIf="promocodeFlag" (click)="removePromo()" type="button" class="btn btn-md btn-primary mr-1 text-uppercase">Remove</button>
+                    </div>
+                </div>
+            <div *ngIf="promocodeFlag" class="change-color text-center text-uppercase">
+                {{ promocodeMsg }}
+            </div>
+        </div>
+
+        <div class="no-result text-center border-none" *ngIf="isRecieveBonuses && filteredSlides.length==0">
+            <span translate>text.no_bonuses_avaliable</span>
+        </div>
+
+        <!-- <app-deposit-bonuses *ngIf="useBonuses" [type]="'deposit'" [fromWallet]="true" [page]="'deposit'"
+            (goTo)="goTo($event)">
+        </app-deposit-bonuses> -->
+        <!-- </div> -->
+
+        <div class="btn-full my-4" *ngIf="selectedMethodIndex != -1">
+            <button [disabled]="form?.invalid || depositForm?.invalid || isPromoChecking" (click)="submit()" class="btn btn-md btn-primary mb-2">
+                {{'links_text.deposit' | translate }} {{ depositSum }}
+                {{formControls.currency.value}}
+                <!-- <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i> -->
+            </button>
+        </div>
+    </form>
+
+    <div class="deposit_success text-center" *ngIf="isRecieveBonuses && !(hideCashbackBonuses && hideBonuses)">
+        <!-- <h4>{{title}}</h4> -->
+        <h4> {{'text.available_bonuses' |translate}} </h4>
+        <p [innerHTML]="successMessage"></p>
+    </div>
+    <!-- End Successful -->
+
+
+    <!-- ************ Bonuses  ******************** -->
+    <div *ngIf="page=='deposit' && isRecieveBonuses && !(hideCashbackBonuses && hideBonuses)">
+        <!-- [ngClass]=" page=='login' ?'login_promo':'deposit_promo'" -->
+        <div class="promotion_bonuses">
+
+            <div *ngIf="filteredSlides.length>0" class="row">
+                <div [ngClass]="(i+1)%3==0?'col-md-12':'col-md-12'" *ngFor="let offer of filteredSlides; let i=index">
+                    <div class="deposit_bonus">
+
+                        <div class="dep_lft">
+                            <div class="bonus_hdr">
+                                <div class="deposit_small" *ngIf="offer?.type">{{offer?.type}}</div>
+                                <!-- <label *ngIf="offer.activeType && activeBonusType==bonusTypes1.HIGHROLLER"
+                                    [ngClass]="activeBonusType==bonusTypes1.HIGHROLLER?'highroller':null"
+                                    class="text-uppercase org_txt">{{displayBonusType}}</label> -->
+                            </div>
+                            <h3 *ngIf="!offer.activeType">{{offer?.standard?.pool}}</h3>
+                            <h3 *ngIf="offer.activeType && activeBonusType==bonusTypes1.STANDARD">
+                                {{offer?.standard?.pool}}</h3>
+                            <h3 *ngIf="offer.activeType && activeBonusType==bonusTypes1.HIGHROLLER">
+                                {{offer?.highroller?.pool || offer?.standard?.pool }}</h3>
+
+                            <div *ngIf="offer?.standard?.minDeposit || offer?.highroller?.minDeposit">
+                                <small><span style="color:grey;">{{'title.min_deposit' | translate}}:</span>
+                                    <span
+                                        *ngIf="offer?.standard?.minDeposit && offer.activeType && activeBonusType==bonusTypes1.STANDARD">
+                                        {{offer?.standard?.minDeposit}}</span>
+                                    <span
+                                        *ngIf="offer?.highroller?.minDeposit && offer.activeType && activeBonusType==bonusTypes1.HIGHROLLER">
+                                        {{offer?.highroller?.minDeposit}}</span>
+                                </small>
+                            </div>
+                            <div *ngIf="offer?.deposit=='Cashback'">
+                        <small *ngFor="let deposit of offer?.standard?.minDepositArray"><span style="color:grey;">{{deposit.type}} {{'title.min_deposit' |
+                                translate}}:</span>
+                            <span>
+                                {{deposit.minDeposit}}</span><br>
+                        </small>
+                       
+                    </div>
+                    <div
+                        *ngIf="offer?.standard?.wager||offer?.highroller?.wager">
+                        <small><span style="color:grey;">Wager:</span>
+                            <span>
+                                {{offer?.standard?.wager||offer?.highroller?.wager}}</span>
+                        </small>
+                    </div>
+                            <div class="get_now mt-2" [ngClass]="!offer.standard?'get_it_now':null">
+                                
+                                <!-- <button (click)="onClick('true')"
+                                  class="btn btn-md btn-primary text-uppercase">{{'links_text.get_it_now' | translate }} <i
+                                    class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i></button> -->
+                                    <a *ngIf="offer?.deposit!='Welcome Offer'" [routerLink]="['/promotions/cashback-terms']" translate>links_text.bonus_t&c</a>
+                        <a *ngIf="offer?.deposit=='Welcome Offer'" [routerLink]="['/promotions/welcomeoffers-terms']" translate>links_text.welcomeoffers_terms&condition</a>
+                                <!-- <a [routerLink]="['/bonus-terms-conditions']" translate>links_text.general_t&c</a> -->
+                              </div>
+
+                        </div>
+                        <div class="dep_pic"><img [src]="offer?.img" class="img-fluid" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="no-result text-center" *ngIf="useBonuses && bonusTypes.length==0">
+        <span translate>text.no_bonuses_avaliable</span>
+    </div> -->
+
+    <!-- ************ Bonuses  end  ******************** -->
+
+</div>
+<ng-container>
+    <div class="deposit_success text-center" id="iframe-container"></div>
+</ng-container>
+
+<ng-template #noBonuses>
+    <div class="no-result text-center">
+        <span translate>text.no_bonuses_avaliable</span>
+    </div>
+</ng-template>
+<ng-template #noPaymentMethods>
+    <div class="no-result">
+        <span translate>text.no_pm_avaliable</span>
+    </div>
+</ng-template>

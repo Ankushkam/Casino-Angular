@@ -1,0 +1,53 @@
+<div class="promotion_current_tournament">
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div class="promo_wrap">
+                <div class="timer_promotion">
+                    <h6 translate>text.current_tournament</h6>
+                    <h2>{{params?.name}}</h2>
+                    <app-countdown *ngIf="tournamentDate" [type]="'current'" [endDate]="tournamentDate">
+                    </app-countdown>
+                    <button (click)="goToLink()"
+                        class="btn btn-md btn-primary text-uppercase mt-4">{{'links_text.learn_more' | translate }} <i
+                            class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20"
+                                alt=""></i></button>
+                </div>
+
+                <div class="tomb_player">
+                    <div class="top_player">
+                        <figure class="winner_img">
+                            <img src="assets/img/promotion/prize_pool.png" alt="" />
+                        </figure>
+
+                        <div class="top_player_table">
+                            <div class="player_title">
+                                <span class="text-uppercase" translate>text.prize_pool</span>
+                                <h4>{{params?.pool?.split('+')[0]}} + <br />
+                                    {{params?.pool?.split('+')[1]}}</h4>
+                                <h6 class="text-uppercase" translate>title.top_players</h6>
+                            </div>
+
+                            <div class="custom_pro_table w-100">
+                                <div *ngIf="topWinners.length>0; else noWinners">
+                                    <div *ngFor="let winner of topWinners;"
+                                        class="d-flex justify-content-between pro_table">
+                                        <span>{{winner.award_place}}</span>
+                                        <span>{{winner.nickname}}</span>
+                                        <span>{{winner.wins}} {{tournament.currency}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- End Promotion Current Tournament -->
+    </div>
+</div>
+
+<ng-template #noWinners>
+    <div class="text-center" translate>
+        text.no_players
+    </div>
+</ng-template>

@@ -1,0 +1,38 @@
+<div class="modal-dialog modal-dialog-centered modal-lg signupForm wallat_popup" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="singPupForm d-flex p-4 align-items-center">
+                <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                            fill="#000" />
+                    </svg>
+                </button>
+                <div class="cancel-confirm">
+                    <div class="cancel-form w-100 text-center">
+                        <h2 class="mb-4"> {{ 'text.select_currency_to_add' | translate}} </h2>
+                        <div class="currency_list scroll" *ngIf="userCurrencies.length>0">
+                            <div class="currency_items" *ngFor="let currency of userCurrencies; let i= index">
+                                <div class="currency_radio">
+                                    <input type="radio" id="slt_currency{{i}}" name="EUR"
+                                        (click)="selectedCurrency(currency)" />
+                                    <label for="slt_currency{{i}}"></label>
+                                    <span class="label_cur">{{ currency.code }}</span>
+                                    <span class="currency_symbol">{{ currency.symbol }}</span>
+                                </div>
+                                <!-- <button (click)="addCurrency(currency.code)"
+                                    class="btn btn-sd btn-primary">{{ currency.code }}</button> -->
+                            </div>
+                        </div>
+                        <div class="mt-4 add_currency">
+                            <button class="btn btn-md btn-primary" (click)="addCurrency()">
+                                {{ 'links_text.add_currency' | translate }} </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

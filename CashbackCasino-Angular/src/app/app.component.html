@@ -1,0 +1,13 @@
+
+<app-sidebar *ngIf="!isRestricted"></app-sidebar>
+<app-loader></app-loader>
+
+<main  *ngIf="!isRestricted" class="sidebar-right">
+    <!-- <app-header></app-header> -->
+    <router-outlet></router-outlet>
+</main>
+<!-- <app-timer *ngIf="isLoggedIn && sessionDate" [date]="sessionDate"></app-timer> -->
+<app-support *ngIf="!isHidden && !isRestricted"></app-support>
+
+<router-outlet name="modal"></router-outlet>
+<router-outlet *ngIf="isRestricted"></router-outlet>

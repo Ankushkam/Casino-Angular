@@ -1,0 +1,70 @@
+<app-header [showProgressBar]="false" [displayPNP]="true"></app-header>
+<div class="banner_sec home_banner" [ngClass]="isPNPAllowed?'play_pay_banner':null">
+  <div class="wrapper">
+    <div class="hero_sec">
+      <div *ngIf="(isPNPAllowed && isLoginUser) || !isPNPAllowed || hidePnpBox" class="banner_info text-center">
+        <!-- <div [innerHtml]="content"></div> -->
+        <h6>{{content?.title}}</h6>
+        <h1><img [src]="content?.img" class="img-fluid" /></h1>
+        <h3>{{content?.pool}}</h3>
+
+        <ng-container *ngIf="!isLoginUser">
+          <!-- <button (click)="onSignUp(true)" class="btn btn-lg btn-primary text-uppercase" data-toggle="modal"
+            translate>links_text.sign_up_now</button>
+          <span translate>text.playing_in_60_seconds</span> -->
+        </ng-container>
+        <ng-container *ngIf="isLoginUser">
+          <button (click)="openDeposits()" class="btn btn-lg btn-primary text-uppercase"
+            data-toggle="modal">{{'links_text.get_it_now' | translate }}</button>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="isPNPAllowed && !isLoginUser && !hidePnpBox">
+        <app-pay-n-play [type]="'signup'" [content]="content"></app-pay-n-play>
+      </ng-container>
+
+    </div>
+  </div>
+  <div *ngIf="!(isLoginUser && mobile)" class="char_pic"><img src="assets/img/front/cahback_animation.gif" class="img-fluid" /></div>
+</div>
+<div class="container-fluid">
+  <div *ngIf="!isLoginUser" class="pay_sec home_pay_sec">
+    <div class="wrapper">
+      <div class="form-row">
+        <div class="col-md-3 col-6">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/fast-signup_icon.svg" alt="" /></i>
+            <h6 translate>title.fast_sign_up</h6>
+            <p translate>text.sign_up_in_60_seconds</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/c-bonus_icon.svg" alt="" /></i>
+            <h6 translate>title.collect_your_bonus</h6>
+            <p translate>text.1000€_and_300_freespins_for_free_and_25%_cashback_every_thursday</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/playing_icon.svg" alt="" /></i>
+            <h6 translate>title.start_playing</h6>
+            <p translate>text.play_favourite_casino_games</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/fast-payout_icon.png" alt="" /></i>
+            <h6 translate>title.fast_payouts</h6>
+            <p translate>text.withdraw_tax_free_winnings</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <app-divider></app-divider>
+
+
+  <app-footer></app-footer>
+
+</div>

@@ -1,0 +1,21 @@
+<div [ngSwitch]="template">
+    <div *ngSwitchCase="TEMPLATE_TYPE.BANNER">
+        <app-tournament-banner [params]="params" [tournament]="tournament" [tournamentDate]="tournamentDate"></app-tournament-banner>
+    </div>
+    <div *ngSwitchCase="TEMPLATE_TYPE.CARD">
+        <app-tournament-card [status]="status" [params]="params" [tournament]="tournament" [tournamentDate]="tournamentDate"></app-tournament-card>
+    </div>
+    <div *ngSwitchCase="TEMPLATE_TYPE.INNER_HEADER">
+        <app-tournament-header [params]="params" [tournament]="tournament" [tournamentDate]="tournamentDate"></app-tournament-header>
+    </div>
+    <div *ngSwitchCase="TEMPLATE_TYPE.INNER_BOTTOM">
+        <app-tournament-bottom *ngIf="tournament" [params]="params" [tournament]="tournament" [topWinners]="topWinners"></app-tournament-bottom>
+    </div>
+    <div *ngSwitchCase="TEMPLATE_TYPE.CURRENT">
+        <app-current-tournament *ngIf="tournament" [params]="params" [tournament]="tournament" [topWinners]="topWinners" [tournamentDate]="tournamentDate"></app-current-tournament>
+    </div>
+</div>
+
+
+
+

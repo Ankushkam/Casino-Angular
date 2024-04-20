@@ -1,0 +1,16 @@
+<button *ngIf="!type" (click)="onClick()" class="btn btn-md btn-primary text-uppercase" tabindex="0">
+    {{btnText | translate}}
+    <i class="ml-2">
+        <img [src]="src" width="20" alt="" />
+    </i>
+</button>
+
+
+<button *ngIf="type=='mobile_close'" _ngcontent-awy-c113="" data-dismiss="modal" aria-label="Close"
+    class="close res_btn" (click)="close()"><svg _ngcontent-awy-c113="" width="10" height="10" viewBox="0 0 10 10"
+        fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path _ngcontent-awy-c113=""
+            d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+            fill="#ffffff"></path>
+    </svg>
+</button>

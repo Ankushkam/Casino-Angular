@@ -1,0 +1,254 @@
+<div #scrollBottom class="document-sec scroll">
+  <!-- <div [innerHtml]="content"></div> -->
+  <!-- <h4>Documents</h4>
+  <p>Documents nexessary to speed up your withdrawal</p>
+
+  <ul>
+    <li>
+      When you visit the Website, our system automatically collects information about your visit, such as your
+      browser, IP address.
+    </li>
+    <li>To collect the information in question we use cookies and similar tracking tools. Cookies are small text files
+      that are stored on your computer or equipment when you visit our web pages.</li>
+
+    <li>
+      enable the navigation and basic functionality of the websites, e.g., access to member areas of the Website.
+    </li>
+  </ul>
+  <p>Documents necessary to speed up your withdrawal</p>
+  <ul>
+    <li>
+      <b>Functional cookies:</b> allow us to analyse your website usage and your selections on the website (e.g. your
+      session key, language, or region), so we can save these settings and offer you a more personalized experience.
+    </li>
+
+    <li>
+      <b>Advertising cookies:</b> allow us to gauge how effective our content marketing is. These cookies are provided
+      by our partners to track website visits and new player registrations from advertising. We do not share your
+      personal information (such as name or email) to affiliated partners except for site visit data collected
+      directly by such Advertising Cookies. However your site visit data may be linked with other personal information
+      collected through other sources by the providers. The latter external data processing is governed by the privacy
+      notices and policies of these third-party providers.
+    </li>
+  </ul>
+  <p>Please note that</p> -->
+
+  <!-- <div class="divider my-4"><img src="assets/img/icons/divider-lg.svg" alt=""></div> -->
+  <!-- <ng-container *ngIf="documentService?.userDocuments && documentService?.userDocuments?.length">
+    <app-divider></app-divider>
+
+    <div class="table-responsive doc_list">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>{{'forms.label.file_name' | translate}}</th>
+            <th>{{'forms.label.description' | translate}}</th>
+            <th>{{'forms.label.status' | translate}}</th>
+            <th>{{'forms.label.action' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of documentService.userDocuments">
+            <td>
+              <i class="mr-2"><img src="assets/img/icons/img.svg" width="30" alt="" /></i>
+              {{(file || {}).file_name}}
+            </td>
+            <td>{{(file || {}).description || 'NA'}}</td>
+            <td><span class="badge badge-success">{{getStatus(file)}}</span></td>
+            <td>
+              <div class="edit-remove d-flex">
+                <a routerLink="." class="mr-2" title="Edit Description" (click)="edit(file)"><img
+                    src="assets/img/icons/edit.svg" width="16" alt="" /></a>
+                <a routerLink="." title="Delete" (click)="delete(file)"><img src="assets/img/icons/delete.svg"
+                    width="16" alt="" /></a>
+              </div>
+            </td>
+          </tr>
+           <tr>
+                    <td>
+                      <i class="mr-2"><img src="assets/img/icons/img.svg" width="30" alt="" /></i>
+                      ic processer.png
+                    </td>
+                    <td>Added at July 01, 2020 08:00</td>
+                    <td><span class="badge badge-warning">Processing</span></td>
+                    <td>
+                      <div class="edit-remove d-flex">
+                        <a href="#" class="mr-2" title="Edit Description"><img src="assets/img/icons/edit.svg" width="16" alt="" /></a>
+                        <a href="#" title="Delete"><img src="assets/img/icons/delete.svg" width="16" alt="" /></a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class="mr-2"><img src="assets/img/icons/img.svg" width="30" alt="" /></i>
+                      ic processer.jpg
+                    </td>
+                    <td>Added at July 01, 2020 07:33</td>
+                    <td><span class="badge badge-warning">Processing</span></td>
+                    <td>
+                      <div class="edit-remove d-flex">
+                        <a href="#" class="mr-2" title="Edit Description"><img src="assets/img/icons/edit.svg" width="16" alt="" /></a>
+                        <a href="#" title="Delete"><img src="assets/img/icons/delete.svg" width="16" alt="" /></a>
+                      </div>
+                    </td>
+                  </tr>  
+        </tbody>
+      </table>
+    </div>
+    <app-divider></app-divider>
+  </ng-container> -->
+
+
+  <div class="verification_block">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <div class="verification_card text-center" [ngClass]="slide?'changed_id':null">
+          <div class="v_title">
+            <span class="icon_verify">
+              <i><img src="assets/img/icons/identity_icon.svg" alt="Identity" width="52" /></i>
+              <i><img src="assets/img/front/id-card.png" alt="Identity" width="52" /></i>
+            </span>
+            <h4 translate>title.documents_identity</h4>
+          </div>
+          <div class="d-flex justify-content-center align-items-center primary_id">
+            <div class="ps_id">
+              <div class="id_txt">
+                <span (click)="slide=false" class="txt_identy" translate>title.documents_primary</span>
+                <button (click)="slide=!slide" class="btn-transparent btn-pree"><img
+                    src="assets/img/icons/arrow_lft_circle.svg" alt="Identity" width="14" /></button>
+                <button (click)="slide=!slide" class="btn-transparent btn-nxxt"><img
+                    src="assets/img/icons/arrow_rht_circle.svg" alt="Identity" width="18" /></button>
+                <span (click)="slide=true" class="txt_identy" translate>title.documents_selfie_id</span>
+              </div>
+            </div>
+          </div>
+          <p *ngIf="!slide">{{'text.documents_identity_primary' | translate}} <a href="javascript:void(0)"
+              (click)="showMore('title.documents_identity_more_info','text.documents_identity_more_info')">{{'links_text.more_info' | translate}}</a>
+          </p>
+          <p *ngIf="slide">{{'text.documents_identity_selfie_id' | translate}}</p>
+          <form class="file_box" method="post" action="" enctype="multipart/form-data" draggable="true"
+            (dragleave)="onDragout($event)" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event,'Identity')"
+            [ngClass]="dragOver?'active':null">
+            <div class="box__input">
+              <input class="box__file" type="file" name="files[]" id="file1" (change)="onFileSelect($event,'Identity')"
+                data-multiple-caption="{count} files selected" multiple />
+              <label for="file1">{{'text.drop_file_here_or_browse' | translate}}<strong> {{'text.browse' | translate}}</strong> <span>{{"text.document_upload" | translate}}
+                </span></label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-12 mb-3">
+        <div class="verification_card text-center">
+          <div class="v_title">
+            <i><img src="assets/img/icons/payment_icon.svg" alt="Identity" width="52" /></i>
+            <h4 translate>title.documents_payments</h4>
+          </div>
+          <p>{{'text.documents_payments' | translate}}
+            <a href="javascript:void(0)"
+              (click)="showMore('title.documents_payments_more_info','text.documents_payments_more_info')">{{'links_text.more_info' | translate}}</a>
+          </p>
+          <form class="file_box" method="post" action="" enctype="multipart/form-data" draggable="true"
+            (dragleave)="onDragout($event)" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event,'Payment')"
+            [ngClass]="dragOver?'active':null">
+            <div class="box__input">
+              <input class="box__file" type="file" name="files[]" id="file2" (change)="onFileSelect($event,'Payment')"
+                data-multiple-caption="{count} files selected" multiple />
+              <label for="file2">{{'text.drop_file_here_or_browse' | translate}}<strong> {{'text.browse' | translate}}</strong> <span>{{"text.document_upload" | translate}}
+                </span></label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="verification_card text-center">
+          <div class="v_title">
+            <i><img src="assets/img/icons/location_icon.svg" alt="Identity" width="52" /></i>
+            <h4 translate>title.documents_address</h4>
+          </div>
+          <p>{{'text.documents_address' | translate}} 
+            <a href="javascript:void(0)"
+              (click)="showMore('title.documents_address_more_info','text.documents_address_more_info')">{{'links_text.more_info' | translate}}</a>
+          </p>
+          <form class="file_box" method="post" action="" enctype="multipart/form-data" draggable="true"
+            (dragleave)="onDragout($event)" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event,'Address')"
+            [ngClass]="dragOver?'active':null">
+            <div class="box__input">
+              <input class="box__file" type="file" name="files[]" id="file3" (change)="onFileSelect($event,'Address')"
+                data-multiple-caption="{count} files selected" multiple />
+              <label for="file3">{{'text.drop_file_here_or_browse' | translate}}<strong> {{'text.browse' | translate}}</strong> <span>{{"text.document_upload" | translate}}
+                </span></label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="documentService?.userDocuments?.length>0" class="table-responsive doc_list">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>{{'forms.label.file_name' | translate}}</th>
+          <th>{{'forms.label.description' | translate}}</th>
+          <th>{{'forms.label.status' | translate}}</th>
+          <th>{{'forms.label.action' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of documentService.userDocuments">
+          <td>
+            <div class="file_name">
+              <i class="mr-2"><img src="assets/img/icons/img.svg" width="30" alt="" /></i>
+              {{(file || {}).file_name}}
+            </div>
+          </td>
+          <td>{{(file || {}).description || 'NA'}}</td>
+          <td><span class="badge badge-success">{{getStatus(file)}}</span></td>
+          <td>
+            <div class="edit-remove d-flex">
+              <a routerLink="." class="mr-2" title="Edit Description" (click)="edit(file)"><img
+                  src="assets/img/icons/edit.svg" width="16" alt="" /></a>
+              <a routerLink="." title="Delete" (click)="delete(file)"><img src="assets/img/icons/delete.svg" width="16"
+                  alt="" /></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- <div class="upload_docs">
+    <form rel="">
+      <h6>{{'title.upload_document' | translate}}</h6>
+      <div class="form-group">
+        <div class="row align-items-center">
+          <div class="col-sm-3">
+            <label>{{'forms.label.attachment' | translate}}</label>
+          </div>
+          <div class="col-sm-9">
+            <div class="file-upload-wrapper">
+              <input type="file" class="file-upload" id="file" (change)="onFileSelect($event)" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row align-items-center">
+          <div class="col-sm-3">
+            <label>{{'forms.label.description' | translate}}</label>
+          </div>
+          <div class="col-md-9">
+            <textarea class="input-fields" name="description" [(ngModel)]="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="button-wrapper mt-0"><button class="btn btn-md btn-primary"
+              (click)="upload()">{{'links_text.submit_document' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div> -->
+  </div>

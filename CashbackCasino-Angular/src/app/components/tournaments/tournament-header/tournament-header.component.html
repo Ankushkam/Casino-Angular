@@ -1,0 +1,23 @@
+<div class="banner_sec tournament_banner raid_tour_sec">
+  <div class="wrapper">
+    <div class="hero_sec">
+      <div class="tournament_info">
+        <h1>{{params?.name}}</h1>
+        <div class="tomb_prize text-uppercase">
+          <small>{{'text.prize_pool' | translate}}: </small>
+          <h6>{{params?.pool}}</h6>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="tournament_pic"><img src="assets/img/tournament/tomb_banner.png" class="img-fluid" /></div>
+
+  <!-- Start Counter -->
+  <app-countdown *ngIf="tournamentDate" [type]="'head'" [endDate]="tournamentDate"></app-countdown>
+  <p id="demo"></p>
+
+</div>
+<!--End Header END -->
+
+<div class="divider my-4"><img src="assets/img/icons/divider-lg.svg" alt="" /></div>

@@ -1,0 +1,317 @@
+/* Progress Bar */
+.progress {
+    position: fixed;
+    height: 6px;
+    display: block;
+    width: 100%;
+    background-color: #ccdeee;
+    overflow: hidden;
+  }
+  
+  .progress .indeterminate {
+    background-color: #42a2f9;
+  }
+  
+  .progress .indeterminate:before {
+    content: "";
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    will-change: left, right;
+    -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395)
+      infinite;
+    animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  }
+  
+  .progress .indeterminate:after {
+    content: "";
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    will-change: left, right;
+    -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
+      infinite;
+    animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
+      infinite;
+    -webkit-animation-delay: 1.15s;
+    animation-delay: 1.15s;
+  }
+  
+  @-webkit-keyframes indeterminate {
+    0% {
+      left: -35%;
+      right: 100%;
+    }
+  
+    60% {
+      left: 100%;
+      right: -90%;
+    }
+  
+    100% {
+      left: 100%;
+      right: -90%;
+    }
+  }
+  
+  @keyframes indeterminate {
+    0% {
+      left: -35%;
+      right: 100%;
+    }
+  
+    60% {
+      left: 100%;
+      right: -90%;
+    }
+  
+    100% {
+      left: 100%;
+      right: -90%;
+    }
+  }
+  
+  @-webkit-keyframes indeterminate-short {
+    0% {
+      left: -200%;
+      right: 100%;
+    }
+  
+    60% {
+      left: 107%;
+      right: -8%;
+    }
+  
+    100% {
+      left: 107%;
+      right: -8%;
+    }
+  }
+  
+  @keyframes indeterminate-short {
+    0% {
+      left: -200%;
+      right: 100%;
+    }
+  
+    60% {
+      left: 107%;
+      right: -8%;
+    }
+  
+    100% {
+      left: 107%;
+      right: -8%;
+    }
+  }
+  .margin_top_bar {
+    z-index: 99999999999 !important;
+    position: relative !important;
+    margin-top: 0px !important;
+  }
+  
+  .loader-body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  body {
+    background-color: #eaecfa;
+  }
+  p {
+    color: white;
+    font: 300 4em/150% Impact;
+    text-align: center;
+  }
+  
+  .loading {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.2em;
+    font-size: 22px;
+  }
+  /* loading dots */
+  
+  /*.loading:after {*/
+  /*content: ' .';*/
+  /*animation: dots 1s steps(5, end) infinite;}*/
+  .loading-gif {
+    height: 100px;
+  }
+  
+
+
+  #loader {
+    bottom: 0;
+    height: 175px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 175px;
+  }
+  
+  #loader {
+    bottom: 0;
+    height: 175px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 175px;
+  }
+  
+  #loader .dot {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 87.5px;
+  }
+  
+  #loader .dot::before {
+    border-radius: 100%;
+    content: "";
+    height: 87.5px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: scale(0);
+    width: 87.5px;
+  }
+  
+  #loader .dot:nth-child(7n+1) {
+    transform: rotate(45deg);
+  }
+  
+  #loader .dot:nth-child(7n+1)::before {
+    animation: 0.8s linear 0.1s normal none infinite running load;
+    //background: #00ff80 none repeat scroll 0 0;
+    background: #EB8106  none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+2) {
+    transform: rotate(90deg);
+  }
+  
+  #loader .dot:nth-child(7n+2)::before {
+    animation: 0.8s linear 0.2s normal none infinite running load;
+    //background: #00ffea none repeat scroll 0 0;
+    background: #eb840f none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+3) {
+    transform: rotate(135deg);
+  }
+  
+  #loader .dot:nth-child(7n+3)::before {
+    animation: 0.8s linear 0.3s normal none infinite running load;
+    //background: #00aaff none repeat scroll 0 0;
+    background: #e98d25 none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+4) {
+    transform: rotate(180deg);
+  }
+  
+  #loader .dot:nth-child(7n+4)::before {
+    animation: 0.8s linear 0.4s normal none infinite running load;
+    //background: #0040ff none repeat scroll 0 0;
+    background: #eb8a1c none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+5) {
+    transform: rotate(225deg);
+  }
+  
+  #loader .dot:nth-child(7n+5)::before {
+    animation: 0.8s linear 0.5s normal none infinite running load;
+    // background: #2a00ff none repeat scroll 0 0;
+    background: #e9810b none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+6) {
+    transform: rotate(270deg);
+  }
+  
+  #loader .dot:nth-child(7n+6)::before {
+    animation: 0.8s linear 0.6s normal none infinite running load;
+    // background: #9500ff none repeat scroll 0 0;
+    background: #fa8703 none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+7) {
+    transform: rotate(315deg);
+  }
+  
+  #loader .dot:nth-child(7n+7)::before {
+    animation: 0.8s linear 0.7s normal none infinite running load;
+    // background: magenta none repeat scroll 0 0;
+    background: #f15f3e  none repeat scroll 0 0;
+  }
+  
+  #loader .dot:nth-child(7n+8) {
+    transform: rotate(360deg);
+  }
+  
+  #loader .dot:nth-child(7n+8)::before {
+    animation: 0.8s linear 0.8s normal none infinite running load;
+    // background: #ff0095 none repeat scroll 0 0;
+    background: #F34119  none repeat scroll 0 0;
+  }
+  
+  #loader .loading {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    bottom: -40px;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 180px;
+  }
+  
+  @keyframes load {
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes load {
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+  
+  .spinner-message {
+    text-align: center;
+  }
+
+  .input-group > .form-control, .input-group > .form-control-plaintext, .input-group > .custom-select, .input-group > .custom-file {
+    border-width: 0px 0px 1px 0px!important;
+  }

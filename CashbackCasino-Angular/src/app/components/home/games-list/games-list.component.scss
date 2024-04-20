@@ -1,0 +1,47 @@
+@import '../../../../assets/css/base.scss';
+.live_tag {top: 8px; left: 8px; position: $absolute; padding: 4px 8px; background: rgba(0, 0, 0, 0.6); color: #fff; border-radius: 6px; font-weight: 700; font-size: 13px;
+    text-align: center; display: inline-flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center;}
+.live_tag::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    background: #F74148;
+    display: inline-block;
+    margin-right: 6px;
+    animation: 2s linear 0s infinite normal none running pulse;
+}
+.game__title {
+    position: $absolute;
+    text-transform: capitalize;
+    bottom: 10px;
+    width: 100%;
+    z-index: 11;
+    text-align: center;
+    opacity: .9;
+}
+@keyframes pulse{
+    from, to {
+        opacity: 0;
+        }
+        50% {
+        opacity: 1;
+        }
+}
+@-moz-keyframes pulse{
+    from, to {
+        opacity: 0;
+        }
+        50% {
+        opacity: 1;
+        }
+}
+    
+@-webkit-keyframes pulse {
+    from, to {
+        opacity: 0;
+        }
+        50% {
+        opacity: 1;
+        }
+}

@@ -1,0 +1,104 @@
+// _mixin.scss
+
+@mixin box-sizing($type) {
+	-webkit-box-sizing:$type;
+	-moz-box-sizing:$type;
+	box-sizing:$type;
+}
+ 
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	filter: alpha(opacity=($opacity * 100));
+}
+
+@mixin border-radius($r) {
+  border-radius: $r;
+}
+
+@mixin font-size($size) {
+	font-size:$size;
+	font-size: ($size / 16px) * 1rem;
+ }
+ 
+@mixin box-shadow( $h: 10px , $v: 10px , $b: 0px , $s: 0px , $c: #000000 ) {
+	-webkit-box-shadow: $h $v $b $s $c;
+	-moz-box-shadow: $h $v $b $s $c;
+	box-shadow: $h $v $b $s $c;
+}
+
+@mixin transform($property) {
+	-webkit-transform: $property;
+	-ms-transform: $property;
+	transform: $property;	
+}
+
+// Opacity
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie);
+}
+
+// Clear Fix
+@mixin clearit {
+     &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    zoom: 1;
+}
+
+@mixin vertical-align {
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+ 
+@mixin vh() {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+} 
+
+/* @include transition(all,5s,ease-out); */
+@mixin transition($what: all, $time: 0.5s, $how: ease-in-out) {
+    -webkit-transition: $what $time $how;
+    -moz-transition:    $what $time $how;
+    -ms-transition:     $what $time $how;
+    -o-transition:      $what $time $how;
+    transition:         $what $time $how;
+}
+ 
+// Media BreakPoint
+@mixin breakpoint($point) {
+   @if $point == extralarge {
+     @media (max-width: 1920) { @content ; }
+  }
+   @if $point == large {
+     @media (max-width: 1440) { @content ; }
+  }
+   @else if $point == medium {
+     @media (max-width: 991px) { @content ; }
+  }
+    @else if $point == small {
+     @media (max-width: 820px) { @content ; }
+  }
+   @else if $point == phablet {
+     @media (max-width: 767px)  { @content ; }
+  }
+  @else if $point == mobileonly {
+     @media (max-width: 575px)  { @content ; }
+
+  }
+}

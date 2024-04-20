@@ -1,0 +1,17 @@
+@import '../../../../assets/css/base.scss';
+
+::ng-deep{
+  .modal-content{
+      background-color: $transparent!important;
+  }
+}
+.bet_items {
+    color:$black-color1;
+    margin: 0 0 25px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    h5 {
+        margin:0;
+    }
+}

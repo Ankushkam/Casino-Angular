@@ -1,0 +1,232 @@
+<div *ngIf="!closeModal;else closePage" class="signupForm accounts_form" role="document">
+
+    <div class="modal-body">
+        <div class="singPupForm d-flex wallat_popup">
+            <!-- Start Left Side Bar-->
+            <aside *ngIf="showSidebar==undefined || showSidebar" class="form_lft_sidebar my_accounts">
+                <app-button type="mobile_close" (click)="close()"></app-button>
+                <div class="sign_logo">
+                    <span><img src="assets/img/logo.svg" width="167" alt="Cashback Casino"></span>
+                </div>
+
+                <div class="nav" role="tablist">
+                    <a [ngClass]="!goToDeposits && !goToLimits?'active':null" class="" data-toggle="tab"
+                        href="#nav-balance" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/wallet_icons/balance_icon.svg" alt="" /></i>
+                        links_text.balance
+                    </a>
+                    <a [ngClass]="goToDeposits?'active':null" class="" data-toggle="tab" href="#nav-deposit"
+                        (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/wallet_icons/deposit_icon.svg" alt="" /></i>
+                        title.deposit
+                    </a>
+                    <a data-toggle="tab" href="#nav-withdrawl" (click)="changeTab($event)" id="withdrawl" translate>
+                        <i><img src="assets/img/icons/wallet_icons/withdrawal_icon.svg" alt="" /></i>
+                        links_text.withdraw
+                    </a>
+                    <a data-toggle="tab" href="#nav-history" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/wallet_icons/transacition_history_icon.svg" alt="" /></i>
+                        links_text.transactions
+                    </a>
+                </div>
+            </aside>
+            <!-- End Left Side Bar-->
+
+            <aside *ngIf="showSidebar==undefined || !showSidebar" class="form_rht_sidebar tab-content accounts_div">
+                <div class="form_header d-flex align-items-center justify-content-center">
+                    <button *ngIf="showSidebar!=undefined" class="btn-back btn-transparent btn_res"
+                        (click)="showSidebar=true;">
+                        <i><img src="assets/img/icons/back_white_icon.svg" alt="Cashback Casino"></i>
+                    </button>
+                    <h5 class="text-uppercase">{{title}}</h5>
+                    <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#FFC400"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="tab-pane fade" [ngClass]="!goToDeposits && !goToLimits?'show active':null" id="nav-balance"
+                    role="tabpanel">
+                    <!-- *ngIf="profile" -->
+                    <div class="form_screens scroll">
+                        <div class="balance_blocks">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let account of balance; let i = index">
+                                    <div class="b_block my_balance">
+
+                                        <!-- *ngFor="let bal in balance" -->
+                                        <div class="radio_select">
+                                            <input type="radio" id="formRadio_EUR{{i}}" [checked]="account.selected"
+                                                name="EUR" (click)="makeDefault(account, i)">
+                                            <label for="formRadio_EUR{{i}}"></label>
+                                        </div>
+                                        <h5 class="b_title" *ngIf=" !account.selected">
+                                            {{'links_text.make_default' | translate}}</h5>
+
+                                        <h5 class="b_title" *ngIf=" account.selected">
+                                            {{'links_text.default' | translate}}
+                                        </h5>
+                                        <div class="total_balance">
+                                            <label>{{account.currency}}</label>
+                                            <h6> {{((account || {}).amount_cents || empty) | convertCurrency:[account.currency, allCurrencies]}}
+                                                {{account.currencySymbol}}</h6>
+                                        </div>
+                                        <ul class="balance_list">
+                                            <li class="d-flex justify-content-between">
+                                                {{'links_text.withdrawable' | translate}}
+                                                <strong>{{ ((account || {})?.available_to_cashout_cents || empty) | convertCurrency:[account.currency, allCurrencies]}}</strong>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                {{'title.bonus' | translate}}:
+
+                                                <!-- <strong> 0 </strong> -->
+                                                <strong>{{ (((account || {}).amount_cents)-((account || {})?.available_to_cashout_cents) ) | convertCurrency:[account.currency, allCurrencies] }}</strong>
+                                            </li>
+                                            <!-- <li class="d-flex justify-content-between">
+                                                {{'links_text.cashback' | translate}}
+                                                <strong>0</strong>
+                                            </li> -->
+                                        </ul>
+                                        <div class="btn-full mb-0">
+                                            <button href="#nav-deposit" class="btn btn-md btn-primary text-uppercase mb-0"
+                                                data-toggle="tab" (click)="changeTabToDeposit()">
+                                                {{'title.deposit' | translate}} </button>
+                                        </div>
+
+                                        <!--     <div class="radio_select">
+                                            <input type="radio" id="formRadio_EUR" name="EUR">
+                                            <label for="formRadio_EUR"></label>
+                                        </div>
+                                    
+                                        <h5 class="b_title">Default</h5>
+                                        <div class="total_balance">
+                                            <label>{{balance.currency}}</label>
+                                            <h6> {{((balance || {}).amount_cents || empty) | convertCurrency:[balance.currency,allCurrencies]}}
+                                                {{balance.currency}}</h6>
+                                        </div>
+                                        <ul class="balance_list">
+                                            <li class="d-flex justify-content-between">
+                                                Withdrawable:
+                                                <strong>{{balance.available_to_cashout_cents}}</strong>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                Bonus:
+                                                <strong>0</strong>
+                                            </li>
+                                            <li class="d-flex justify-content-between">
+                                                Cashback:
+                                                <strong>0</strong>
+                                            </li>
+                                        </ul>
+                                        <div class="btn-full">
+                                            <button class="btn btn-md btn-primary text-uppercase"
+                                                (click)="changeTabToDeposit()">Deposit</button>
+                                        </div> -->
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="b_block add_new_curency" (click)="addNewCurrency()">
+                                        <div class="add_new">
+                                            <i><img src="assets/img/icons/wallet_icons/add_icon.svg" width="46"
+                                                    alt="Cashback Casino"></i>
+                                            <span> {{'links_text.add_new' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-deposit" role="tabpanel">
+                    <div class="form_screens scroll">
+                        <div class="form-contents" *ngIf="depositFlag">
+                            <app-walletdeposit [balanceData]="balance" [selectedCurrency]="selectedCurrency">
+                            </app-walletdeposit>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-withdrawl" role="tabpanel">
+                    <!-- <div class="historyTab"> -->
+                    <!-- history_sec scroll -->
+                    <div class="form_screens scroll">
+                        <div class="form-contents" *ngIf="withdrawFlag">
+                            <app-walletwithdraw [balanceData]="balance" [selectedCurrency]="selectedCurrency">
+                            </app-walletwithdraw>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+
+                <div class="tab-pane fade" id="nav-history" role="tabpanel">
+                    <div class="historyTab">
+                        <div class="form_screens history_sec scroll">
+                            <div class="form-contents">
+                                <div class="histroy_cal">
+                                    <button (click)="getHistory('30')" [ngClass]="show30?'show':'null'"
+                                        class="btn btn-md btn-cancel">30 {{'date.days' | translate}}</button>
+                                    <button (click)="getHistory('60')" [ngClass]="show60?'show':'null'"
+                                        class="btn btn-md btn-cancel">60 {{'date.days' | translate}}</button>
+                                    <button (click)="getHistory('90')" [ngClass]="show90?'show':'null'"
+                                        class="btn btn-md btn-cancel">90 {{'date.days' | translate}}</button>
+                                </div>
+
+                                <div class="history_list">
+                                    <h6 translate>title.transactions</h6>
+                                    <div class="div_table">
+                                        <div class="table_header">
+                                            <div class="d-flex div_row">
+                                                <div class="table_th" translate>title.capitalize_type</div>
+                                                <div class="table_th" translate>title.payment_mode</div>
+                                                <div class="table_th" translate>title.amount</div>
+                                                <div class="table_th" translate>title.status</div>
+                                                <div class="table_th" translate>title.date</div>
+                                            </div>
+                                        </div>
+                                        <div class="table_body scroll">
+                                            <div *ngFor="let record of history" class="d-flex div_row">
+                                                <div class="table_td" data-th="Type">{{getTranslatedPayment(record.action) | titlecase}}</div>
+                                                <div class="table_td" data-th="Payment Mode">{{record.payment_system}}
+                                                </div>
+                                                <div class="table_td" data-th="Amount, €">
+                                                    {{record.amount_cents | convertCurrency:[record.currency,allCurrencies] }}
+                                                    <span>{{record.currency}}</span></div>
+                                                <div class="table_td" data-th="Status">
+                                                    {{getStatus(record.success, record.finished_at)}}</div>
+                                                <div class="table_td" data-th="Date">
+                                                    {{record.created_at | date:'dd.MM.yy  hh:mm'}} </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- End History Table -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <!-- End Right Side Bar-->
+        </div>
+    </div>
+
+</div>
+
+<ng-template #closePage>
+    <close-modal (response)="close($event)"></close-modal>
+</ng-template>
+<ng-template #noBonuses>
+    <div class="no-result text-center" *ngIf="activeTab=='bonus'">
+        <span translate>text.no_bonuses_avaliable</span>
+    </div>
+</ng-template>
+<ng-template #noReceipts>
+    <div class="no-result text-center" *ngIf="activeTab=='receipts'">
+        <span translate>text.no_receipts_avaliable</span>
+    </div>
+</ng-template>

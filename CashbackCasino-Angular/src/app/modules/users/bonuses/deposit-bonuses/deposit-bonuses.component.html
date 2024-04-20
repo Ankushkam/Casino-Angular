@@ -1,0 +1,100 @@
+<app-bonus-of-day [page]="page=='deposit'?'deposit':'login'" *ngIf="!hideMsg && isRecieveBonuses"></app-bonus-of-day>
+<div *ngIf="type=='deposit' && (filteredBonuses || []).length>0 && isRecieveBonuses" class="offer_block">
+    <h6 class="mb-2" translate>title.choose_one_offer</h6>
+    <div *ngIf="(filteredBonuses || []).length>0; else noBonuses" class="offers_div">
+        <div *ngFor="let bonus of filteredBonuses" class="card offer_select">
+            <div class="card-body">
+                <p>
+                    <span *ngIf="bonus?.title">{{bonus.title}} </span>
+                    <span *ngIf="bonus?.attributes?.bonus_amount">{{bonus.attributes.bonus_amount}}</span>
+                    <span *ngIf="bonus?.attributes?.bonus_bet_limits || bonus?.result_bonus?.bonus_bet_limits"> with bet
+                        limits of {{bonus.attributes.bonus_bet_limits || bonus.result_bonus.bonus_bet_limits}}</span>
+                    <span *ngIf="bonus?.attributes?.max_win || bonus?.attributes?.freespins_max_win">win up to
+                        {{bonus.attributes.max_win || bonus.attributes.freespins_max_win }}</span></p>
+                <p>
+                    <small class="mr-1"
+                        *ngIf="bonus?.attributes.wager || bonus?.result_bonus?.wager">{{'title.wager' | translate }} :
+                        {{bonus.attributes.wager || bonus.result_bonus.wager}}</small>
+                    <small class="mr-1" *ngIf="bonus?.attributes?.freespins_count">{{'title.freespins' | translate }} :
+                        {{bonus.attributes.freespins_count}}</small>
+                    <small class="mr-1" *ngIf="bonus?.freespins_max_win"></small>
+                    <span class="mr-2" *ngIf="bonus?.attributes?.game_identifiers">{{'title.games' | translate }} :
+                        {{bonus.attributes.game_identifiers}}</span>
+                    <a href="javascript:void(0)" (click)="goTo.emit('/term-conditions')"
+                        class="p-0 m-0 border-0 d-block" translate>links_text.terms_and_conditions</a>
+                </p>
+                <div class="checkbox">
+                    <input [checked]="getValue(bonus)" (change)="updateBonuses($event,bonus)" type="checkbox">
+                    <span class="checkmark"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="type=='register'">
+    <div *ngIf="filteredBonuses.length>0; else noBonuses" class="form_screens bonuses_options">
+
+        <div *ngFor="let bonus of filteredBonuses" class="d-flex bonus_col">
+            <div class="bonus_col_lft">
+                <figure><img src="assets/img/bonus/offer_pic.svg" class="img-fluid" alt="" />
+                </figure>
+                <!-- <span *ngIf="offer.activatable_until" class="offer_end">Ends in
+                <span>{{getDays(offer.activatable_until)}} days</span></span> -->
+            </div>
+            <div class="bonus_col_rht">
+                <h6 *ngIf="bonus.title">{{bonus.title}}</h6>
+                <p><span *ngIf="bonus.attributes.bonus_amount" translate>title.bonus:
+                        {{bonus.attributes.bonus_amount}}</span>
+                    <span *ngIf="bonus.attributes.max_win || bonus.attributes.freespins_max_win"> win up to
+                        {{bonus.attributes.max_win || bonus.attributes.freespins_max_win}}
+                    </span>
+                    <span class="mr-3" *ngIf="bonus.attributes.bonus_bet_limits"> with bet limits of
+                        {{bonus.attributes.bonus_bet_limits}}</span>
+                </p>
+                <span class="mr-3" *ngIf="bonus.attributes.wager || bonus.result_bonus.wager" translate>title.wager :
+                    {{bonus.attributes.wager || bonus.result_bonus.wager}}</span>
+                <span class="mr-3" *ngIf="bonus.attributes.freespins_count" translate>title.freespins :
+                    {{bonus.attributes.freespins_count}}</span>
+
+                <span class="mr-3" *ngIf="bonus.attributes.game_identifiers" translate>title.games :
+                    {{bonus.attributes.game_identifiers}}</span>
+
+
+                <a href="javascript:void(0)" (click)="goTo.emit('/bonus-terms-conditions')"
+                    class="p-0 m-0 border-0 d-block">{{'links_text.general_t&c' | translate }}</a>
+                <!-- <button (click)="signUp()" class="btn btn-md btn-primary text-uppercase">
+                    {{'links_text.sign_up' | translate }}<i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+                </button> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 
+<div *ngIf="hideMsg">
+    <div class="card offer_select">
+        <div class="card-body">
+            <p>{{'text.available_bonuses' |translate}}</p>
+          
+        </div>
+    </div>
+</div> -->
+
+<div *ngIf="!hideMsg">
+    <div class="card offer_select">
+        <div class="card-body">
+            <p>{{'text.i_dont_want_to_recieve_any_bonuses' |translate}}</p>
+            <div class="checkbox">
+                <input [checked]="!isRecieveBonuses" (click)="recieveBonuses($event)" type="checkbox">
+                <span class="checkmark"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #noBonuses>
+    <div class="no-result text-center">
+        <span translate>text.no_bonuses_avaliable</span>
+    </div>
+</ng-template>

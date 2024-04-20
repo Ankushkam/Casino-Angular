@@ -1,0 +1,167 @@
+<app-header [showProgressBar]="false" [hideTabs]="hideBonuses"></app-header>
+<div class="banner_sec home_banner" [ngClass]="isPNPAllowed?'play_pay_banner':null">
+  <div class="wrapper">
+    <div class="hero_sec">
+      <div *ngIf="!isPNPAllowed || hidePnpBox" class="banner_info home_txt text-center">
+        <h1 class="h2 text-white" translate>text.close_casino_msg</h1>
+        <a href="mailto:support@cashbackcasino.com" class="text-primary">support@cashbackcasino.com</a>
+        <!-- <ng-container *ngIf="currentLang!='de'">
+          <h6 >{{content?.title}}</h6>
+          <h1><img [src]="content?.img" class="img-fluid" /></h1>
+        
+          <h3>{{content?.pool}}</h3>
+          <h3 *ngIf="content?.pool2">{{content?.pool2}}</h3>
+        </ng-container>
+        <ng-container *ngIf="currentLang=='de'">
+          <h6 >{{content?.title1}}</h6>
+
+          <h2 class="mb-0"><img [src]="content?.img3" class="img-fluid" /></h2>
+          <h6>{{content?.title3}}</h6>
+
+
+          
+        </ng-container> -->
+        <ng-container *ngIf="!isLoginUser">
+          <!-- <button (click)="onSignUp(true)" class="btn btn-lg btn-primary text-uppercase" data-toggle="modal"
+            translate>links_text.sign_up_now</button>
+          <span translate>text.playing_in_60_seconds</span> -->
+        </ng-container>
+        <ng-container *ngIf="isLoginUser">
+          <!-- <button *ngIf="!hideBonuses" (click)="openDeposits()" class="btn btn-lg btn-primary text-uppercase"
+            data-toggle="modal">{{'links_text.get_it_now' | translate }}</button>
+            <button *ngIf="hideBonuses" (click)="openDeposits()" class="btn btn-lg btn-primary text-uppercase"
+            data-toggle="modal">{{'links_text.deposit' | translate }}</button> -->
+        </ng-container>
+      </div>
+      <ng-container *ngIf="isPNPAllowed && !isLoginUser && !hidePnpBox">
+        <app-pay-n-play [type]="'signup'" [content]="content"></app-pay-n-play>
+      </ng-container>
+      <ng-container *ngIf="isPNPAllowed && isLoginUser && !hidePnpBox">
+        <app-pay-n-play [type]="'deposit'" [content]="content"></app-pay-n-play>
+      </ng-container>
+
+    </div>
+  </div>
+  <div *ngIf="!(isLoginUser && mobile)" class="char_pic"><img src="assets/img/front/cahback_animation.gif" class="img-fluid" /></div>
+</div>
+<div class="container-fluid">
+  <div *ngIf="!isLoginUser" class="pay_sec home_pay_sec">
+    <div class="wrapper">
+      <div class="form-row">
+        <div class="col-md-3 col-sm-6" [ngClass]="hideCashbackBonuses?'col-md-4 col-12':'col-md-3 col-sm-6'">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/fast-signup_icon.png" alt="" /></i>
+            <h6 translate>title.fast_sign_up</h6>
+            <p translate>text.sign_up_in_60_seconds</p>
+          </div>
+        </div>
+        <div *ngIf="!hideCashbackBonuses" class="col-md-3 col-sm-6">
+          <div *ngIf="(!hideCashbackBonuses && !hideBonuses) else changeText;" class="pay_summary text-center">
+            <i><img src="assets/img/icons/c-bonus_icon.svg" alt="" /></i>
+            <h6 translate>title.collect_your_bonus</h6>
+            <!-- <p translate>text.1000€_and_300_freespins_for_free_and_25%_cashback_every_thursday</p> -->
+            <p translate>text.20%_cashback_every_week</p>
+          </div>
+          <ng-template #changeText>
+            <div class="pay_summary text-center">
+              <i><img src="assets/img/icons/c-bonus_icon.svg" alt="" /></i>
+              <h6 translate>title.collect_your_bonus</h6>
+              <p translate>text.25%_cashback_on_all_losses</p>
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-md-3 col-sm-6" [ngClass]="hideCashbackBonuses?'col-md-4 col-12':'col-md-3 col-sm-6'">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/playing_icon.svg" alt="" /></i>
+            <h6 translate>title.start_playing</h6>
+            <p translate>text.play_favourite_casino_games</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6" [ngClass]="hideCashbackBonuses?'col-md-4 col-12':'col-md-3 col-sm-6'">
+          <div class="pay_summary text-center">
+            <i><img src="assets/img/icons/fast-payout_icon.svg" alt="" /></i>
+            <h6 translate>title.fast_payouts</h6>
+            <p translate>text.withdraw_tax_free_winnings</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-divider *ngIf="!isLoginUser"></app-divider>
+  <!-- <div class="divider my-4"><img src="assets/img/icons/divider-lg.svg" alt="" /></div> -->
+
+  <div class="wrapper">
+      <!--==========================
+  				  Game 
+  		============================-->
+      <section class="game-section home_games" [ngClass]="isLoginUser? 'login_game' : '' ">        
+        <app-games [allGames]="allGames" [gameProviders]="providers" [pageTitle]="GAME_LIST.HOME_TITLE"></app-games>
+    </section>
+
+    <app-divider></app-divider>
+    <!-- <div class="divider my-4"><img src="assets/img/icons/divider-lg.svg" alt="" /></div> -->
+
+    <!--==========================
+  				Best Providers
+          ============================-->
+    <section class="provider-sec text-center">
+      <app-providers [providers]="providers"></app-providers>
+    </section>
+    <!-- End -->
+
+    <app-divider></app-divider>
+  </div>
+  <!--==========================
+      Our Latest Winners
+    ============================-->
+  <section class="latest-winner">
+    <div class="wrapper">
+      <app-winner [winners]="homeService.topFiveWinners"></app-winner>
+      <div class="win_img">
+        <img src="assets/img/front/winner_roller.png" alt="" class="img-fluid" />
+      </div>
+    </div>
+  </section>
+
+  <div class="wrapper">
+
+    <app-divider></app-divider>
+
+    <div class="welcome-section text-center" [innerHtml]="welcomeContent"></div>
+
+    <app-divider *ngIf="welcomeContent != ''"></app-divider>
+
+  </div>
+
+  <!--==========================
+      F.A.Q Section
+    ============================-->
+  <app-faq-cards></app-faq-cards>
+
+  <div class="wrapper">
+    <app-divider></app-divider>
+  </div>
+  <!--==========================
+  			BONUS OF DAY
+    ============================-->
+  <!-- <section *ngIf="!hideBonuses" class="bonus-of-day-sec">
+    <div class="wrapper">
+      <app-bonus-of-day></app-bonus-of-day>
+    </div>
+  </section>
+  <app-divider></app-divider> -->
+  <!-- End Bonus-of-day-sec -->
+
+  <div class="wrapper">
+    <!--==========================
+      F.A.Q Section
+    ============================-->
+    <app-faq></app-faq>
+    <!-- End FAQ section -->
+
+    <app-divider></app-divider>
+  </div><!-- End Wrapper -->
+  <app-footer></app-footer>
+
+</div>

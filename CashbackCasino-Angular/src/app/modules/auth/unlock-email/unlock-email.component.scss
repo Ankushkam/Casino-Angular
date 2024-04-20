@@ -1,0 +1,31 @@
+@import '../../../../assets/css/base.scss';
+
+::ng-deep{
+    .modal-content{
+        background-color: $transparent!important;
+    }
+}
+.login_form  {
+    color: $black-color !important;
+    .btn-md {
+        @media (max-width:360px){
+            white-space:normal;
+        }
+    }
+    .input-group-prepend {
+        .input-group-text {
+            border-color:rgba(0,0,0,.1)!important;
+            border-right:0!important;
+            background: $white-color!important;
+        }
+        + input {
+            border-radius:0 10px 10px 0!important;
+        }
+    }
+}
+.unlock_screen {    
+    .c_close {
+        top:30px;
+        right:30px;
+    }
+}

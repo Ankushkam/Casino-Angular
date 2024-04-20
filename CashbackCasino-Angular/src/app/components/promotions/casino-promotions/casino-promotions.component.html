@@ -1,0 +1,11 @@
+<div [ngSwitch]="template">
+    <div *ngSwitchCase="TEMPLATE_TYPES.HEAD">
+        <app-promotions-head [params]="params" [link]='headLink'></app-promotions-head>
+    </div>
+    <div *ngSwitchCase="TEMPLATE_TYPES.CARD">
+        <app-promotions-card [params]="params" [link]='cardsLink'></app-promotions-card>
+    </div>
+    <div *ngSwitchCase="TEMPLATE_TYPES.BOTTOM">
+        <app-promotions-bottom></app-promotions-bottom>
+    </div>
+</div>

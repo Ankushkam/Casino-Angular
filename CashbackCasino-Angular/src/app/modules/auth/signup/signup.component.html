@@ -1,0 +1,667 @@
+<div class="register-modal__outer" *ngIf="!closeModal">
+  <h2>{{'forms.label.create_an_account' | translate}}</h2>
+  <p>{{'forms.label.already_have_an_account' | translate}}?
+
+    <a (click)="gotoLogin()">{{'links_text.login' | translate }}</a>
+</div>
+<div class="signupForm register_form_new" *ngIf="!closeModal && registerStatus!='alreadyTaken' ;else closePage"
+  role="document">
+  <div class="modal-body">
+    <app-button type="mobile_close" (click)="close()"></app-button>
+    <div class="register_forms d-flex">
+      <div class="register-sidebar">
+        <div class="banner-label">
+          <svg width="83" height="96" viewBox="0 0 83 96" xmlns="http://www.w3.org/2000/svg">
+            <path class="banner-label__bg"
+              d="M-1.02194e-06 65.3621L0.000156295 -4.53228e-05L42.0002 -4.27154e-05L83.0002 -4.22929e-05L83.0001 65C82.9382 70.0134 80.2823 74.9222 75.9484 77.4243L48.4336 93.31C44.0998 95.8122 38.7284 95.8191 34.4565 93.3078L6.90085 77.4677C2.62894 74.9565 0.0388618 70.3173 -1.02194e-06 65.3621Z">
+            </path>
+          </svg>
+          <div class="banner-label__content">
+            <span class="nc-horn">
+              <img src="../../../../assets/img/icons/loud-speaker.png" width="26px" alt="" />
+            </span>
+            <div class="banner-label__content-text">{{'links_text.welcome_bonus' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="register-modal__banner-text">
+          <div>
+            <!-- <span>{{'links_text.welcome_bonus' | translate}}</span> -->
+            <span>{{'links_text.get_up_to' | translate}}</span>
+            <span>{{'links_text.100%_cashback' | translate}}</span>
+          </div>
+          <div *ngIf="welcomeContent?.pool">{{welcomeContent?.pool}}
+          </div>
+          <div class="sm_txt" *ngIf="welcomeContent?.pool2">{{welcomeContent?.pool2}}</div>
+        </div>
+      </div>
+
+      <div class="register_steps d-flex">
+
+        <aside #sideBar class="register_step_lft" [ngClass]="step==SIGNUP_STEPS.LOGIN_DETAILS?'animated':'null'">
+
+          <ul class="form_steps">
+            <li class="d-flex align-items-start step" [ngClass]="stepClass(SIGNUP_STEPS.LOGIN_DETAILS)">
+              <div class="highlighter"></div>
+              <a class="link-active">
+                <div class="menu_txt" translate>
+                  title.login_details
+                </div>
+                <!-- <div class="d-flex overlay notDone" (click)="stepMove(SIGNUP_STEPS.ACCOUNT_INFO)">
+                  <h6 translate>title.start_with_email
+                    <small translate>text.sign_up_take_60_seconds</small>
+                  </h6>
+                </div> -->
+              </a>
+            </li>
+            <li class="d-flex align-items-start step" [ngClass]="stepClass(SIGNUP_STEPS.ACCOUNT_INFO)">
+              <div class="highlighter"></div>
+              <a class="link-active">
+                <div class="menu_txt" translate>
+                  title.account_information
+                </div>
+                <!-- <div class="align-items-center overlay notDone" (click)="stepMove(SIGNUP_STEPS.CONFIRM_YOUR_ACCOUNT)">
+                  <h6 translate>title.set_logins
+                    <small translate>text.almost_done</small>
+                  </h6>
+                </div> -->
+              </a>
+            </li>
+            <li class="d-flex align-items-start step"
+              [ngClass]="stepClass(SIGNUP_STEPS.CONFIRM_YOUR_ACCOUNT,SIGNUP_STEPS.CONFIRM_YOUR_ACCOUNT3)">
+              <div class="highlighter"></div>
+              <a class="link-active">
+                <div class="menu_txt" translate>
+                  title.confirm_your_account
+                </div>
+                <!-- <div class="d-flex overlay notDone" (click)="stepMove(SIGNUP_STEPS.GET_BONUS)">
+                  <h6 translate>title.confirm_details
+                    <small>{{'text.a_couple_of_easy_questions' | translate}}</small>
+                  </h6>
+                </div> -->
+              </a>
+            </li>
+            <li class="d-flex align-items-start step" [ngClass]="stepClass(SIGNUP_STEPS.GET_BONUS)">
+              <a class="link-active">
+                <div class="menu_txt" translate>text.login_and_collect_first_deposit_bonus</div>
+                <!-- <div class="d-flex overlay notDone" (click)="stepMove(STEPS.SUCCESS)">
+                  <h6>{{'text.login_and_collect' | translate}}<br /> {{'text.first_deposit_bonus' | translate}}</h6>
+                </div> -->
+              </a>
+            </li>
+          </ul>
+        </aside>
+
+        <aside class="form_rht_sidebar">
+          <!-- <button *ngIf="!openCountry" (click)="close()" type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                fill="#ffffff" />
+            </svg>
+          </button> -->
+          <app-button *ngIf="!mobile" type="mobile_close" (click)="close()"></app-button>
+          <form *ngIf="step==1" class="" [formGroup]="formStep1"
+            [ngClass]="step>STEPS.GET_PHONE_VERIFICATION_CODE?'success_regis':'null'">
+            <div class="form-contents">
+              <div class="form-fields">
+                <div class="form-steps step1">
+                  <div class="reg_title text-center">
+                    <h4>{{stepTitle}}</h4>
+                  </div>
+
+                  <div class="register_blocks">
+                    <div #inputParent>
+                      <div class="form-group">
+                        <input #input type="email" formControlName="email" (focus)="isPswdValidation=false"
+                          placeholder="{{getTranslatedText('forms.label.email')}}" class="form-control"
+                          [autofocus]="step==1" />
+                      </div>
+
+                      <div [ngClass]="openModal?'show_div':'hide_div'" id="terms" class="country_modal terms_s_modal">
+                        <div class="country_header d-flex align-items-center justify-content-center position-rel">
+                          <h5 translate>title.important_information</h5>
+                          <div (click)="openModal=!openModal" class="c_close">
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="white" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div #inputParent>
+                      <div *ngIf="isPswdValidation" #helper class="required_fields">
+                        <div #helper class="pass_helper"
+                          [ngClass]="{'hide_div': controls?.password.valid, show_div:controls?.password.invalid}">
+                          <div class="rec_one">
+                            <h6>{{'links_text.minimum_requirements' | translate}}</h6>
+                            <ul class="pwd_list list-unstyled">
+                              <li [ngClass]="!hasMinLength?'fadeInDiv':'animatedHideHint'">8+ {{'text.characters' |
+                                translate}}
+                              </li>
+                              <li [ngClass]="!alphabetExists?'fadeInDiv':'animatedHideHint'">1+ {{'text.letters' |
+                                translate}}
+                              </li>
+                              <li [ngClass]="!digitExists?'fadeInDiv':'animatedHideHint'">1+ {{'text.numbers' |
+                                translate}}
+                              </li>
+                              <li [ngClass]="!specialCharExists?'fadeInDiv':'animatedHideHint'"
+                                [innerHTML]="specialCharsVaidation"></li>
+                            </ul>
+                          </div>
+                          <!-- <div class="recomd_sec">
+                            <h6>{{'links_text.recommendations' | translate}}</h6>
+                            <ul class="pwd_list list-unstyled">
+                              <li [ngClass]="!hasMinLength?'fadeInDiv':'animatedHideHint'">8+ {{'text.characters' |
+                                translate}}
+                              </li>
+                              <li [ngClass]="!alphabetExists?'fadeInDiv':'animatedHideHint'">1+ {{'text.letters' |
+                                translate}}
+                              </li>
+                              <li [ngClass]="!digitExists?'fadeInDiv':'animatedHideHint'">1+ {{'text.numbers' |
+                                translate}}
+                              </li>
+                              <li [ngClass]="!specialCharExists?'fadeInDiv':'animatedHideHint'"
+                                [innerHTML]="specialCharsVaidation"></li>
+                            </ul>
+                          </div> -->
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <!-- (blur)="isPswdValidation=false"  -->
+                        <input (focus)="isPswdValidation=true" #input
+                          (ngModelChange)="checkPasswordValidation($event)" [type]="show ? 'text' : 'password'"
+                          formControlName="password" placeholder="{{getTranslatedText('forms.label.password')}}"
+                          class="form-control" autocomplete="on" />
+                        <label translate>forms.label.password</label>
+                        <span class="input-pwd" [ngClass]="(!show)?'hide':'show'" (click)="show=!show"></span>
+                      </div>
+                      <p *ngIf="form.hasError('passwordMatching')" class="iden_error">{{'text.email_identical_to_pass' |
+                        translate}}</p>
+
+                      <!-- <strength-meter [value]="form.value.password" (measure)="onPasswordStrengthChanged($event)">
+                                            </strength-meter> -->
+                      <div class="form-group">
+                        <div class="checkbox checkbox_form">
+                          <input type="checkbox" checked="checked" (click)="sendSms($event)"
+                            formControlName="receive_promos" />
+                          <span class="checkmark"> </span>
+                          {{'forms.messages.new_I_agree_to_receive_exclusive_bonus'| translate}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="btn_group d-flex justify-content-center mt-3">
+                        <button [disabled]="formStep1.valid?'':'false'" (click)="submitStep1()"
+                          class="btn btn-md btn-outline-primary">{{'links_text.next_step' | translate
+                          }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- End Step 1  -->
+
+
+          <form *ngIf="step==2" class="" [formGroup]="formStep2"
+            [ngClass]="step>STEPS.GET_PHONE_VERIFICATION_CODE?'success_regis':'null'">
+            <div class="form-contents">
+              <div class="form-fields">
+                <div class="fadeInDiv form-steps step_2">
+                  <!-- Start Step 2-->
+                  <div class="reg_title text-center">
+                    <h4 translate>{{'title.account_information' | translate}}</h4>
+                  </div>
+
+                  <div class="register_blocks">
+                    <div class="form-group">
+                      <div class="form-select" id="country">
+                        <div (click)="toggleCountry()" class="form-select__search">
+                          <input class="form-control" (keyup)="applyCountryFilter=true" [(ngModel)]="searchCountry"
+                            type="text" placeholder="{{getTranslatedText('forms.label.select_country')}}" formControlName="country" />
+                          <span class="down_menu"><img src="assets/img/icons/arw_down.svg" alt="" /></span>
+                        </div>
+
+                        <div *ngIf="openCountry" class="select_dropdown">
+                          <div class="select_list scrollable">
+                            <ul class="list-unstyled scroll">
+                              <li appHighlight [searchedWord]="searchCountry" [content]="country"
+                                [classToApply]="'font-weight-bold'" [field]="'name'" [setTitle]="'true'"
+                                (click)="selectCountry(country);"
+                                *ngFor="let country of countries| appFilter: searchCountry:'name':applyCountryFilter">
+                                <span>{{country.name}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- End Country Dropdown-->
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="form-select" id="currency">
+
+                        <div (click)="toggleCurrency()" class="form-select__search" >
+                          <input class="form-control" (keyup)="applyCurrencyFilter=true" type="text"
+                            placeholder="{{getTranslatedText('forms.label.currency')}}" [(ngModel)]="searchCurrency" formControlName="currency" />
+                          <span class="down_menu"><img src="assets/img/icons/arw_down.svg" alt="" /></span>
+                        </div>
+
+                        <div *ngIf="openCurrency && currencies.length>0" class="select_dropdown">
+                          <div class="select_list scrollable">
+                            <ul class="list-unstyled scroll">
+                              <li (click)="selectCurrency(currency.code);"
+                                *ngFor="let currency of currencies | appFilter: searchCurrency:'code':applyCurrencyFilter">
+                                <span>{{currency.code}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- End Currency Dropdown-->
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <!-- <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="form-select">
+
+                          <div class="form-select__search">
+                            <input class="form-control" type="text" placeholder="Indian Rupee"  />
+                            <span class="down_menu"><img src="assets/img/icons/arw_down.svg" alt="" /></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input #input type="text" formControlName="contactNo" (keypress)="numberOnly($event)"
+                          placeholder="{{getTranslatedText('forms.placeholder.enter_mobile_number')}}"
+                          class="form-control" [autofocus]="step==STEPS.PHONE_NUMBER" />
+                      </div>
+                    </div> -->
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <div class="form-select">
+                            <div class="form-telephone">
+                              <ngx-intl-tel-input [cssClass]="'form-control custom'"
+                                [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                                [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectFirstCountry]="false" [selectedCountryISO]="countryISO" [maxLength]="15"
+                                [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                [numberFormat]="" formControlName="contactNo">
+                              </ngx-intl-tel-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="btn_group d-flex justify-content-between mt-3">
+                        <button (click)="back()" class="btn btn-sm btn-transparent"><i class="mr-2"><img
+                              src="assets/img/icons/back_white_icon.svg" width="16px" alt="back" /></i>
+                          {{'links_text.back' | translate
+                          }}</button>
+                        <button [disabled]="formStep2.valid?'':'false'" (click)="submitStep2()"
+                          class="btn btn-md btn-outline-primary">{{'links_text.next_step' | translate
+                          }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- End step 2  -->
+
+          <form *ngIf="step==3" class="" [formGroup]="formStep3"
+            [ngClass]="step>STEPS.GET_PHONE_VERIFICATION_CODE?'success_regis':'null'">
+            <div class="form-contents">
+              <div class="form-fields">
+                <div class="fadeInDiv form-steps step_3" #inputParent>
+                  <div class="reg_title text-center">
+                    <h4 translate>{{'title.confirm_your_account' | translate}}</h4>
+                  </div>
+
+                  <div class="register_blocks">
+
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <input (keypress)="alphabetFilter($event,'firstName')" type="text" formControlName="firstName"
+                            placeholder="{{getTranslatedText('forms.placeholder.enter_firstname')}}"
+                            class="form-control" autofocus />
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <input (keypress)="alphabetFilter($event,'lastName')" type="text" formControlName="lastName"
+                            placeholder="{{getTranslatedText('forms.placeholder.enter_lastname')}}"
+                            class="form-control" />
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="form-group">
+
+                          <div class="select_transgender">
+                            <div class="form-row">
+                              <div class="col-6">
+                                <div class="radio_button">
+                                  <input type="radio" id="male" name="gender" formControlName="gender" value="m">
+                                  <div class="radio_box">
+                                    <span for="male" translate>forms.label.male</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="radio_button">
+                                  <input type="radio" id="female" name="gender" formControlName="gender" value="f">
+                                  <div class="radio_box">
+                                    <span for="female" translate>forms.label.female</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <label>{{'title.date_of_birth' | translate}}</label>
+                        <div formGroupName="dob" class="d-flex">
+                          <div class="dob-input">
+                            <div class="form-group">
+                              <input #date type="text" id="txt1" (input)="inputValue($event)"
+                                [ngClass]="invalidDate && dobControls?.dd.invalid?'change-color':''"
+                                (keypress)="dateInputFilter($event,2,1,'dd',month,31,'mm')" formControlName="dd"
+                                placeholder="{{getTranslatedText('date.dd')}}" class="form-control" />
+                              <!-- <label translate>forms.label.dd</label> -->
+                            </div>
+                          </div>
+                          <div class="dob-input">
+                            <div class="form-group">
+                              <input id="txt2" (keydown.backspace)="onBackspaceKeydown($event,'mm',date)" (input)="inputMonth($event)"
+                                [disableControl]="dobControls.dd.invalid" #month type="text"
+                                (keypress)="dateInputFilter($event,2,1,'mm',year,12,'yy')"
+                                [ngClass]="invalidDate && dobControls?.mm.invalid?'change-color':''"
+                                formControlName="mm" placeholder="{{getTranslatedText('date.mm')}}"
+                                class="form-control" />
+                              <!-- <label translate>forms.label.mm</label> -->
+                            </div>
+                          </div>
+                          <div class="dob-input">
+                            <div class="form-group">
+                              <input id="txt3" #year (keypress)="dateInputFilter($event,4,4,'yy')"  
+                                (keydown.backspace)="onBackspaceKeydown($event,'yy',month)"
+                                [disableControl]="dobControls?.mm.invalid || dobControls?.dd.invalid" type="text"
+                                [ngClass]="invalidDate && dobControls?.yy.invalid?'change-color':''"
+                                formControlName="yy" placeholder="{{getTranslatedText('date.yyyy')}}"
+                                class="form-control" />
+                              <!-- <label translate>forms.label.yy</label> -->
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="invalidDate &&
+                            formStep3.controls['dob'].touched">
+                        <div class="alert alert-danger" role="alert" >
+                          {{'forms.messages.must_be_a_valid_date_and_you_must_be_18_years' | translate}}
+                        </div>
+
+                      
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="btn_group d-flex justify-content-between mt-3">
+                        <button (click)="back()" class="btn btn-sm btn-transparent"><i class="mr-2"><img
+                              src="assets/img/icons/back_white_icon.svg" width="16px" alt="back" /></i>
+                          {{'links_text.back' | translate
+                          }}</button>
+                        <button (click)="submitStep3()" [disabled]="formStep3.valid?'':'false'"
+                          class="btn btn-md btn-outline-primary">{{'links_text.next_step' | translate
+                          }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <form [formGroup]="formStep4" class="fadeInDiv form-steps step_4" *ngIf="step==4">
+            <div class="form-contents">
+              <div class="form-fields">
+                <div class="form-steps step4">
+                  <div class="reg_title text-center">
+                    <h4 translate>title.confirm_your_account</h4>
+                  </div>
+
+                  <div class="register_blocks">
+                    <div #inputParent>
+                      <div class="form-group">
+                        <input #input type="text" formControlName="city"
+                          placeholder="{{getTranslatedText('forms.label.city')}}" class="form-control" autofocus />
+                      </div>
+                    </div>
+                    <div #inputParent>
+                      <div class="form-group">
+                        <input #input type="text" formControlName="address"
+                          placeholder="{{getTranslatedText('forms.label.enter_full_address')}}" class="form-control" />
+                      </div>
+                    </div>
+                    <div #inputParent>
+                      <div class="form-group">
+                        <input #input type="text" formControlName="postalCode"
+                          placeholder="{{getTranslatedText('forms.label.enter_postcode')}}" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="btn_group d-flex justify-content-between mt-3">
+                      <button (click)="back()" class="btn btn-sm btn-transparent"><i class="mr-2"><img
+                            src="assets/img/icons/back_white_icon.svg" width="16px" alt="back" /></i>
+                        {{'links_text.back' | translate
+                        }}</button>
+                      <button (click)="submitStep4()" [disabled]="formStep4.valid?'':'false'"
+                        class="btn btn-md btn-outline-primary">{{'links_text.next_step' | translate
+                        }}</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+          <!-- END Step 4    [disabled]="formStep4.valid?'':'false'"-->
+
+          <form [formGroup]="formStep5" class="fadeInDiv form-steps step_5" *ngIf="step==5">
+            <div class="form-contents">
+              <div class="form-fields">
+                <div class="form-steps step4">
+                  <div class="reg_title text-center">
+                    <h4 translate>title.confirm_your_account</h4>
+                  </div>
+
+                  <div class="register_blocks">
+                    <div #inputParent>
+                      <div class="form-group">
+                        <div class="d-flex switch_btn">
+                          <div class="switch">
+                            <input type="checkbox" (click)="termsAcceptance($event.target.checked)" />
+                            <span class="slider round"></span>
+                          </div>
+                          <p>{{'forms.messages.i_am_over_18_years_of_age_and_have_read_and_accepted_your' |
+                            translate}}<a href="/terms-and-conditions" target="_blank"
+                              rel="noreferrer">{{'links_text.terms' | translate
+                              }} &amp; {{'links_text.conditions' | translate
+                              }}</a> {{'links_text.and' | translate
+                            }} <a href="privacy-policy" target="_blank" rel="noreferrer">{{'links_text.privacy_policy' | translate
+                              }}</a></p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="btn_group d-flex justify-content-between mt-3">
+                      <button (click)="back()" class="btn btn-sm btn-transparent"><i class="mr-2"><img
+                            src="assets/img/icons/back_white_icon.svg" width="16px" alt="back" /></i>
+                        {{'links_text.back' | translate
+                        }}</button>
+                      <button (click)="submitSignup()" class="btn btn-md btn-outline-primary"
+                        [disabled]="formStep5.value.termsAcceptance?'':'false'">{{'links_text.finish' | translate
+                        }}</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+
+          <div class="fadeInDiv form-steps" #inputParent *ngIf="step==6"
+            class="congrat_screen align-items-center justify-content-center d-flex flex-column">
+            <!-- <div *ngIf="registerStatus=='success'" class="text-center"> -->
+            <div class="reg_title text-center">
+              <h4 translate>text.congratulations</h4>
+            </div>
+            <i><img src="assets/img/success_casino.svg" alt="" class="img-fluid" /></i>
+            <h3 class="m-0" translate>title.successful_registration</h3>
+            <!-- <p>{{'forms.messages.your_bonus_will_be_added_to_your_account_after_you_make_your_first_deposit' |
+              translate}}</p> -->
+            <div class="mt-3">
+              <button (click)="gotoLogin()" class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                {{'links_text.login' | translate
+                }}
+              </button>
+            </div>
+            <!-- </div> -->
+
+          </div>
+          <!-- End congrat Screen-->
+
+
+          <!-- <div *ngIf="mobile">
+                <div class="btn_mob"
+                  *ngIf="(step < SIGNUP_STEPS.GET_BONUS && step >= SIGNUP_STEPS.LOGIN_DETAILS)">
+                  <button #nextButton type="submit" class="btn btn-primary" (click)="next()">
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="!mobile">
+                <div
+                *ngIf="(step < SIGNUP_STEPS.GET_BONUS && step >= SIGNUP_STEPS.LOGIN_DETAILS)"
+                  class="button-wrapper">
+                  <button #nextButton class="btn btn-md btn-primary text-uppercase" tabindex="0"
+                    (click)="next()">
+                    <span>{{'links_text.continue' | translate }}</span> <i class="ml-2"><img
+                        src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+                  </button>
+                </div>
+              </div>
+              <ng-template #slider>
+                <div *ngIf="(step < SIGNUP_STEPS.GET_BONUS && step >= SIGNUP_STEPS.LOGIN_DETAILS) && !mobile"
+                  class="button-wrapper">
+                  <button #nextButton class="btn btn-md btn-primary text-uppercase" tabindex="0"
+                    (click)="next()">
+                    <span> {{'links_text.continue' | translate }}</span> <i class="ml-2"><img
+                        src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+                  </button>
+                </div>
+
+                <div class="btn_mob"
+                  *ngIf="(step < SIGNUP_STEPS.GET_BONUS && step >= SIGNUP_STEPS.LOGIN_DETAILS) && mobile">
+                  <button #nextButton type="submit" class="btn btn-primary" (click)="next()">
+                  </button>
+                </div>
+              </ng-template> -->
+          <div class="keyboard_mob">
+            <span></span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #closePage>
+  <div *ngIf="closeModal;else alreadyExists;" class="signupForm signup_errorPopup" role="document">
+    <div class="modal-body">
+
+      <div class="cancel-confirm">
+        <!-- <button (click)="close()" type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                fill="#ffffff" />
+            </svg>
+          </button> -->
+        <h2 class="mb-4" translate>title.why_not_try_us</h2>
+        <p translate>text.new_quick_signup</p>
+        <div class="btn-contain mt-3 btn_column d-flex flex-column">
+          <button (click)="close('back')" class="btn btn-md btn-primary">{{'links_text.back' | translate }}</button>
+          <button (click)="close('yes')" class="btn btn-md btn-transparent">{{'links_text.close' | translate
+            }}</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #alreadyExists>
+  <div class="signup_errorPopup" role="document">
+    <div class="modal-body">
+      <div class="cancel-confirm text-center">
+        <button *ngIf="!openCountry" (click)="close()" type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+              fill="#ffffff" />
+          </svg>
+        </button>
+        <h5 class="mb-4" translate>title.seems_like_already_account</h5>
+        <p translate>text.just_click_login_btn_and <br />
+          text.then_forgot_pw_or<br />
+          text.contact_us_we_help_you
+        </p>
+        <div class="mt-2">
+          <button (click)="gotoLogin()" class="w-100 btn btn-lg btn-primary">{{'links_text.login' | translate
+            }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

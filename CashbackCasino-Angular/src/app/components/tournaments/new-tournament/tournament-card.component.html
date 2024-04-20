@@ -1,0 +1,17 @@
+
+	<div class="locked_games">
+		<figure class="m-0"><img src="assets/img/tournament/pc_game.jpg" alt="" /></figure>
+		<div class="d-flex align-items-center locked_header">
+			<h6 *ngIf="status">{{status | titlecase }}</h6>
+			<app-countdown *ngIf="tournamentDate" [type]="'card'" [status]="status" [endDate]="tournamentDate"></app-countdown>
+
+		</div>
+		<h2>{{params.name}}l</h2>
+		<label>{{params?.pool}}</label>
+		<div class="more_info_btn text-left">
+			<button (click)="goToRoute()" class="btn btn-md btn-primary text-uppercase">
+				{{'links_text.more_info' | translate }} <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+			</button>
+		</div>
+	</div>
+               

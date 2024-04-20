@@ -1,0 +1,1 @@
+export * from './static-info-pages/static-info-pages.component';

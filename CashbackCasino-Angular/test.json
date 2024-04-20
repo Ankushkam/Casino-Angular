@@ -1,0 +1,60 @@
+{
+    "img": "assets/img/promotion/deposit6.png",
+    "type": "Spring Festival Tournament",
+    "spring": {
+        "pool": "Qualifying Games:",
+        "games": [
+            "Book Of Demi Gods II",
+            "Majestic King",
+            "Book Of Rebirth",
+            "Egyptian Rebirth II",
+            "Story Of Egypt",
+            "Times of Egypt - Pharaoh's Reign"
+        ],
+        "startDate":"2022-03-30",
+        "endDate":"2022-04-10",
+        "cta": "Play Here",
+        "link": "https://cashbackcasino.com/en/casino"
+    },
+    "deposit": "Tournament"
+},
+{
+    "img": "assets/img/promotion/deposit6.png",
+    "type": "Spring Festival Tournament",
+    "spring": {
+        "pool": "Qualifying Games:",
+        "games": [
+            "Book Of Demi Gods II",
+            "Majestic King",
+            "Book Of Rebirth",
+            "Egyptian Rebirth II",
+            "Story Of Egypt",
+            "Times of Egypt - Pharaoh's Reign"
+        ],
+        "startDate":"2022-04-11",
+        "endDate":"2022-04-19",
+        "cta": "Play Here",
+        "link": "https://cashbackcasino.com/en/casino"
+    },
+    "deposit": "Tournament"
+},
+{
+    "img": "assets/img/promotion/deposit6.png",
+    "type": "Spring Festival Tournament",
+    "spring": {
+        "pool": "Qualifying Games:",
+        "games": [
+            "Book Of Demi Gods II",
+            "Majestic King",
+            "Book Of Rampage",
+            "Lucky Jack - Tut’s treasure",
+            "Blue Panther",
+            "Savanah's Queen"
+        ],
+        "startDate":"2022-04-20",
+        "endDate":"2022-05-02",
+        "cta": "Play Here",
+        "link": "https://cashbackcasino.com/en/casino"
+    },
+    "deposit": "Tournament"
+}

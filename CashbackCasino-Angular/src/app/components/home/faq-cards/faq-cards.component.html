@@ -1,0 +1,19 @@
+<div class="stand-out-sec" *ngIf="faqCardsData">
+  <div class="wrapper">
+    
+    <div class="title1 text-center" [innerHtml]="faqCardsData?.title">
+    </div>
+
+    <div class="form-row stand_inner_sec" *ngIf="faqCardsData?.cards?.length>0">
+      <div *ngFor="let card of faqCardsData?.cards" class="col-xl-2 col-lg-4 col-md-4 col-6 mb-2">
+        <div class="stand-col text-center">
+          <i><img [src]="card.img" alt="" class="img-fluid" /></i>
+          <h6 translate>{{card?.title}}</h6>
+          <!-- <p translate>{{card.text}}</p> -->
+          <p [innerHTML]="card.text"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

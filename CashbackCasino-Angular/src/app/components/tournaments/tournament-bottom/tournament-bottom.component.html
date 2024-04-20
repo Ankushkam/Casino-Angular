@@ -1,0 +1,116 @@
+<div class="container-fluid">
+
+  <div class="divider my-4"><img src="assets/img/icons/divider-lg.svg" alt="" /></div>
+
+  <div class="wrapper">
+    <section class="top-winners">
+      <div class="title text-center mb-lg-4">
+        <h2 translate>title.latest_winners</h2>
+      </div>
+
+      <div class="top-3-winner">
+        <div class="d-flex top_winners_rank">
+          <div class="prize_inner">
+            <figure><img src="assets/img/tournament/winner1.png" alt="" class="img-fluid" /></figure>
+            <!-- <h6>{{this.prizes[0].money_award| number: '1.0-0'}} {{tournament?.currency}}</h6> -->
+            <h6>{{params.first_prize}}</h6>
+          </div>
+          <div class="prize_inner">
+            <figure><img src="assets/img/tournament/winner2.png" alt="" class="img-fluid" /></figure>
+            <!-- <h6>{{this.prizes[1].money_award| number: '1.0-0'}} {{tournament?.currency}}</h6> -->
+            <h6>{{params.second_prize}}</h6>
+          </div>
+          <div class="prize_inner">
+            <figure><img src="assets/img/tournament/winner3.png" alt="" class="img-fluid" /></figure>
+            <!-- <h6>{{this.prizes[2].money_award| number: '1.0-0'}} {{tournament?.currency}}</h6> -->
+            <h6>{{params.third_prize}}</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="winner-full">
+        <table *ngIf="winnersList.length>0; else noWinners" class="leaderboard_table w-100">
+          <thead>
+            <tr>
+              <th translate>title.place</th>
+              <th translate>title.username</th>
+              <th translate>title.points</th>
+              <th translate>title.prize</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let winner of winnersList;let i=index;">
+            <tr>
+              <td><span>{{winner.award_place}}</span></td>
+              <td><span class="user_win">{{winner.nickname}}</span></td>
+              <td><span>{{winner.points}}</span></td>
+              <td><span>{{winner.wins}} {{tournament?.currency}}</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="winnersList.length>0" class="text-center">
+          <button (click)="showMore()" class="btn btn-md btn-primary text-uppercase mt-4 mt-md-5">
+            {{'links_text.show_more' | translate }} <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+                width="20" alt=""></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" class="img-fluid" /></div>
+
+    <section class="game-section">
+      <app-games [page]="'tournaments'" [allGames]="allGames" [gameProviders]="gameProviders"
+        [pageTitle]="GAME_LIST.HOME_TITLE"></app-games>
+    </section>
+
+    <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" class="img-fluid" /></div>
+
+    <!--==========================
+        Best Providers
+        ============================-->
+    <section class="provider-sec text-center">
+      <app-providers [providers]="gameProviders"></app-providers>
+    </section>
+    
+    <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" class="img-fluid" /></div>
+    <!-- End -->
+
+    <app-faq-cards></app-faq-cards>
+    <div class="divider my-4"><img src="assets/img/icons/divider-lg.svg" alt="" class="img-fluid" /></div>
+
+    <section class="bonus-of-day-sec">
+    <app-bonus-of-day></app-bonus-of-day>
+    </section>
+
+    <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" /></div>
+
+    <app-faq></app-faq>
+
+    <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" /></div>
+
+    <app-footer></app-footer>
+  </div><!-- End Wrapper -->
+</div>
+
+<ng-template #noWinners>
+  <table  class="leaderboard_table w-100">
+  <thead>
+    <tr>
+      <th translate>title.place</th>
+      <th translate>title.username</th>
+      <th translate>title.points</th>
+      <th translate>title.prize</th>
+    </tr>
+  </thead>
+  </table>
+  <!-- <tbody>
+    <tr>
+      <td colspan="5"> -->
+        <div class="w-100 p-2 mt-5 text-center">
+          <span translate>text.no_records_available</span>
+        </div>
+      <!-- </td>
+    </tr>
+  </tbody> -->
+</ng-template>

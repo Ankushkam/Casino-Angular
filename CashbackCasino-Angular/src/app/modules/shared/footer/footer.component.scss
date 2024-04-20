@@ -1,0 +1,78 @@
+@import '../../../../assets/css/base.scss';
+
+.footer {
+	padding:15px 0;
+	@media (max-width: 767px){ 
+		padding-top:20px;
+	}
+	.f-logo { 
+		margin:0 0 30px; 
+		a {
+			padding:7px 20px;
+			@media (max-width:575px){
+				padding:7px 10px;
+			}
+		}
+	}
+	.f-logos {
+		//padding-bottom: 10px;
+		a {
+			padding:0 15px 10px;
+			@include opacity (0.5);
+			&:hover {
+				@include opacity (1);				
+			}
+			img {
+				height:32px;
+				max-height:40px;
+			}	
+		}
+	}
+	.f-menu  {
+		li {
+			display:$inline-block;
+			@media (max-width:575px){
+				display:$block; 
+				text-align:center; 
+				border-bottom:1px solid rgba(255,255,255,.1); 
+			}
+			a { 
+				font-size: $f16; 
+				font-weight:$font-bold; 
+				color:$white-color; 
+				padding:9px 20px;
+				@media (max-width:767px){
+					display:$inline-block;
+				}
+			}
+		}
+    }	    	
+}
+::ng-deep {
+	html[lang="de"] {
+		.footer {
+			.f-menu  {
+				li {
+					a { 
+						@media (min-width:1201px){
+							font-size: $f12+3!important; 
+						}
+					}
+				}
+			}
+		}
+	}
+	.footer { 
+		p {
+			font-size:$f12; 
+			color:rgba(255,255,255,.8);
+			@media (min-width:1800px) {
+				margin-bottom: 25px;
+			}
+			a {
+				color:$base-color; 
+				font-size: $f12+1;				
+			}
+		}	
+	}
+}

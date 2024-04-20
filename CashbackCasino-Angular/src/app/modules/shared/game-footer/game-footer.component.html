@@ -1,0 +1,60 @@
+<div class="game_header">
+    <div class="d-flex game_sticky">
+        <div class="deposit_game">          
+            <div *ngIf="isLoginUser" class="btn btn-sm btn-black d-flex align-items-center ds_select mr-3">
+                <!-- <div class="dropdown">
+                    <i class="btn btn-sm btn-primary mr-2" (click)="openDeposits()" *ngIf="isLoginUser"><img
+                            src="assets/img/icons/plus_icon.svg" alt="" /></i>
+                    <button type="button" class="btn-transparent" data-toggle="dropdown" (click)="openDeposits()"
+                        *ngIf="isLoginUser && allCurrencies">
+                        {{((accountBalance || {}).amount_cents || empty) | convertCurrency:[currency,allCurrencies]}}
+                        {{(accountBalance || {}).currency}}
+                    </button>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="btm_rht">
+            
+            <app-notification-centre *ngIf="isLoginUser" [type]="'mobile'"></app-notification-centre>
+
+            <div class="btn btn-sm d-flex align-items-center dropdown user_select" *ngIf="isLoginUser">
+                <button type="button" class="dropdown-toggle btn-transparent text-capitalize" data-toggle="dropdown">
+                    <i><img src="assets/img/icons/profile_icon.svg" alt="" /></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <!-- <span>{{userName}}</span> -->
+                    <div class="drop_level">
+                        <div class="w-100">
+                            <i>{{currentLevel?.level}}</i>
+                            <span>{{'title.level' | translate}}</span>
+                        </div>
+                        <div class="score_point">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{currentLevel.points}}"
+                                    aria-valuemin="{{currentLevel.minPoints}}"
+                                    aria-valuemax="{{currentLevel.maxPoints}}" [style.width.%]="currentLevel?.progress">
+                                </div>
+                            </div>
+                            <label>{{currentLevel?.points}} / {{currentLevel?.maxPoints}}</label>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" (click)="myProfile()">{{'links_text.my_profile' | translate }}</a>
+                    <a class="dropdown-item" (click)="myWallet()"> {{'title.wallet' | translate }} </a>
+                    <a class="dropdown-item" (click)="openBonuses()" translate>links_text.bonuses</a>
+                    <a class="dropdown-item logout_txt" routerLlink="." (click)="logout()">{{'links_text.logout' |
+                        translate}}</a>
+                </div>
+            </div>
+
+            <button class="game-toggle btn btn-transparent ml-auto" (click)="toggle()">
+                <img src="assets/img/icons/hamburger_icon.svg" alt="Menu" width="34" />
+            </button>
+        </div>
+
+        <div class="game_logo">
+            <a routerLink="/"><img src="assets/img/icons/praise_logo_icon.png" width="96" alt="Cashback Casino"
+                    class="img-fluid" /></a>
+        </div>
+    </div>
+</div>

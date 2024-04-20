@@ -1,0 +1,187 @@
+<div *ngIf="!closeModal;else closePage" class="signupForm" role="document">
+
+    <div class="modal-body">
+        <div class="singPupForm d-flex align-items-center">
+            <form class="form_screens login_form w-100" [formGroup]="form" (ngSubmit)="onSubmit()">
+                
+                <div *ngIf="step == 1" class="cancel-confirm">
+                    <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff" />
+                        </svg>
+                    </button>
+                    <div class="lock_account w-100 text-center">
+                        <figure><img width="100" src="assets/img/icons/email_icon.svg" class="img-fluid" /></figure>
+                        <h4 class="text-uppercase" translate>title.account_not_confirmed</h4>
+                        <p translate>text.click_btn_to_confirm_account</p>
+                        <div class="text-center">
+                            <button class="btn btn-sd btn-primary text-uppercase mt-3" (click)="stepMove(2)">
+                                {{'links_text.send_email' | translate }}
+                                <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" /></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="step == 2" class="cancel-confirm">
+                    <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff" />
+                        </svg>
+                    </button>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="lock_account w-100 text-center">
+                                <i class="mb-4 d-block"><img src="assets/img/icons/unlock.png" width="90" alt="" /></i>
+                                <h5 class="text-uppercase mb-2" translate>title.confirm_your_account</h5>
+                                <p translate>text.send_email_to_confirm_account</p>
+                                <div class="form-fields">
+                                    <div class="fieldset">
+                                        <div class="form-group">
+                                            <input type="email"
+                                                placeholder="{{getTranslatedText('forms.placeholder.enter_your_email')}}"
+                                                class="form-control" formControlName="email" />
+                                            <display-field-error fieldName="email" [formControls]="formControls">
+                                            </display-field-error>
+                                        </div>
+                                    </div>
+                                    <div class="fieldset">
+                                        <div class="form-group">
+                                            <ngx-recaptcha2 *ngIf="showCaptcha && captchaVersion == 2"
+                                                [siteKey]="siteKey" formControlName="captcha"></ngx-recaptcha2>
+                                        </div>
+                                    </div>
+                                    <div class="text-center btn_column">
+                                        <button type="submit" class="btn btn-md btn-primary text-uppercase">
+                                            {{'links_text.send_email' | translate }}
+                                            <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+                                                    width="20" /></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="step == 3" class="cancel-confirm">
+                    <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff" />
+                        </svg>
+                    </button>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="lock_account w-100 text-center">
+                                <i class="mb-4 d-block"><img src="assets/img/icons/email_icon.svg" width="90"
+                                        alt="" /></i>
+                                <h4 class="text-uppercase" translate>title.email_sent</h4>
+                                <p class="col-md-6 m-auto" translate>text.click_email_link_to_confirm_account</p>
+
+                                <div class="text-center btn_column mt-2">
+                                    <button (click)="openModal('login')"
+                                        class="btn btn-md btn-primary text-uppercase mt-2">
+                                        {{'links_text.login' | translate }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+                                                width="20" /></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="step == 4" class="cancel-confirm">
+                    <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff" />
+                        </svg>
+                    </button>
+                    <div class="row justify-content-center">
+                        <div class="col-md-11">
+                            <div class="lock_account w-100 text-center">
+                                <i class="mb-4 d-block"><img src="assets/img/icons/email_icon.svg" width="90"
+                                        alt="" /></i>
+                                <h4 class="text-uppercase" translate>title.link_expired</h4>
+                                <p translate>text.confirmation_token_expired <br />text.can_login_now</p>
+                                <div class="text-center">
+                                    <button class="btn btn-sd btn-primary text-uppercase mt-3 mr-0"
+                                        (click)="stepMove(2)">
+                                        {{'links_text.send_email' | translate }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+                                                width="20" /></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="step == 5" class="cancel-confirm">
+                    <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff" />
+                        </svg>
+                    </button>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="lock_account w-100 text-center">
+                                <i class="mb-4 d-block"><img src="assets/img/icons/email_icon.svg" width="90"
+                                        alt="" /></i>
+                                <h4 class="text-uppercase" translate>title.account_confirmed</h4>
+                                <p translate>text.account_confirmed <br />text.can_login_now</p>
+                                <div class="text-center">
+                                    <button (click)="openModal('login')"
+                                        class="btn btn-md btn-primary text-uppercase mt-2">
+                                        {{'links_text.log_in' | translate }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+                                                width="20" /></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #closePage>
+    <div class="signupForm" role="document">
+        <div class="modal-body">
+            <div class="singPupForm d-flex p-4 align-items-center">                
+                <div class="cancel-confirm">
+                    <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff" />
+                        </svg>
+                    </button>
+                    <div class="cancel-form w-100 text-center">
+                        <h2 class="mb-4" translate>title.why_not_try_us</h2>
+                        <p translate> text.new_quick_login </p>
+                        <div class="btn-contain mt-3 btn_column d-flex flex-column">
+                            <button (click)="close('back')"
+                                class="btn btn-md btn-primary">{{'links_text.back' | translate }}</button>
+                            <button (click)="close('yes')"
+                                class="btn btn-md btn-transparent">{{'links_text.close' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,8 @@
+<app-header></app-header>
+<div #dynamicData>
+    <dynamic-html [content]="content"></dynamic-html>
+</div>
+<div class="move_down_arrow" >
+    <!-- <span class="caption">Keep Scrolling</span> -->
+    <i  ><img (click)="scrollToBottom()" src="assets/img/icons/scroll_down.svg" alt="" width="22" /></i>
+</div>

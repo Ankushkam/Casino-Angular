@@ -1,0 +1,145 @@
+<!-- <aside [ngClass]="sidebarCss" > -->
+<aside [ngClass]="sidebarCss">
+    <div class="close_sidebar d-lg-none" (click)="toggle()"><img src="assets/img/icons/close_green_icon.svg" alt="" />
+    </div>
+    <div class="header-bar">
+        <div class="logo mt-3 pb-4 d-block">
+            <a routerLink="/"><img src="assets/img/cashback-logo.png" width="167" alt="Cashback Casino" /></a>
+        </div>
+        <div class="login-btn mt-2">
+            <button (click)="login()" class="btn btn-md btn-primary" data-toggle="modal"
+                *ngIf="!isLoginUser && isPNPAllowed && currentLang=='fi' else normalLogin">
+                {{'links_text.login_pnp' | translate |uppercase}}
+            </button>
+            <ng-template #normalLogin>
+                <button (click)="login()" class="btn btn-md btn-primary" data-toggle="modal" *ngIf="!isLoginUser">
+                    {{'links_text.login' | translate |uppercase}}
+                </button>
+            </ng-template>
+
+            <button (click)="openDeposits()" class="btn btn-md btn-primary" *ngIf="isLoginUser">
+                {{'links_text.deposit_money' | translate | uppercase }}
+            </button>
+        </div>
+    </div>
+
+    <!-- <div class="mobile_bar">
+        <div class="d-flex justify-content-center">
+
+            <app-notification-centre *ngIf="isLoginUser" [type]="'mobile'" (clickNotification)="toggle()">
+            </app-notification-centre>
+
+            <div class="btn btn-sm btn-black d-flex align-items-center ds_select"
+                [ngClass]="!isLoginUser?'mob_deposit':null">
+                <div class="dropdown">
+                    <button type="button" class="btn-transparent" data-toggle="dropdown" (click)="login()"
+                        *ngIf="!isLoginUser">
+                        {{depositButton| uppercase}}
+                    </button>
+                    <button type="button" class="btn-transparent" data-toggle="dropdown"
+                        *ngIf="isLoginUser && allCurrencies">
+                        {{((accountBalance || {}).amount_cents || empty) | convertCurrency:[currency,allCurrencies]}}
+                        {{currency}}
+                    </button>
+                    <i class="btn btn-sm btn-primary" (click)="login()" *ngIf="!isLoginUser"><img
+                            src="assets/img/icons/plus_icon.svg" alt="" /></i>
+                    <i class="btn btn-sm btn-primary ml-2" (click)="openDeposits()" *ngIf="isLoginUser"><img
+                            src="assets/img/icons/plus_icon.svg" alt="" /></i>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item text-left" (click)="openDeposits()"><i class="mr-2">
+                            </i>{{'links_text.deposit' | translate}}</a>
+                        <a class="dropdown-item text-left" (click)="openDeposits()"><i class="mr-2">
+                            </i>{{'title.withdrawal' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="isLoginUser" class="row">
+            <div class="col-12 my-2">
+                <div class="btn btn-sm btn-black d-flex align-items-center user_select">
+                    <div class="dropdown">
+                        <button type="button" class="dropdown-toggle btn-transparent text-capitalize"
+                            data-toggle="dropdown">
+                            <span>{{userName}}</span>
+                            <i class="rounded ml-2 profile-pic"><img src="assets/img/user_pic.png" alt="" /></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" (click)="myProfile()">{{'links_text.my_profile' | translate }}</a>
+                            <a class="dropdown-item" (click)="openBonuses()" translate>links_text.bonuses</a>
+                            <a class="dropdown-item" routerLlink="."
+                                (click)="logout()">{{'links_text.logout' | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="d-flex align-items-center level_score">
+            <div class="score_points">
+                <div class="lev_level active">
+                    {{currentLevel?.level}}
+                    <span class="level_text">{{'title.level' | translate}}</span>
+                </div>
+            </div>
+            <div class="score_point">
+                <label>{{currentLevel?.points}} / {{currentLevel?.maxPoints}}</label>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{currentLevel.points}}"
+                        aria-valuemin="{{currentLevel.minPoints}}" aria-valuemax="{{currentLevel.maxPoints}}"
+                        [style.width.%]="currentLevel?.progress">
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>-->
+
+    <div class="sidebar-menu">
+        <ul class="sidebar-nav text-uppercase">
+            <li class="" *ngFor="let item of items" routerLinkActive="active">
+                <a *ngIf="item.name!=='bonuses'" [routerLink]="'/'+ currentLang + item.link" (click)="toggle()">
+                    <i class="mr-3"><img src="{{item.icon}}"></i>
+                    {{'links_text.' + item.name | translate }}
+                </a>
+                <a href="javascript:void(0)" *ngIf="item.name=='bonuses'" (click)="openBonuses()">
+                    <i class="mr-3"><img src="{{item.icon}}" /></i>
+                    {{'links_text.' + item.name | translate }}
+                </a>
+            </li>
+            <li class="">
+                <a style="cursor: pointer;" (click)="openChatWindoe()">
+                    <i class="mr-3"><img src="assets/img/icons/chat_icon.svg" /></i>
+                    {{'links_text.support_chat' | translate }}
+                </a>
+            </li>
+        </ul>
+        <!-- <app-winner *ngIf="homeService.topFiveWinners?.length>0" [winners]="homeService.topFiveWinners" -->
+            <!-- [smallTitle]="true" class="winner_list"></app-winner> -->
+    </div>
+
+    <div class="d-block d-lg-none mb-2">
+        <div class="btn btn-black d-flex align-items-center m-auto eng_select">
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown">
+                    <i><img src="{{selectedFlag.src}}" alt="" /></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:void(0)" (click)="switchLang(flag)"
+                        *ngFor="let flag of flagItems"><i class="mr-1"><img src="{{flag.src}}" alt="" /></i>
+                        {{flag.value}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="register-now text-center">
+        <!-- <a routerLink="." *ngIf="isLoginUser" (click)="logout()">{{'links_text.logout' | translate}}</a> -->
+        <!-- <app-timer *ngIf="isLoginUser && sessionDate" [date]="sessionDate"></app-timer> -->
+        <div *ngIf="isLoginUser" class="timer">{{ now | date:'HH:mm:ss'}}</div>
+        <!-- <ng-container *ngIf="!isPNPAllowed && !isLoginUser">
+            <span translate>text.no_account_yet</span>
+            <a routerLink="." (click)="onSignUp(true)">{{'links_text.register' | translate}}</a>
+        </ng-container>
+        <span style="visibility:hidden;" translate>text.no_account_yet</span> -->
+    </div>
+</aside>

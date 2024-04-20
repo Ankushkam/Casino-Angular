@@ -1,0 +1,424 @@
+<div class="signupForm" *ngIf="!closeModal && currentCountry!='US';else closePage" role="document">
+
+	<div class="modal-body">
+		<div class="singPupForm d-flex">
+
+			<aside *ngIf="checkShowCase('left')" class="form_lft_sidebar" [ngClass]="step==1?'animated':'null'">
+				<button *ngIf="step<STEPS.STATUS" type="button" (click)="close()" class="close res_btn"
+					data-dismiss="modal" aria-label="Close">
+					<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+							fill="#ffffff" />
+					</svg>
+				</button>
+				<div class="sign_logo">
+					<span><img src="assets/img/logo.svg" width="167" alt="Cashback Casino"></span>
+				</div>
+				<ul class="form_steps">
+					<li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.LOGIN_FORM)">
+						<div class="highlighter"></div>
+						<a class="link-active">
+							<div class="menu_txt">
+								{{'links_text.login' | translate }}
+							</div>
+							<div class="d-flex overlay notDone" (click)="stepMove(STEPS.LOGIN_FORM)">
+								<h6>{{'links_text.login' | translate }}
+									<small translate>text.enter_detail</small>
+								</h6>
+							</div>
+						</a>
+					</li>
+					<li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.AMOUNT)">
+						<div class="highlighter"></div>
+						<a class="link-active">
+							<div class="menu_txt">
+								{{'links_text.choose_deposit_amount' | translate }}
+							</div>
+							<div class="d-flex overlay notDone" (click)="stepMove(STEPS.AMOUNT)">
+								<h6>{{'links_text.choose_deposit_amount' | translate }}
+									<small translate>text.in_currency</small>
+								</h6>
+							</div>
+						</a>
+					</li>
+					<li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.PAYMENT_METHODS)">
+						<div class="highlighter"></div>
+						<a class="link-active">
+							<div class="menu_txt">
+								{{'links_text.payment_method' | translate }}
+							</div>
+							<div class="d-flex overlay notDone" (click)="stepMove(STEPS.PAYMENT_METHODS)">
+								<h6>{{'links_text.payment' | translate }}
+									<small translate>text.payment_steps</small>
+								</h6>
+							</div>
+						</a>
+					</li>
+					<li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.STATUS)">
+
+						<a class="link-active">
+							<div class="menu_txt" translate>
+								text.enjoy_bonus_and_play
+							</div>
+							<div class="d-flex overlay notDone" (click)="stepMove(STEPS.STATUS)">
+								<h6>{{'links_text.enjoy_your_bonus' | translate }}
+									<small translate>text.start_playing</small>
+								</h6>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</aside>
+			<!-- End Left Side Bar-->
+			<aside *ngIf="checkShowCase('right')" class="form_rht_sidebar">
+				<div class="form_header d-flex align-items-center justify-content-center">
+					<button *ngIf="step==STEPS.PAYMENT_METHODS || step==STEPS.PAYMENT_DETAILS" (click)="back()"
+						class="btn-back btn-transparent">
+						<i><img src="assets/img/icons/back_icon.svg" alt="Cashback Casino" /></i>
+					</button>
+					<h5>{{'title.' + formHeaderText | translate}}</h5>
+					<button *ngIf="step<STEPS.STATUS" type="button" (click)="close()" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+								fill="#ffffff" />
+						</svg>
+					</button>
+				</div>
+
+				<form *ngIf="step == STEPS.LOGIN_FORM" class="form_screens login_form form-horizontal scroll"
+					[formGroup]="form" (ngSubmit)="onSubmit()">
+					<div class="form-contents">
+						<div class="form-fields">
+							<!-- <h6>PRAISE CASINO</h6> -->
+							<div class="fieldset">
+								<label translate>forms.label.email</label>
+								<div class="form-group">
+									<input type="email" class="form-control" formControlName="email"
+										placeholder="{{getTranslatedText('forms.placeholder.enter_your_email')}}" />
+									<display-field-error fieldName="email" [formControls]="formControls">
+									</display-field-error>
+								</div>
+							</div>
+							<div class="fieldset">
+								<label translate>forms.label.password</label>
+								<div class="form-group">
+									<input [type]="show ? 'text' : 'password'" class="form-control"
+										formControlName="password"
+										placeholder="{{getTranslatedText('forms.placeholder.enter_password')}}"
+										autocomplete="on" />
+									<span class="input-pwd" [ngClass]="(show) ? 'show': 'hide'"
+										(click)="show=!show"></span>
+									<display-field-error fieldName="password" [formControls]="formControls">
+									</display-field-error>
+								</div>
+							</div>
+							<div class="fieldset">
+								<div class="form-group forgot_txt">
+									<a
+										(click)="openForgotPasswordModal()">{{'links_text.forgot_password' | translate }}</a>
+								</div>
+							</div>
+							<div class="fieldset">
+								<div class="form-group">
+									<ngx-recaptcha2 *ngIf="showCaptcha && captchaVersion == 2" [siteKey]="siteKey"
+										formControlName="captcha"></ngx-recaptcha2>
+								</div>
+							</div>
+
+							<div class="form-group button-wrapper text-center">
+								<button type="submit" class="btn btn-md btn-primary text-uppercase">
+									{{'links_text.log_in' | translate }} <i class="ml-2"><img
+											src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+								</button>
+							</div>
+
+							<!-- <div class="form-group">
+								<div class="no_account text-center">
+									{{'text.no_account_yet' | translate}}
+									<a (click)="openSignUpModal()">{{'links_text.register_here' | translate }}</a>
+								</div>
+							</div> -->
+
+						</div>
+					</div>
+				</form>
+
+				<form *ngIf="step == STEPS.AMOUNT" class="form_screens login_form position-relative scroll"
+					[formGroup]="form2" (ngSubmit)="onSubmit()">
+					<div class="form-contents">
+						<div>
+							<div class="form-fields">
+								<div class="fieldset">
+									<label translate>forms.label.deposit
+										<!-- <span>({{'text.currency' | translate}})</span> -->
+									</label>
+									<div class="form-group">
+										<input formControlName="amount" min="0" type="number"
+											placeholder="{{currency}} 0" class="form-control" />
+									</div>
+								</div>
+								<div *ngIf="!(hideCashbackBonuses && hideBonuses)" class="fieldset mb-3">
+									<label>{{'title.promocode' | translate}}</label>
+									<div class="form-group mb-0">
+										<input type="text" [placeholder]="getTranslatedText('forms.placeholder.enter_promocode')" [(ngModel)]="promocode" 
+											[ngModelOptions]="{standalone: true}"  class="form-control" />
+											<div class="btn-join">
+												<button *ngIf="!promocodeFlag" (click)="promocodeCheck()" type="button"  height="none"  class="btn btn-md btn-primary mr-1 text-uppercase">{{'links_text.apply' | translate}}</button>
+												<button *ngIf="promocodeFlag" (click)="removePromo()" type="button" height="none" class="btn btn-md btn-primary mr-1 text-uppercase">Remove</button>
+											</div>
+									</div>
+									<div *ngIf="promocodeFlag" class="change-color text-center text-uppercase p-1">
+										{{ promocodeMsg }}
+									</div>
+								</div>
+							</div>
+
+							<!-- <ng-container *ngIf="!(hideCashbackBonuses && hideBonuses)" #bonusComponent></ng-container> -->
+						</div>
+
+						<div
+							class="button-wrapper d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center mt-3">
+							<button [disabled]="form2.invalid" (click)="stepSkip()"
+								class="btn btn-md btn-primary text-uppercase">
+								{{'links_text.select_payment_method' | translate }} <i class="ml-2"><img
+										src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+							</button>
+
+							<div class="skip_btn text-center text-sm-right text-uppercase"
+								(click)="stepSkip(STEPS.STATUS)"> {{'links_text.or_skip' | translate }} </div>
+						</div>
+						<a (click)="myProfile()" class="text_link text-center text-sm-left d-block pt-md-4 pb-4"
+							href="javascript:void(0);">{{'links_text.change_deposite_limits' | translate }}</a>
+					</div>
+
+				</form>
+
+				<form *ngIf="step==STEPS.PAYMENT_METHODS" class="form_screens login_form position-relative scroll"
+					[formGroup]="form2" (ngSubmit)="onSubmit()">
+					<div class="form-contents">
+						<span
+							class="depost_lable btn btn-sm btn-success">{{depositControls.amount.value || empty |currency:currency}}</span>
+						<h6 translate>forms.label.deposit</h6>
+						<hr />
+						<div class="payment_block">
+							<h6 class="mb-2" translate>forms.label.select_payment_method</h6>
+							<div *ngIf="(paymentMethods || []).length>0; else noPaymentMethods"
+								class="payment_method_select scroll">
+								<div *ngFor="let method of paymentMethods;let i=index" class="block-area"
+									(click)="checkDepositMethodFields(method)">
+									<div *ngIf="method.deposit">
+										<input type="radio" name="radio" />
+										<div class="p-block d-flex align-items-center justify-content-start">
+											<i><img [src]="getUrl(method,i)" width="45" alt="" /></i>
+											<span class="price_limit">{{'text.min' | translate}}.
+												{{method.deposit.min | currency:currency}}/{{'text.max' | translate}}.
+												{{method.deposit.max| currency:currency}}</span>
+											<svg width="26" height="13" viewBox="0 0 15 8" fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+												<path
+													d="M14.3536 4.35355C14.5488 4.15829 14.5488 3.84171 14.3536 3.64645L11.1716 0.464466C10.9763 0.269204 10.6597 0.269204 10.4645 0.464466C10.2692 0.659728 10.2692 0.976311 10.4645 1.17157L13.2929 4L10.4645 6.82843C10.2692 7.02369 10.2692 7.34027 10.4645 7.53553C10.6597 7.7308 10.9763 7.7308 11.1716 7.53553L14.3536 4.35355ZM0 4.5H14V3.5H0V4.5Z"
+													fill="#000" /></svg>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- Transaction screen -->
+						<div class="transaction_wait text-left">
+							<div *ngIf="invalidAmount" class="change-color text-center">
+								{{invalidAmountMessage}}
+							</div>
+							<i *ngIf="isProcessing" class="mb-2 d-block"><img src="assets/img/pay-loader.gif" width="56"
+									alt="" /></i>
+							<p *ngIf="isProcessing" translate>forms.notes.transaction_window_info</p>
+							<div
+								class="button-wrapper d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center mt-3">
+								<button type="button" (click)="checkDepositMethodFields(selectedPayment)"
+									[disabled]="!isProcessing" class="btn btn-md btn-primary text-uppercase">
+									{{'links_text.continue' | translate }} <i class="ml-2"><img
+											src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+								</button>
+								<div *ngIf="!isProcessing" class="skip_btn text-center text-sm-right text-uppercase"
+									(click)="stepSkip(STEPS.STATUS)" translate> links_text.or_skip </div>
+							</div>
+							<a (click)="myProfile()" class="text_link text-center text-md-left d-block py-4"
+								href="javascript:void(0);">{{'links_text.change_deposite_limits' | translate }}</a>
+						</div>
+					</div>
+
+				</form>
+
+
+				<form *ngIf="step == STEPS.PAYMENT_DETAILS" [formGroup]="depositForm"
+					class="form_screens login_form position-relative scroll" (ngSubmit)="submit()">
+					<div class="payment_block payment_card_forms" *ngIf="selectedMethodFields?.length>0;">
+						<div *ngFor="let item of selectedMethodFields" class="form-group">
+							<div *ngIf="item?.html_content" [innerHtml]="item?.html_content"></div>
+
+							<label>{{item.label | titlecase}}</label>
+							<div *ngIf="item?.type=='select'" class="input-group">
+								<select formControlName="{{item.field}}"
+									class="custom-select form-control input-fields">
+									<option value="" selected disabled>
+										{{item.placeholder}}
+									</option>
+									<option *ngFor="let option of item.options" [value]="option[0]">{{option[0].split('_').join(' ')}}</option>
+								</select>
+								<display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+								</display-field-error>
+							</div>
+							<div *ngIf="item?.type=='text'|| item.type=='card_holder'" class="input-group">
+								<input type="text" class="form-control" formControlName="{{item.field}}"
+									class="input-fields" />
+								<display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+								</display-field-error>
+							</div>
+							<div *ngIf="item?.type=='number'" class="input-group">
+								<div *ngIf="item.field=='amount'" class="input-group-prepend">
+									<span class="input-group-text">{{ currency| currencySymbol}}</span>
+								</div>
+								<input [type]="item.type" class="form-control" formControlName="{{item.field}}"
+									[min]='item?.validations?.min' [max]='item?.validations?.max' [step]='item?.step'
+									class="input-fields" />
+								<display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+								</display-field-error>
+							</div>
+							<div *ngIf="item?.type=='credit_card_number' ||item?.type=='cvv' " class="input-group">
+								<input [type]="'number'" class="form-control" formControlName="{{item.field}}"
+									class="input-fields" />
+								<display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+								</display-field-error>
+							</div>
+							<div *ngIf="item?.type=='crypto_address' ||item?.type=='cvv' " class="form-group">
+								<div><p class="message">Send {{item?.currency}} (plus miner fee) to</p><p class="bitcoin-address">{{item?.placeholder}}</p></div>
+								<a [href]="sanitize(item?.app_path)" target="_blank">
+									<qrcode [qrdata]="item?.placeholder" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+									</a>
+									<div>This is your private depositing address. Any transaction you make to this address will show up immediately in your balance.</div>
+									
+								<!-- <display-field-error fieldName="{{item.field}}" [formControls]="formControls">
+								</display-field-error> -->
+							</div>
+							<div *ngIf="item?.type=='card_expiry_date'" class="row">
+								<div class="col-md-6 col-sm-6">
+									<select formControlName="{{item.month}}" class="custom-select input-fields">
+										<option [value]="null" selected disabled>MM</option>
+										<option *ngFor="let month of range(1,12,1);" [value]="getTwoDigitNumber(month.toString())">{{getTwoDigitNumber(month.toString())}}</option>
+									</select>
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<select formControlName="{{item.year}}" class="custom-select input-fields">
+										<option [value]="null" selected disabled>YY</option>
+										<option *ngFor="let year of getExpiryYear(item)" [value]="year">{{year.toString().slice(-2)}}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div *ngIf="item?.type=='cascade_select'" class="row">
+								<div class="col-6">
+									<select #countrySelect formControlName="{{item.country}}" class="custom-select input-fields" (change)='onCountrySelected(countrySelect.value)'>
+										<!-- <option [value]="null" selected disabled>MM</option> -->
+										<option *ngFor="let country of item.values" [value]="country.value">{{country.name}}</option>
+									</select>
+								</div>
+								<div class="col-6">
+									<select formControlName="{{item.bank_code}}" class="custom-select input-fields">
+										<!-- <option [value]="null" selected disabled>YY</option> -->
+										<option *ngFor="let bank of getBankCodes(countrySelect.value,item.values)" [value]="bank[1]">{{bank[0]}}</option>
+									</select>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="btn-full">
+						<button [disabled]="form?.invalid" type="submit" class="btn btn-md btn-primary">
+							{{'links_text.deposit' | translate }} <i class="ml-2"><img
+									src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+						</button>
+					</div>
+					<a (click)="myProfile()" class="text_link text-center d-block py-2"
+						href="javascript:void(0);">{{'links_text.change_deposite_limits' | translate }}</a>
+				</form>
+
+				<div *ngIf="step==STEPS.STATUS" class="sucsessbg align-items-start justify-content-center d-flex"
+					[formGroup]="form" (ngSubmit)="onSubmit()">
+					<div class="form-contents">
+						<!-- Transaction screen -->
+						<div class="text-center">
+							<i class="d-block"><img src="assets/img/success_casino.svg" alt="" class="img-fluid" /></i>
+							<!-- <p>Your €150 deposit was successfull and you now got €300 to play with, <br />dont
+forget you got 15% cashback every Thursday!</p> -->
+							<p [innerHTML]="successMessage"></p>
+							<div class="text-center">
+								<button class="btn btn-lg btn-primary text-uppercase" (click)="startPlaying()">
+									{{'links_text.start_playing' | translate }} <i class="ml-2"><img
+											src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<ng-container>
+					<div class="deposit_success text-center" id="iframe-container"></div>
+				</ng-container>
+
+			</aside>
+		</div>
+	</div>
+
+</div>
+
+<ng-template #closePage>
+	<div class="signupForm"  *ngIf="currentCountry!='US'; else restrictedAccess" role="document">
+
+		<div class="modal-body">
+			<div class="singPupForm d-flex p-4 align-items-center">
+				<div class="cancel-confirm">
+					<div class="cancel-form w-100 text-center">
+						<h2 class="mb-4" translate>title.why_not_try_us</h2>
+						<p translate> text.new_quick_login </p>
+						<div class="btn-contain btn_column d-flex flex-column">
+							<button (click)="close('back')"
+								class="btn btn-md btn-primary">{{'links_text.back' | translate }}</button>
+							<button (click)="close('yes')"
+								class="btn btn-md btn-transparent">{{'links_text.close' | translate }}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</ng-template>
+<ng-template #noBonuses>
+	<div class="no-result text-center">
+		<span translate>text.no_bonuses_avaliable</span>
+	</div>
+</ng-template>
+<ng-template #noPaymentMethods>
+	<div class="no-result">
+		<span translate>text.no_pm_avaliable</span>
+	</div>
+</ng-template>
+<ng-template #restrictedAccess>
+	<div class="inner_bg align-items-center justify-content-center signupForm" role="document">    
+	  <div class="modal-body">
+	  <div class="error_not_Found">
+		  <hgroup>
+			  <h2>Cashback Casino</h2>
+			  <h1>403</h1>
+			  <h6>Forbidden</h6>
+		  </hgroup>
+		  <p>This internet site is not accepting visitors from your country.</p>
+		  <p><span>Should you have questions please contact us  at <a href="mailto:support@cashbackcasino.com">support@cashbackcasino.com</a></span></p>
+	  </div>
+  </div>
+  </div>
+  </ng-template>

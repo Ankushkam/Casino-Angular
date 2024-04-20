@@ -1,0 +1,90 @@
+<app-header [showProgressBar]="true"></app-header>
+
+<div class="game_screen">
+    <!-- Games Search Input -->
+    <app-game-search (playGame)="playSearchGame($event)" [allKeys]="allKeys" [allGames]="allGames"></app-game-search>
+
+    <div class="g_vh d-flex align-items-center">
+        <div class="container-fluid">
+
+            <div class="game_play">
+                <!-- <div class="game_hdr d-flex align-items-center justify-content-left justify-content-lg-center text-left text-lg-center">
+                    <h6>{{gameToPlay?.title}}
+                        <span>rtp 96.33 %</span>
+                    </h6>                    
+                </div> -->
+                <div class="game_controls">
+                    <a routerLink="." (click)="fullScreen()" class="full_screen"><img
+                            src="assets/img/icons/maximize_icon.svg" alt="" /></a>
+                    <a *ngIf="isLoggedIn" routerLink="." class="g_close" (click)="makeFavourite()"><i
+                            [ngClass]="{'fa fa-star': true, 'fav': isFavorite}"></i></a>
+                    <a routerLink="/" (click)="close()" class="g_close"><img src="assets/img/icons/g_close_icon.svg"
+                            alt="" /></a>
+                    <!-- <span class="game_timer">{{today | date:'h:mm'}}</span> -->
+                </div>
+                <div class="game_frame" *ngIf="gameToPlay;else empty">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" id="iframe" [src]="url | safe"></iframe>
+                    </div>
+                </div>
+                <div class="c-module-game-info u-margin-x--auto">
+                    <div
+                        class="o-flex--vertical o-flex--horizontal@tablet o-flex--horizontal@desktop o-flex--horizontal@xdesktop o-flex-align--auto o-flex-align--center@tablet o-flex-align--center@desktop o-flex-align--center@xdesktop o-flex-justify--normal">
+                        <div class="o-flex__block u-margin-top--none u-padding-x--md u-padding-x--none@tablet">
+                            <h1 data-test="game-title"
+                                class="u-font-lg u-padding-top--xlg u-padding-top--2xlg@desktop u-padding-bottom--lg u-padding-bottom--2xlg@desktop u-margin--none t-color-grey-90">
+                                {{title}}</h1>
+                        </div>
+                    </div>
+                    <div data-test="separation-line"
+                        class="t-border-bottom t-color-grey-5 u-margin-x--md u-margin-x--none@tablet t-border--md">
+                    </div>
+                    <div>{{description}}</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <app-games-slider [allGames]="allGames" [displayKeys]="displayKeys" (onPlayGame)="playGame($event)" *ngIf="displayKeys?.length>0"></app-games-slider> -->
+
+    <div *ngIf="isLoggedIn" class="game-section recent_games py-0" [ngClass]="displayTabs?'slide_div':null">
+        <!-- <div class="title text-center">
+            <h2>{{currentCategory.name}}</h2>
+        </div> -->
+        <div *ngIf="!ipad" class="container-fluid gaming-tabs" [ngClass]="!displayTabs?'active_remove':null">
+            <span class="game_timer"> <a href="javascript:void(0)" class="res_link" [routerLink]="'/responsible-gaming'">{{'links_text.responsible_gaming' | translate }}</a> {{today | date:'h:mm'}}</span>
+            <app-category-list [categories]="categories" (showTabs)="onShowTab($event)" [initCategory]="currentCategory"
+                [isGamePlay]="true" (onSelectCategory)="filter($event)"></app-category-list>
+            <div class="game_tab_group">
+                <app-games-slider *ngIf="currentCategory.id=='favGames'" [limit]="limit" [allGames]="allGames"
+                    [displayKeys]="displayKeys" (onPlayGame)="playGame($event)">
+                </app-games-slider>
+                <app-games-slider *ngIf="currentCategory.id=='recentGames'" [limit]="limit" [allGames]="allGames"
+                    [displayKeys]="displayKeys" (onPlayGame)="playGame($event)">
+                </app-games-slider>
+                <app-games-slider *ngIf="currentCategory.id=='newGames'" [limit]="limit" [allGames]="allGames"
+                    [displayKeys]="displayKeys" (onPlayGame)="playGame($event)">
+                </app-games-slider>
+                <app-games-slider *ngIf="currentCategory.id=='topGames'" [limit]="limit" [allGames]="allGames"
+                    [displayKeys]="displayKeys" (onPlayGame)="playGame($event)">
+                </app-games-slider>
+            </div>
+        </div>
+    </div><!-- End Game Screen -->
+    <!-- </div> -->
+    <ng-template #empty>
+        <div class="title text-center py-4">
+            <h6 class="m-0 pt-4" translate>text.no_games_avaliable</h6>
+        </div>
+    </ng-template>
+
+</div><!-- End Game Screen -->
+
+<app-game-footer></app-game-footer>
+
+<ng-template #empty>
+    <div class="title text-center py-4">
+        <h4 translate>text.no_games_avaliable</h4>
+    </div>
+</ng-template>

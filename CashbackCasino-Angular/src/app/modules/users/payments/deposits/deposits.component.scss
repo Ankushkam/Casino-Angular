@@ -1,0 +1,29 @@
+@import '../../../../../assets/css/base.scss';
+
+::ng-deep{
+    .modal-content{
+    background-color: $transparent!important;
+    }
+}
+.change-color {
+    color:$base-color;
+}
+.img-logo{
+    width:65px;
+}
+.rht_popup_bar .btn-md {
+    min-height: 0px!important;
+}
+
+::ng-deep{ 
+    #iframe-container {        
+        iframe {
+            height:calc(100% - 70px);
+            position: $absolute;
+            top: 61px;
+            left: 0;
+            border:0;
+            width:100%;
+        }
+    }
+}

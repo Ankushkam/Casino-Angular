@@ -1,0 +1,11 @@
+<aside class="form_lft_sidebar my_accounts">
+    <div class="sign_logo">
+        <span><img src="assets/img/logo.svg" width="167" alt="Cashback Casino"></span>
+    </div>
+
+    <div class="nav" role="tablist">
+        <li class="" *ngFor="let item of navigationItems" routerLinkActive="active">
+            <a routerLink="{{item.link}}"><i class="mr-3"><img src="{{item.icon}}"></i> {{item.name}}</a>
+        </li>
+    </div>
+</aside>

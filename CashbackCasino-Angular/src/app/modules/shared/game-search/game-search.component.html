@@ -1,0 +1,49 @@
+<div class="search-ganme-form">
+    <div class="search-form-inner">
+        <i class="prefix-icon"><img src="assets/img/icons/search_icon.svg" alt="" /></i>
+        <input (keyup)="onSearch($event)"
+            [placeholder]="placeholder" [(ngModel)]="searchValue" (mouseup)="detectSearchClear($event)" type="text" />
+        <i *ngIf="searchValue" class="suffix-icon cursorPointer" (click)="searchValue='';displayKeys=[];endIndex=limit"><img
+                src="assets/img/icons/close_black_icon.svg" alt="" /></i>
+    </div>
+    <div *ngIf="displayKeys?.length>0 || searchValue" class="overlay-bg"></div>
+    <!--   ; else empty -->
+    <div class="search-results fadeInDiv" *ngIf="displayKeys && displayKeys?.length>0">
+        <!-- <p class="d-flex align-items-center justify-content-center no-data" *ngIf="displayKeys?.length==0"> No Games
+            configured</p> -->
+        <h5 class="search-title">Check this out</h5>
+        <div id="scrolled" #scrolled class="search-results-card scroll">
+            <div class="game-block" *ngFor="let key of displayKeys">
+                <div class="game-body cursorPointer">
+                    <div class="" (click)="playSearchGame(key)">
+                        <figure class="m-0">
+                            <img src="{{getImageURL(key)}}" alt="" class="img-fluid" />
+                            <figcaption class="imageTextFont">{{allGames[key].title}}</figcaption>
+                        </figure>
+                        <!-- <div class="overlay_bg"></div> -->
+                        <!-- <div *ngIf="(width > 767) || (width <= 767 && displayPlayButtons==getFocus(game,i))" -->
+                        <!-- <div *ngIf="(width > 767)" class="g_ovelay text-center"> -->
+                        <!-- <h4>{{allGames[key].title}}</h4> -->
+                        <!-- <a (click)="playSearchGame(key)" class="btn-play text-uppercase d-flex align-items-center">
+                            <i><img src="assets/img/icons/play_icon.svg" alt="" /></i>
+                            <span>{{'links_text.play' | translate }}</span>
+                        </a> -->
+
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="game-block">
+                <div class="game-body">
+                    <div class="">
+                        <img src="https://www.casinofriday.com/uploads/games/CAF/booming_55f2dc09ba36f81816000001/booming_55f2dc09ba36f81816000001_casino.jpg"
+                            alt="Booming Seven" class="img-fluid">
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="search-results fadeInDiv" *ngIf="displayKeys?.length==0 && searchValue">
+        <p class="d-flex align-items-center justify-content-center no-data" *ngIf="displayKeys?.length==0" translate>text.no_games_found</p>
+    </div>
+</div>

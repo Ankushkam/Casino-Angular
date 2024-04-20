@@ -1,0 +1,16 @@
+<section id="faq" class="wow fadeInUp">
+  <div class="title text-center text-uppercase">
+    <h2 translate>title.faq</h2>
+  </div>
+
+  <ul id="faq-list">
+    <li *ngFor="let obj of faq; let i=index;" (click)="onSelect(i)">
+      <a class="title-faq d-flex justify-content-between collapsed" id="{{i+''}}" data-toggle="collapse" routerLink="." aria-expanded="true">{{obj.question}} <i><svg width="14" height="12" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1.5L4.5 5L8 1.5" stroke="#FFC400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></i></a>
+      <div id="{{'faq'+i}}" class="collapse" data-parent="#faq-list">
+        <div class="faq-content" [innerHTML]="obj.answer"></div>
+      </div>
+    </li>
+  </ul>
+
+</section>

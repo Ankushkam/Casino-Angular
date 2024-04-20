@@ -1,0 +1,39 @@
+<div class="row g_grids justify-content-center">
+  <ng-container *ngIf="displayKeys && displayKeys?.length>0; else empty">
+    <div class="col-md-3 col-sm-4 col-6" *ngFor="let key of displayKeys; let i=index;">
+      <!-- <div (click)="show(game,i)" tabindex="1" #game class="game_col position-relative"> -->
+      <div (click)="(width <= 767)?playGame(key):null" tabindex="1" #game class="game_col position-relative">
+
+        <!-- <div class="ribbon ribbon-top-left" *ngIf="limit > i && isNew"><span translate>links_text.new</span></div> -->
+
+        <figure class="m-0">
+          <img src="{{getImageURL(key)}}" alt="" class="img-fluid" />
+          <span *ngIf="isLive" class="live_tag">{{'title.live' | translate}}</span>
+          <!-- <figcaption>{{allGames[key].title}}</figcaption> -->
+        </figure>
+        <div class="overlay_bg"></div>
+        <a class="game__title" *ngIf="allGames[key]?.real[userCurrency]?.jackpot">{{'page_titles.jackpot' | translate}} {{allGames[key]?.real[userCurrency]?.jackpot | currency:userCurrency}}</a>
+        <!-- <div *ngIf="(width > 767) || (width <= 767 && displayPlayButtons==getFocus(game,i))" -->
+        <div *ngIf="(width > 767)" class="g_ovelay text-center">
+          <h4>{{allGames[key].title}}</h4>
+          <a (click)="playGame(key)" class="btn-play text-uppercase d-flex align-items-center">
+            <i><img src="assets/img/icons/play_icon.svg" alt="" /></i>
+            <span>{{'links_text.play' | translate }}</span>
+          </a>
+          <!-- <a *ngIf="!this.allGames[key]?.collections?.live && !this.allGames[key]?.collections['live:en'] && !this.allGames[key]?.collections['live:de'] && !this.allGames[key]?.collections['live:en-CA'] && !this.allGames[key]?.collections['live:fr'] && !this.allGames[key]?.collections['live:hi'] && !this.allGames[key]?.collections['live:hi-en'] && !this.allGames[key]?.collections['live:ja']  && !this.allGames[key]?.collections['live:no'] && !this.allGames[key]?.collections['live:pl']" -->
+          <a *ngIf="!isLive"
+            href="javascript:void(0)" (click)="playForFun(key)" translate>links_text.play_for_fun</a>
+            <!-- <a *ngIf="(this.allGames[key]?.collections?.live || this.allGames[key]?.collections['live:en'] || this.allGames[key]?.collections['live:de'] || this.allGames[key]?.collections['live:en-CA'] || this.allGames[key]?.collections['live:fr'] || this.allGames[key]?.collections['live:hi'] || this.allGames[key]?.collections['live:hi-en'] || this.allGames[key]?.collections['live:ja']  || this.allGames[key]?.collections['live:no'] || this.allGames[key]?.collections['live:pl'] ) && !isLoggedIn" -->
+            <a *ngIf="isLive && !isLoggedIn"
+            href="javascript:void(0)" translate>text.you_must_be_logged_in_to_play_this_game</a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+<ng-template #empty>
+  <div class="title text-center py-4">
+    <h4 translate>text.no_games_avaliable</h4>
+  </div>
+</ng-template>

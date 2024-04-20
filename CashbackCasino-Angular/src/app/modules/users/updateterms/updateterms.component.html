@@ -1,0 +1,119 @@
+<div class="signupForm update_terms" role="document">
+
+    <div class="modal-body">
+        <div class="singPupForm">
+            <div *ngIf="step==0" class="term_content scroll">
+                <div class="form_screens text-white">
+                    <h2 *ngIf="isPNPAllowed" class="text-center mt-4">{{'title.deposit_succesfull' | translate}}</h2>
+                    <div class="form-contents">
+                        <form [formGroup]="form">
+                            <div *ngFor="let field of missingFields; let i=index" class="form-fields">
+                                <div *ngIf="field=='terms_acceptance'">
+                                    <div [innerHtml]="data?.content"></div>
+                                </div>
+                            </div>
+
+                            <div class="sticky_box form-fields">
+                                <div class="term_form" *ngFor="let field of missingFields; let i=index">
+                                    <div *ngIf="field=='email'" class="form-group my-2">
+                                        <label>{{'forms.label.enter_you_email_to_confirm_account' | translate}}</label>
+                                        <button [disabled]="form?.invalid || !form?.value?.terms_acceptance"
+                                            class="btn btn-md btn-primary" (click)="continue()">{{'links_text.continue'|
+                                            translate}}</button>
+                                        <input class="input-fields" [formControlName]="field" />
+                                    </div>
+
+                                    <div *ngIf="field=='terms_acceptance'" class="form-group" style="margin-top:-15px;">
+                                        <div class="checkbox checkbox_form">
+                                            <input type="checkbox" formControlName="terms_acceptance" />
+                                            <span class="checkmark"></span>
+                                            {{'forms.label.accept_terms_conditions' | translate}}
+                                        </div>
+                                        <button *ngIf="keyCount==1"
+                                            [disabled]="form?.invalid || !form?.value?.terms_acceptance"
+                                            class="btn btn-md btn-primary position-static"
+                                            (click)="continue()">{{'links_text.continue'| translate}}</button>
+                                    </div>
+                                    <div *ngIf="field!=='email' && field!=='terms_acceptance'" class="form-group my-2">
+                                        <label *ngIf="field=='phoneNumber'">{{'forms.label.phone_number' |
+                                            translate}}</label>
+                                        <label *ngIf="field!=='phoneNumber'"
+                                            class="text-uppercase">{{field.split('_').join()}}</label>
+                                        <input class="input-fields" [formControlName]="field" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="step==1" class="sent_email w-100 d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center">
+                    <i class="mb-4 d-block"><img src="assets/img/icons/email_white_icon.svg" width="90" alt="" /></i>
+                    <h4 class="text-uppercase" translate>title.email_sent</h4>
+                    <p class="col-md-6 m-auto" translate>text.click_email_link_to_confirm_account_pnp</p>
+
+                    <div class="text-center btn_column mt-2">
+                        <button (click)="close()" class="btn btn-md btn-primary text-uppercase mt-2">
+                            {{'links_text.close' | translate }}
+                            <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" /></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="step==2" class="sent_email w-100 d-flex align-items-center justify-content-center">
+
+                <div class="w-80 text-center">
+                    <!-- <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff"></path>
+                        </svg>
+                    </button> -->
+                    <!-- <h4 class="text-uppercase" translate>forms.label.enter_phone_number</h4> -->
+                    <h4 class="text-uppercase" translate>text.almost_done</h4>
+                    
+                    <p class="col-md-10 m-auto" translate>forms.messages.verify_phone_number_to_start_playing</p>
+
+                    <form *ngIf="phoneForm" #f="ngForm" [formGroup]="phoneForm">
+                        <div class="btn_input">
+                            <ngx-intl-tel-input [preferredCountries]="preferredCountries"
+                                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectFirstCountry]="true" [selectedCountryISO]="selectedISO" [maxLength]="15"
+                                [phoneValidation]="true" [separateDialCode]="separateDialCode" name="mobile_phone"
+                                formControlName="mobile_phone">
+                            </ngx-intl-tel-input>
+                            <button [disabled]="phoneForm.controls?.mobile_phone?.invalid" (click)="updateContactNumber()" class="btn btn-md btn-primary text-uppercase">
+                                {{'links_text.continue' | translate }}
+                                <!-- <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" /></i> -->
+                            </button>
+                        </div>
+                        <div class="terms_up_chk">
+                            <!-- <div class="form-group"> -->
+                                <div class="checkbox checkbox_form" translate>
+                                    <input type="checkbox" [checked]="phoneForm?.controls?.receive_sms_promos?.value"
+                                        formControlName="receive_sms_promos" />
+                                    <span class="checkmark"></span>
+                                    text.allow_contacts_via_sms
+                                </div>
+                                <!-- <div class="checkbox checkbox_form" translate>
+                                    <input type="checkbox" [checked]="phoneForm?.controls?.receive_promos?.value"
+                                        formControlName="receive_promos" />
+                                    <span class="checkmark"></span>
+                                    text.allow_contacts_via_email
+                                </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+@import '../../../../assets/css/base.scss';
+
+.error_not_Found {
+    padding:30px;
+    text-align: $center;
+    max-width: 520px;
+    h2 {
+        font-size: $f20+8;
+        color:$base-color;
+    }
+    h1 {
+        font-size: $f50+30;
+        color: $base-color;
+        font-weight: $font-bolder;
+    }
+    p {
+        font-size: $f16;
+        font-weight: $font-bold;
+        span, a {
+            font-size: $f12+1;
+            line-height: 1.5;
+            display: $block;
+            font-weight: $font-regular;
+        }
+        a {
+            text-decoration: $underline;
+            &:hover {
+                color:$base-color;
+                font-weight: $font-regular;
+                text-decoration: $none;
+            }
+        }
+    }
+}

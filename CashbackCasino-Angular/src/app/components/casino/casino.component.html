@@ -1,0 +1,20 @@
+<app-header [showProgressBar]="false"></app-header>
+<!-- <div class="inner_banner"> -->
+<div class="inner_bg">
+  <div class="container-fluid">
+    <div class="page_title">
+      <div class="wrapper">
+        <div class="title text-center">
+          <h2>{{title}}</h2>
+         
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <section class="game-section">
+        <app-games [gameProviders]="gameProviders" [allGames]="allGames" [currentProvider]="provider"></app-games>
+      </section>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

@@ -1,0 +1,112 @@
+@import '../../../../assets/css/base.scss';
+
+.title_size{font-size: $f20!important;}
+
+.winner_items {
+    background: radial-gradient(121.83% 62.91% at 0% 37.09%, rgba(26, 225, 142, 0.1) 0%, rgba(26, 225, 142, 0) 100%), linear-gradient(180deg, #173121 0%, rgba(23, 40, 60, 0) 100%);
+    border: 1px solid #173121 !important;
+    -webkit-box-shadow: 0 5px 8px 0 rgba(0,0,0,.19);
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,.19);
+    @include border-radius (10px);
+    @include flexbox;
+    min-height: 112px;
+    margin-bottom: 21px;
+    @media (max-width:1280px){
+        @include align-items ($center);
+    }
+    &:hover {
+        .win_title {
+            color:$base-color;
+            border-bottom: 1px solid $base-color;
+        }
+    }
+}
+.win_pic {
+    max-width: 98px;
+    min-width: 98px;
+    width: 100%;
+    height:100%;
+    max-height: 100%;
+    overflow: hidden;
+    @include border-radius (10px 0 0 10px);
+    img {
+        height: 112px;
+        width: 100%;
+        object-fit: cover;
+        object-position:center;
+        -o-object-fit: cover;
+        -o-object-position: center;
+    }
+}
+.win-info-lft {
+    width:100%;
+    @include flex-direction (column-reverse);
+    @media (min-width: 1280px){
+        @include  flex-direction (row);
+    }
+}
+.win-info {
+    width: 100%;
+    display: $block;
+    padding: 0 10px 0 10px;
+    @media (min-width: 1280px) {
+        padding:20px 0 20px 30px;
+        min-width: 280px;
+        max-width: 280px;
+    }    
+    @media (min-width: 1440px) {
+        min-width: 32px;
+        max-width: 320px;
+    }
+}
+.win_title {
+    border-bottom: 1px solid $white-color;
+    color:$white-color;
+    display: $inline;
+    font-size: $f16+1;
+}
+.win_des {
+    color:$black-light-color;
+    font-size: $f12+2;
+    display: $block;
+    margin:5px 0 0;
+    span {
+        color: $base-color;
+    }
+}
+.wins-payout { 
+    font-size: $f20+1;
+    font-weight: $font-bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 24px;
+    letter-spacing: normal;
+    text-align: left;
+    color: inherit;
+    padding: 0 0 0 10px;
+    width:100%;
+    @media (min-width: 1280px){
+        padding: 0 30px 0 0;
+        text-align: right;
+    }
+}
+.wins-amount {
+    color: $base-color;
+    font-weight: $font-bold;
+}
+::ng-deep {
+    .winner_results{
+        // .slick-list {
+        //     @media (max-width:575px){
+        //         height:auto!important;
+        //     }
+        // }
+        slick-track {
+            display: flex !important;
+          }
+          
+          .slick-slide {
+            height: auto;
+          }
+    }
+}

@@ -1,0 +1,71 @@
+@import '../../../../assets/css/base.scss';
+
+.top-winners {
+    padding:40px 0;
+    @media (max-width:767px){
+        padding: 20px 0;
+    }
+}
+.top-3-winner {
+    background: url(src/assets/img/tournament/winner_bg.png)no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 100%;    
+    .top_winners_rank {  
+        width: 70%; 
+        margin:0 auto;
+        @media (min-width:1800px){
+            width:760px;
+        }
+        @media (max-width:1200px){
+            width: 80%; 
+        }
+        @media (max-width:820px){
+            width:100%;
+        }
+        .prize_inner {
+            width: calc((100% / 3) - 12px);
+            position: $relative;        
+            &:first-child {
+                order: 2;
+                width: 40%;
+            }
+            &:nth-child(2) {
+                order: 1;            
+            }
+            &:nth-child(3) {
+                order: 3;
+            }
+            figure {
+                margin:0 -10px;
+                text-align: center;
+                img {
+                    width:100%;
+                }
+            }
+            h6 {
+                font-weight: $font-bold;
+                margin:0;
+                font-size: $f30+6;
+                line-height: 48px;        
+                color: $base-color;
+                position: $absolute;
+                bottom: 17%;
+                width: 100%;
+                text-align: center;
+                padding-bottom: 10%;
+                @media (max-width:1440px) {
+                    font-size: $f20+6;
+                }
+                @media (max-width:767px) {
+                    font-size: $f24;
+                    line-height: $f24;
+                }
+                @media (max-width:575px) {
+                    font-size: $f16;
+                    line-height: $f16;
+                }
+            }
+        }
+    }
+}

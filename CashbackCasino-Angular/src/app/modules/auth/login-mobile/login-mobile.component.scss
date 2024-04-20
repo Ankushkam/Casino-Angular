@@ -1,0 +1,36 @@
+@import '../../../../assets/css/base.scss';
+::ng-deep{
+    .modal-content{
+      background-color: $transparent!important;
+    }
+}
+.login_mobile {
+    margin:20px auto;
+    padding:0 15px;
+    max-width: 400px;    
+    min-height: 520px;
+    .singPupForm {
+        height: initial;
+        .form_rht_sidebar {
+            @include border-radius (12px);
+            background:url(.../../../../../../assets/img/side_menu_bg.png)no-repeat; 
+            background-size:100% 101%;
+            height:initial;
+            margin-right:0;
+            .form_screens {
+                height: initial;
+                .fieldset {
+                    label{
+                        color:$white-color;
+                    }
+                }
+                .button-wrapper {
+                    margin-top: 20px;
+                }
+                .no_account {
+                    color:$white-color;    
+                }
+            }
+        }    
+    }
+}

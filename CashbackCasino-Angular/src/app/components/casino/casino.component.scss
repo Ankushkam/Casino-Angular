@@ -1,0 +1,24 @@
+@import '../../../assets/css/base.scss';
+
+.inner_banner {
+    background: url(src/assets/img/inner_banner.jpg) no-repeat;
+     
+}
+.page_title {
+    min-height:180px; 
+    @include flexbox;
+    @include align-items (center);
+    @media (min-width:1680px){
+        min-height:310px;
+    }
+    @media (max-width:1200px){
+        min-height: initial;
+        padding-top:40px;
+        padding-bottom:40px; 
+    }
+    h2 {
+        margin:0;
+        color:$base-color;
+        text-shadow: 0px 2px 16px rgba(255,196,0, .35);
+    }
+}

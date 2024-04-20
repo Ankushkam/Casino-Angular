@@ -1,0 +1,27 @@
+<div *ngIf="type!=='notification'; else notifications" [ngClass]="type=='head'?'counter':(type=='card'?'counter_head d-flex align-items-center':(type=='banner'?'counter_head':'mb-2'))">
+  <small *ngIf="status">{{statusText}}</small>  
+  <div id="clockdiv"> 
+      <div class="clock"> 
+      <span class="days" id="day">{{days| number : '2.0-0'}}</span> 
+      <div class="smalltext">{{'date.days' | translate}}</div> 
+      </div> 
+      <div class="clock"> 
+      <span class="hours" id="hour">{{hours| number : '2.0-0'}}</span> 
+      <div class="smalltext">{{'date.hours' | translate}}</div> 
+      </div> 
+      <div class="clock"> 
+      <span class="minutes" id="minute">{{minutes| number : '2.0-0'}}</span> 
+      <div class="smalltext">{{'date.minutes' | translate}}</div> 
+      </div> 
+      <div class="clock"> 
+      <span class="seconds" id="second">{{seconds | number : '2.0-0'}}</span> 
+      <div class="smalltext">{{'date.seconds' | translate}}</div> 
+      </div> 
+    </div> 					  
+  </div>
+
+  <ng-template #notifications>
+      <p>{{'text.promotion_ends_in' | translate}} {{days| number : '2.0-0'}} {{'date.days' | translate}} {{hours| number : '2.0-0'}} {{'date.hours' | translate}} {{minutes| number : '2.0-0'}} {{'date.minutes' | translate}}</p>
+  </ng-template>
+
+

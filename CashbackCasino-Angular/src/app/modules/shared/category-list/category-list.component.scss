@@ -1,0 +1,28 @@
+@import '../../../../assets/css/base.scss';
+
+.arrow_slide {
+    position:$absolute;
+    top:16px;
+    right:25px;
+    cursor: pointer;
+    i {
+        img {
+            filter: brightness(0) invert(1);
+            -webkit-filter: brightness(0) invert(1);
+            transition: all .5s ease-in-out;
+            -webkit-transition: all .5s ease-in-out;
+            transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+        }
+    }    
+}
+.slide_div {
+    .arrow_slide {
+        i {
+            img {
+                transform: $none;
+                -webkit-transform: $none;
+            }
+        }
+    }
+}

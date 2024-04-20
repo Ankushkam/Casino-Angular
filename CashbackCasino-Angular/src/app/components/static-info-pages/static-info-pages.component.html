@@ -1,0 +1,13 @@
+<app-header [showProgressBar]="false"></app-header>
+<div class="inner_bg">
+    <div class="container-fluid">
+        <div class="wrapper">
+            
+            <div class="policy-area">
+                <h2 class="page_header"><span class="pageheader_box">{{title}}</span></h2>
+                <div [innerHtml]="data?.content"></div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

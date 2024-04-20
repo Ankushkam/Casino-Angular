@@ -1,0 +1,10 @@
+<div [ngClass]="{'dropdown': true, 'show':show}" class="dropdown">
+  <button type="button" [ngClass]="{'dropdown-toggle btn-transparent':true, 'btnClass':true}" data-toggle="dropdown" (click)="onButtonClick()" (blur)="onButtonClick()">
+    {{btnText}}
+    <i class="{{iconClass}}" *ngIf="btnSrc"><img [src]="btnSrc" /></i>
+    <i class="{{iconClass}}" *ngIf="src"><img [src]="src" /></i>
+  </button>
+  <div [ngClass]="{'dropdown-menu': true, 'show':show}">
+    <a class="dropdown-item" *ngFor="let item of items"><i class="{{item.iconClass}}"><img src="{{item.src}}" alt="" /></i>{{item.value}}</a>
+  </div>
+</div>

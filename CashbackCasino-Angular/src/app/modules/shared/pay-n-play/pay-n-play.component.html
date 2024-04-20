@@ -1,0 +1,92 @@
+<div class="c_close" (click)="close()" *ngIf="closeButton && step==1">
+  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+      fill="white" />
+  </svg>
+</div>
+<div class="promotion_box text-center" [ngClass]="step==2?'trustly_pnp':null">  
+  <!-- <div *ngIf="step==1" class="pnp_btn text-right">
+    <button *ngIf="!mobile" class="btn btn-md btn-primary text-uppercase" data-toggle="modal"
+      (click)="type='login';step=2;">{{"links_text.login" | translate}}</button>
+  </div> -->
+  <ng-container *ngIf="step==1">
+    <h5>{{content?.title}}</h5>
+    <h1><img [src]="content?.img" class="img-fluid"></h1>
+    <h5>{{content?.pool}}</h5>
+    <div class="divider"><img src="assets/img/icons/divider-org.svg" class="img-fluid"></div>
+    <form *ngIf="type=='signup' || type=='deposit'" class="deposit_money" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="d-flex justify-content-center align-items-center select_money">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button (click)="minus()" type="button" class="btn btn-decrement"><svg viewBox="0 0 32 32"
+                fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M23 17.5H9v-3h14v3z"></path>
+              </svg></button>
+          </div>
+          <div (click)="selectAmount(value)" *ngFor="let value of amounts" class="price_block">
+            <input type="radio" value="{{value}}" [checked]="value==getValue()"
+              [ngModelOptions]="{standalone: true}" name="price" />
+            <label>{{value}}</label>
+          </div>
+          <div class="input-group-prepend">
+            <button type="button" (click)="plus()" class="btn btn-increment"><svg viewBox="0 0 32 32"
+                fill="currentColor">
+                <path d="M14.5 17.5V23h3v-5.5H23v-3h-5.5V9h-3v5.5H9v3h5.5z"></path>
+              </svg></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="price_group">
+        <!-- <input type="number" formControlName="amount" placeholder="{{getText('forms.label.your_amount_in')}} {{(formControls?.currency?.value)| currencySymbol }}" class="form-control" /> -->
+        <!-- <div class="input-group"> -->
+        <!-- <div class="input-group-prepend">
+            <button (click)="minus()" type="button" class="btn btn-decrement">-</button>
+          </div> -->
+        <input type="text" formControlName="amount" (blur)="onBlur($event)" placeholder="{{getText('forms.label.your_amount')}}"
+          class="form-control" />
+        <!-- <div class="input-group-prepend"><button type="button" (click)="plus()" class="btn btn-increment">+</button>-->
+
+        <!-- </div> -->
+
+        <!-- dropdown Currency <div class="btn btn-black">
+          <div class="dropdown">
+            <button type="button" class="dropdown-toggle btn-transparent" data-toggle="dropdown">
+              {{formControls.currency.value}}
+            </button>
+            <div class="dropdown-menu scroll">
+              <a (click)="selectCurrency(currency)" *ngFor="let currency of currenciesField?.options"
+                class="dropdown-item" href="javascript:void(0)">{{currency}}</a>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+      <!-- <button class="btn btn-lg btn-primary text-uppercase mt-3">{{'text.deposit_and_play' | translate}}</button> -->
+      <button class="btn btn-lg btn-primary text-uppercase mt-3">{{submitButton}}</button>
+    </form>
+    <div *ngIf="type=='login'" class="btn-wrap text-center" [ngClass]="hidePNP?'mt-3':null">
+      <div class="text-center">
+        <h3>{{'text.login_via_trustly'|translate}}</h3>
+        <p>{{'text.login_via_trustly_info_1'|translate}} <strong>{{'text.login_via_trustly_info_2'|translate}}</strong></p>
+      </div>
+      
+      <button (click)="selectLogin()" class="btn btn-lg btn-primary m-1 text-uppercase">{{'links_text.login' | translate}}</button>
+      <button (click)="selectSignup()" class="btn btn-lg btn-primary m-1 text-uppercase">{{'text.deposit_and_play' | translate}}</button>
+    </div>
+    <div class="trust_power">{{'links_text.powered_by_trustly' | translate}} 
+      <!-- <span>TRUSTLY</span> -->
+      <span class="d-inline-block"><img src="assets/img/front/trustly-logo1.svg" alt="Trustly"/></span>
+     </div>
+     <div *ngIf="type=='login'" class="text-center already_acount">
+      {{'text.got_existing_account' | translate}} 
+      <a (click)="selectLogin()">{{'links_text.login_here' | translate }}</a>      
+  </div>
+  </ng-container>
+  <ng-container *ngIf="step==2">
+    <div class="resp-container">
+      <iframe id="iframe" [src]="url | safe" style="left:0!important"></iframe>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,679 @@
+<div class="signupForm form_sgnup" *ngIf="!closeModal && registerStatus!='alreadyTaken' && currentCountry!='US' ;else closePage"
+  role="document">
+  <div class="modal-body">
+    <div class="singPupForm d-flex">
+      <aside #sideBar *ngIf="checkShowCase('left')" class="form_lft_sidebar"
+        [ngClass]="step==STEPS.EMAIL?'animated':'null'">
+        <app-button type="mobile_close" (click)="close()"></app-button>
+        <div class="sign_logo">
+          <span><img src="assets/img/logo.svg" width="167" alt="Cashback Casino"></span>
+        </div>
+
+        <ul class="form_steps">
+          <li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.EMAIL,-1)">
+            <div class="highlighter"></div>
+            <a class="link-active">
+              <div class="menu_txt" translate>
+                title.start_with_email
+              </div>
+              <div class="d-flex overlay notDone" (click)="stepMove(STEPS.EMAIL)">
+                <h6 translate>title.start_with_email
+                  <small translate>text.sign_up_take_60_seconds</small>
+                </h6>
+              </div>
+            </a>
+          </li>
+          <li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.PHONE_NUMBER,STEPS.PASSWORD-1)">
+            <div class="highlighter"></div>
+            <a class="link-active">
+              <div class="menu_txt" translate>
+                title.set_logins
+              </div>
+              <div class="align-items-center overlay notDone" (click)="stepMove(STEPS.PASSWORD)">
+                <h6 translate>title.set_logins
+                  <small translate>text.almost_done</small>
+                </h6>
+              </div>
+            </a>
+          </li>
+          <li class="d-flex align-items-start step" [ngClass]="stepClass(STEPS.AGREE_POLICIES,STEPS.PHONE_NUMBER-1)">
+            <div class="highlighter"></div>
+            <a class="link-active">
+              <div class="menu_txt" translate>
+                title.confirm_details
+              </div>
+              <div class="d-flex overlay notDone" (click)="stepMove(STEPS.NAME)">
+                <h6 translate>title.confirm_details
+                  <small>{{'text.a_couple_of_easy_questions' | translate}}</small>
+                </h6>
+              </div>
+            </a>
+          </li>
+          <li class="d-flex align-items-start step "
+            [ngClass]="stepClass(STEPS.GET_PHONE_VERIFICATION_CODE,STEPS.AGREE_POLICIES)">
+            <a class="link-active">
+              <div class="menu_txt" translate>text.login_and_collect_first_deposit_bonus</div>
+              <div class="d-flex overlay notDone" (click)="stepMove(STEPS.SUCCESS)">
+                <h6>{{'text.login_and_collect' | translate}}<br /> {{'text.first_deposit_bonus' | translate}}</h6>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <aside *ngIf="checkShowCase('right')" class="form_rht_sidebar">
+        <button *ngIf="step>STEPS.EMAIL && !openCountry" (click)="back()" class="btn-back btn-transparent">
+          <i><img src="assets/img/icons/back_icon.svg" alt="Cashback Casino" /></i>
+        </button>
+        <div *ngIf="step <= STEPS.DOB; else confirmHeader;">
+          <span class="sign_indicate" translate>text.sign_up_take_60_seconds</span>
+          <div class="form_header d-flex align-items-center justify-content-center">
+            <!-- <h5>{{SIGN UP TO CASHBACK CASINO}}</h5> -->
+            <h5>{{stepTitle}}</h5>
+            <button *ngIf="!openCountry" (click)="close()" type="button" class="close" data-dismiss="modal"
+              aria-label="Close">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                  fill="#ffffff" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <ng-template #confirmHeader>
+          <div class="form_header d-flex align-items-center justify-content-center">
+            <h5 translate>text.sign_up_take_60_seconds</h5>
+            <button *ngIf="!openCountry" type="button" (click)="close()" class="close" data-dismiss="modal"
+              aria-label="Close">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                  fill="white" />
+              </svg>
+            </button>
+          </div>
+        </ng-template>
+
+        <form class="form_screens" [formGroup]="form"
+          [ngClass]="step>STEPS.GET_PHONE_VERIFICATION_CODE?'success_regis':'null'">
+          <div class="form-contents">
+            <div class="form-fields">
+
+              <div [ngSwitch]="step" style="height:100%;">
+
+                <div *ngSwitchCase="STEPS.EMAIL" #inputParent>
+                  <h6 translate>title.start_with_email</h6>
+                  <div class="form-group">
+                    <input #input type="email" formControlName="email"
+                      placeholder="{{getTranslatedText('forms.placeholder.enter_your_email')}}" class="input-fields"
+                      [autofocus]="step==STEPS.EMAIL" />
+                    <label translate>forms.label.email</label>
+
+                  </div>
+                  <div class="fields-hints"
+                    [ngClass]="{'hide_div': controls.email.invalid, show_div:controls.email.valid}">
+                    <span #helper class="helper" translate>text.by_submitting_you_will_agree_on_express_registration <a
+                        (click)="openModal=!openModal" translate>links_text.terms</a></span>
+                    <span #helper class="helper register-manually" translate>text.you_can_also <a
+                        (click)="nextStep(step)" translate>links_text.register_manually</a></span>
+                  </div>
+
+                  <div [ngClass]="openModal?'show_div':'hide_div'" id="terms" class="country_modal terms_s_modal">
+                    <div class="country_header d-flex align-items-center justify-content-center position-rel">
+                      <h5 translate>title.important_information</h5>
+                      <div (click)="openModal=!openModal" class="c_close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="static_content p-4 scroll">
+                      <!-- <h4 translate>text.registration_processing_note_1</h4>
+                      <p translate>text.registration_processing_note_2</p>
+                      <p translate>text.registration_processing_note_3</p>
+                      <p translate>text.registration_processing_note_4</p> -->
+                      <div [innerHTML]="htmlContent?.termsConditions?.content"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngSwitchCase="STEPS.PASSWORD" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.set_logins</h6>
+                  <div class="form-group">
+                    <input #input (ngModelChange)="checkPasswordValidation($event)" [type]="show ? 'text' : 'password'"
+                      formControlName="password" placeholder="{{getTranslatedText('forms.placeholder.set_password')}}"
+                      class="input-fields" [autofocus]="step==STEPS.PASSWORD" autocomplete="on" />
+                    <label translate>forms.label.password</label>
+                    <span class="input-pwd" [ngClass]="(!show)?'hide':'show'" (click)="show=!show"></span>
+                  </div>
+                  <p *ngIf="form.hasError('passwordMatching')" class="iden_error">{{'text.email_identical_to_pass' | translate}}</p> 
+
+                  <strength-meter [value]="form.value.password" (measure)="onPasswordStrengthChanged($event)">
+                  </strength-meter>
+                  <div #helper class="helper mt-0"
+                    [ngClass]="{'hide_div': controls.password.valid, show_div:controls.password.invalid}">
+                    <ul class="pwd_list list-unstyled">
+                      <li [ngClass]="!hasMinLength?'fadeInDiv':'animatedHideHint'">8+ {{'text.characters' | translate}}
+                      </li>
+                      <li [ngClass]="!alphabetExists?'fadeInDiv':'animatedHideHint'">1+ {{'text.letters' | translate}}
+                      </li>
+                      <li [ngClass]="!digitExists?'fadeInDiv':'animatedHideHint'">1+ {{'text.numbers' | translate}}</li>
+                      <li [ngClass]="!specialCharExists?'fadeInDiv':'animatedHideHint'"
+                        [innerHTML]="specialCharsVaidation"></li>
+                    </ul>
+                  </div>
+
+                </div>
+                <div *ngSwitchCase="STEPS.CURRENCY" #inputParent>
+                  <h6 translate>title.set_logins</h6>
+                  <div class="confirm-details">
+                    <!-- <h6 translate>title.confirm_details</h6> -->
+                    <div class="form-group">
+                      <div (click)="hideProvinces=!hideProvinces" class="w-100">
+                        <span value="Currency" class="select_form input-fields">{{controls.currency.value ||
+                          getTranslatedText('forms.placeholder.select_currency')}}
+                          <i><img src="assets/img/icons/arw_down.svg" alt="" /></i></span>
+                        <label>{{controls.currency.value ||
+                          getTranslatedText('forms.placeholder.select_currency')}}</label>
+                        <input #input type="text" [autofocus]="step==STEPS.CURRENCY" style="opacity:0;" />
+                      </div>
+                    </div>
+                    <div [ngClass]="hideProvinces?'hide_div':'show_div'" class="select_scrollable">
+                      <div class="select_list active scrollable">
+                        <ul class="list-unstyled scroll">
+                          <li (click)="selectCurrency(currency.code);" *ngFor="let currency of currencies">
+                            <span>{{currency.code}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngSwitchCase="STEPS.PHONE_NUMBER" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.set_logins</h6>
+                  <div class="form-group">
+                    <input #input type="text" formControlName="phoneNumber" (keypress)="numberOnly($event)"
+                      placeholder="{{getTranslatedText('forms.placeholder.enter_mobile_number')}}" class="input-fields"
+                      [autofocus]="step==STEPS.PHONE_NUMBER" />
+                    <label translate>forms.label.mob_no</label>
+                  </div>
+                  <span #helper class="helper mt-0">{{'forms.label.example' | translate}}: 0701234567</span>
+                </div>
+
+                <div *ngSwitchCase="STEPS.NAME" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div class="form-group">
+                    <input (keypress)="alphabetFilter($event)" type="text" formControlName="name"
+                      placeholder="{{getTranslatedText('forms.placeholder.enter_name')}}" class="input-fields"
+                      [autofocus]="step==STEPS.NAME" />
+                    <label translate>forms.label.full_name</label>
+                  </div>
+                  <span #helper class="helper mt-0" translate>text.full_name_same_as_your_official_documents</span>
+                </div>
+
+                <div *ngSwitchCase="STEPS.COUNTRY_AND_POSTAL" class="fadeInDiv" #inputParent>
+                  <div [ngClass]="!openCountry?'show_div':'hide_div'" (keyup.enter)="nextStep(step)">
+                    <h6 translate>title.confirm_details</h6>
+                    <div *ngIf="!showAddressField" class="form-group">
+                      <input (keyup.arrowdown)="openCountry=true" #input type="text" formControlName="postalCode"
+                        placeholder="{{getTranslatedText('forms.placeholder.enter_postcode')}}" class="input-fields"
+                        [autofocus]="step==STEPS.COUNTRY_AND_POSTAL" />
+                      <label translate>forms.label.enter_postcode</label>
+                    </div>
+                    <div *ngIf="showAddressField" class="form-group">
+                      <input ngx-google-places-autocomplete [(ngModel)]="formattedaddress" [ngModelOptions]="{standalone: true}" name="location" #placesRef="ngx-places" id="autocomplete" [options]='options' (onAddressChange)="AddressChange($event)" class="input-fields" />
+                      <label>{{ formattedaddress }} </label>
+                    </div>
+                    <!-- <div *ngIf="controls.country.value" #helper class="helper mt-2 text-right">
+                      <a (click)="doNotRemember()" class="not-rem" translate>links_text.dont_remember</a>
+                    </div> -->
+                    <div (click)="openCountry=!openCountry" class="select_contry">
+                      <span>{{controls.country?.value?.name ||
+                        getTranslatedText('forms.placeholder.select_country')}}<i><img
+                            src="assets/img/icons/arw_down.svg" alt="" /></i></span>
+                    </div>
+                  </div>
+                  <div [ngClass]="openCountry?'show_div':'hide_div'" id="country" class="country_modal">
+                    <div class="country_header d-flex align-items-center justify-content-center position-rel">
+                      <h5 translate>title.where_you_live</h5>
+                      <div (click)="openCountry=!openCountry" class="c_close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="country_list">
+
+                      <ul *ngIf="mobile" class="top-countries list-unstyled scroll">
+                        <li [ngClass]="{active: i===arrowkeyLocation}" [class.active]="i == arrowkeyLocation"
+                          (click)="selectCountry(country)" *ngFor="let country of countries;let i=index;" tabindex="0">
+                          <span class="flag flag-icon flag-icon-squared flag-icon-is"></span>
+                          {{country.name}}
+                        </li>
+                      </ul>
+                      <div *ngIf="!mobile">
+                        {{ container.focus()}}
+                        <select #container class="top-countries list-unstyled scroll" autofocus size="11">
+                          <option *ngFor="let country of countries;let i=index;" (click)="selectCountry(country)"
+                            value="{{country?.name}}"><span class="flag flag-icon flag-icon-squared flag-icon-is"></span>
+                            {{country.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngSwitchCase="STEPS.CITY" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div class="form-group">
+                    <input #input type="text" formControlName="city"
+                      placeholder="{{getTranslatedText('forms.placeholder.enter_city')}}" class="input-fields"
+                      [autofocus]="step==STEPS.CITY" />
+                    <label translate>forms.label.city</label>
+                  </div>
+                  <span #helper class="helper mt-0">
+                    <span class="seleted_label">{{controls.postalCode.value|| formattedaddress}}</span>
+                  </span>
+                </div>
+
+                <div *ngSwitchCase="STEPS.STREET_NAME" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div *ngIf="streets?.length==0 || isOtherStreet" class="form-group">
+                    <input #input type="text" formControlName="street"
+                      placeholder="{{getTranslatedText('forms.placeholder.enter_street_name')}}" class="input-fields"
+                      [autofocus]="step==STEPS.STREET_NAME" />
+                    <label translate>forms.label.street_name</label>
+                  </div>
+
+                  <div *ngIf="streets?.length>0 && !isOtherStreet" class="form-group">
+                    <div class="w-100">
+                      <!-- <span (click)="showStreets=!showStreets" *ngIf="!controls.street.value" class="select_form input-fields" translate>forms.label.street_name
+                        <i><img src="assets/img/icons/arw_down.svg" alt="" /></i></span> -->
+                        <span class="select_form input-fields"> 
+                          <input #input type="text" formControlName="street" (click)="showStreets=false"
+                          placeholder="{{getTranslatedText('forms.placeholder.enter_street_name')}}" class="input-fields"
+                          [autofocus]="step==STEPS.STREET_NAME" />
+                          <i (click)="showStreets=!showStreets" ><img src="assets/img/icons/arw_down.svg" alt="" /></i></span>
+                      <label translate>forms.label.street_name</label>
+                      <input #input type="text" [autofocus]="step==STEPS.STREET_NAME" style="opacity:0;" />
+                    </div>
+                  </div>
+                  <div [ngClass]="!showStreets?'hide_div':'show_div'" class="select_scrollable">
+                    <div class="select_list active scrollable">
+                      <ul class="list-unstyled scroll">
+                        <li (click)="selectStreet(street.formatted_address);" *ngFor="let street of streets">
+                          <span>{{street.formatted_address || controls.street.value }}</span>
+                        </li>
+                        <li (click)="enterStreetName();">
+                          <span translate>title.others</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <span #helper class="helper mt-0">
+                    <span class="seleted_label">{{controls.postalCode.value || formattedaddress}} {{controls.city.value}}</span>
+                  </span>
+                </div>
+
+                <!-- <div *ngSwitchCase="STEPS.HOUSE_NUMBER" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div class="form-group">
+                    <input #input type="text" formControlName="houseNumber"
+                      placeholder="{{getTranslatedText('forms.placeholder.enter_house_number')}}" class="input-fields"
+                      autofocus />
+                    <label translate>forms.label.house_number</label>
+                  </div>
+                  <span #helper class="helper mt-0">
+                    <span class="seleted_label">{{controls.postalCode.value}} {{controls.city.value}}
+                      {{controls.street.value}}</span>
+                  </span>
+                </div> -->
+
+                <div *ngSwitchCase="STEPS.GENDER" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div class="select_gender">
+                    <label translate>forms.label.select_gender</label>
+                    <ul class="list-unstyled">
+                      <li>
+                        <input type="radio" id="male" name="gender" formControlName="gender" value="m">
+                        <span for="male" translate>forms.label.male</span>
+                      </li>
+                      <li>
+                        <input type="radio" id="female" name="gender" formControlName="gender" value="f">
+                        <span for="female" translate>forms.label.female</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!--  Province Step                  
+                  div *ngSwitchCase="STEPS.PROVINCE" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div class="form-group">
+                    <div (click)="hideProvinces=!hideProvinces" class="w-100">
+                      <span value="Province"
+                        class="select_form input-fields">{{controls.province.value || provincePlaceholder}} <i><img
+                            src="assets/img/icons/arw_down.svg" alt="" /></i></span>
+                      <label>{{controls.province.value || provincePlaceholder}}</label>
+                      <input #input type="text" [autofocus]="step==STEPS.PROVINCE" style="opacity:0;" />
+                    </div>
+                  </div>
+                  <div [ngClass]="hideProvinces?'hide_div':'show_div'" class="select_scrollable">
+                    <div class="select_list active scrollable">
+                      <ul class="list-unstyled">
+                        <li (click)="selectProvince(province);" *ngFor="let province of provinces">
+                          <span>{{province}}</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div *ngSwitchCase="STEPS.DOB" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+
+                  <div formGroupName="dob" class="d-flex">
+                    <div class="dob-input">
+                      <div class="form-group">
+                        <input #date type="text" [ngClass]="invalidDate && dobControls.dd.invalid?'change-color':''"
+                          (keypress)="dateInputFilter($event,2,1,'dd',month,31,'mm')" formControlName="dd"
+                          placeholder="{{getTranslatedText('date.dd')}}" class="input-fields"
+                          [autofocus]="step==STEPS.DOB" />
+                        <label translate>forms.label.dd</label>
+                      </div>
+                    </div>
+                    <div class="dob-input">
+                      <div class="form-group">
+                        <input (keydown.backspace)="onBackspaceKeydown($event,'mm',date)"
+                          [disableControl]="dobControls.dd.invalid" #month type="text"
+                          (keypress)="dateInputFilter($event,2,1,'mm',year,12,'yy')"
+                          [ngClass]="invalidDate && dobControls.mm.invalid?'change-color':''" formControlName="mm"
+                          placeholder="{{getTranslatedText('date.mm')}}" class="input-fields" />
+                        <label translate>forms.label.mm</label>
+                      </div>
+                    </div>
+                    <div class="dob-input">
+                      <div class="form-group">
+                        <input (keyup.enter)="nextStep(step)" #year
+                          (keydown.backspace)="onBackspaceKeydown($event,'yy',month)"
+                          [disableControl]="dobControls.mm.invalid || dobControls.dd.invalid" type="text"
+                          [ngClass]="invalidDate && dobControls.yy.invalid?'change-color':''"
+                          (keypress)="dateInputFilter($event,2,2,'yy')" formControlName="yy"
+                          placeholder="{{getTranslatedText('date.yy')}}" class="input-fields" />
+                        <label translate>forms.label.yy</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <span #helper class="helper mt-0">
+                    <span class="seleted_label" translate>forms.error.format_dmy</span>
+                  </span>
+                  <div *ngIf="invalidDate" class="change-color" translate>
+                    forms.error.reconfirm_date_value
+                  </div>
+                  <div *ngIf="!isEighteen" class="change-color" translate>
+                    forms.error.confirm_age_18
+                  </div>
+                </div>
+                <div *ngSwitchCase="STEPS.RECIEVE_SMS" class="fadeInDiv" #inputParent>
+                  <div class="confirm-details">
+                    <h6 translate>title.confirm_details</h6>
+                    <div class="c-detail c-detail1">
+                      <p>{{'text.recieve_sms_and_promo_acceptance'| translate}}</p>
+                      <!-- <span>You can also <a (click)="nextStep(step)">register manually.</a></span> -->
+                    </div>
+                    <div class="btn-contain btn-confirm d-flex">
+                      <button class="btn btn-md btn-cancel" (click)="sendSms(false)">{{'links_text.no' | translate
+                        }}</button>
+                      <button class="btn btn-md btn-primary" (click)="sendSms(true)">{{'links_text.yes' | translate
+                        }}</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngSwitchCase="STEPS.AGREE_POLICIES" #inputParent>
+                  <div class="confirm-details">
+                    <h6 translate>title.confirm_details</h6>
+                    <div class="c-detail c-detail2">
+                      <h6>{{'text.agree_conditions' | translate}}</h6>
+                      <ul class="list-unstyled s_list">
+                        <li>{{'text.i_am_18_years_old' | translate}}</li>
+                        <li>{{'links_text.terms_and_conditions' |translate}}, <a
+                            (click)="openModal=!openModal;showContent=htmlContent?.termsConditions?.content">{{'links_text.read_more'
+                            |translate}}</a>
+                        </li>
+                        <li>{{'links_text.privacy_policy' | translate}}, <a
+                            (click)="openModal=!openModal;showContent=htmlContent?.privacypolicy?.content">{{'links_text.read_more'
+                            |translate}}</a>
+                        </li>
+                        <li>{{'links_text.cookie_policy' | translate}}, <a
+                            (click)="openModal=!openModal;showContent=htmlContent?.cookiePolicy?.content">{{'links_text.read_more'
+                            |translate}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="btn-contain btn-confirm d-flex">
+                      <button class="btn btn-md btn-cancel" (click)="termsAcceptance(false)">{{'links_text.no' |
+                        translate }}</button>
+                      <button class="btn btn-md btn-primary" (click)="termsAcceptance(true)">{{'links_text.yes' |
+                        translate }}</button>
+                    </div>
+
+                    <div [ngClass]="openModal?'show_div':'hide_div'" id="terms" class="country_modal terms_s_modal">
+                      <div class="country_header d-flex align-items-center justify-content-center position-rel">
+                        <h5 translate>title.important_information</h5>
+                        <div (click)="openModal=!openModal" class="c_close">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                              fill="white" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="static_content p-4 scroll">
+                        <div [innerHtml]="showContent"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngSwitchCase="STEPS.GET_PHONE_VERIFICATION_CODE" class="fadeInDiv" #inputParent>
+                  <div class="confirm-details">
+                    <h6 translate>title.confirm_details</h6>
+                    <div class="c-detail v-code">
+                      <h5 translate>text.are_you_sure_contact_number_is_correct</h5>
+                      <i class="d-block cnf_icon"><img src="assets/img/icons/confirm_icon.svg" alt="" /></i>
+                      <h6>{{'text.verify' | translate}} {{controls?.phoneNumber?.value}} <a
+                          (click)="editContact()" translate>links_text.edit</a></h6>
+                      <!-- <span translate>text.send_code</span> -->
+                    </div>
+                    <div class="btn-contain btn-confirm d-flex">
+                      <button class="btn btn-md btn-cancel" (click)="editContact()">{{'text.no_i_want_to_edit' |
+                        translate}}</button>
+                      <button class="btn btn-md btn-primary" (click)="validateCode()">{{'text.yes_i_am_sure' |
+                        translate}}</button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- <div *ngSwitchCase="STEPS.GET_PHONE_VERIFICATION_CODE" class="fadeInDiv" #inputParent>
+                  <div class="confirm-details">
+                    <h6 translate>title.confirm_details</h6>
+                    <div class="c-detail v-code">
+                      <i class="d-block cnf_icon"><img src="assets/img/icons/confirm_icon.svg" alt="" /></i>
+                      <h6>{{'text.verify' | translate}} {{getCountryCode()}} {{controls.phoneNumber.value}} <a (click)="editContact()" translate>links_text.edit</a></h6>
+                      <span translate>text.send_code</span>
+                    </div>
+                    <div class="button-wrapper btn-contain">
+                      <button (click)="getCode()" class="btn btn-md btn-primary">{{'links_text.get_code' | translate }} <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i></button>
+                    </div>
+                  </div>
+                </div> -->
+
+                <!-- <div *ngSwitchCase="STEPS.GENERATING_CODE" class="fadeInDiv" #inputParent>
+                  <div class="confirm-details text-center">
+                    <div class="otp_verify w-100">
+                      <i class="d-block cnf_icon"><img src="assets/img/icons/password_send_icon.svg" alt="" /></i>
+                      <span translate>text.generating_code</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngSwitchCase="STEPS.VALIDATE_CODE" class="fadeInDiv" #inputParent>
+                  <h6 translate>title.confirm_details</h6>
+                  <div class="form-group">
+                    <input #input type="text" placeholder="Enter activation code" class="input-fields"
+                      [autofocus]="step==STEPS.VALIDATE_CODE" />
+                    <label translate>forms.label.activation_code</label>
+                  </div>
+                  <span #helper class="helper">
+                    <span class="seleted_label" translate>text.sent_code_to_mobile_number</span>
+                    <a (click)="resendCode()" class="send_code disabled" translate>links_text.send_new_code</a>
+                  </span>
+
+                  <div *ngIf="!mobile" class="button-wrapper">
+                    <button (click)="validateCode()" class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                      {{'links_text.press_enter' | translate }} <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+                    </button>
+                  </div>
+                  <div *ngIf="mobile">
+                    <div class="btn_mob">
+                      <button #nextButton type="button" class="btn btn-primary" (click)="validateCode()">
+                        <i><img src="assets/img/icons/next_icon.svg" alt="" /></i>
+                      </button>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div *ngSwitchDefault class="fadeInDiv" #inputParent
+                  class="sucsessbg success_reg align-items-center justify-content-center d-flex">
+                  <div *ngIf="registerStatus=='success'" class="text-center">
+                    <i><img src="assets/img/success_casino.svg" alt="" class="img-fluid" /></i>
+                    <h3 class="m-0" translate>title.successful_registration</h3>
+                    <div class="mt-3">
+                      <button (click)="gotoLogin()" class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                        {{'links_text.login_now' | translate }}<i class="ml-2"><img
+                            src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div *ngIf="mobile">
+              <div class="btn_mob"
+                *ngIf="(step <= STEPS.DOB && !form.invalid) && (!openCountry && !invalidDate && isEighteen) && step!==STEPS.PROVINCE; else slider">
+                <button #nextButton type="submit" class="btn btn-primary" (click)="nextStep(step)">
+                  <!-- <i><img src="assets/img/icons/next_icon.svg" alt="" /></i> -->
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="!mobile">
+              <div
+                *ngIf="(step <= STEPS.DOB && !form.invalid) && (!openCountry && !invalidDate && isEighteen) && step!==STEPS.PROVINCE && !showStreets; else slider"
+                class="button-wrapper">
+                <button #nextButton class="btn btn-md btn-primary text-uppercase" tabindex="0" (click)="nextStep(step)">
+                  <span>{{'links_text.continue' | translate }}</span> <i class="ml-2"><img
+                      src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+                </button>
+              </div>
+            </div>
+            <ng-template #slider>
+              <div *ngIf="((step <= STEPS.DOB && !form.invalid) && step==STEPS.PROVINCE && hideProvinces) && !mobile"
+                class="button-wrapper">
+                <button #nextButton class="btn btn-md btn-primary text-uppercase" tabindex="0" (click)="nextStep(step)">
+                  <span> {{'links_text.continue' | translate }}</span> <i class="ml-2"><img
+                      src="assets/img/icons/arrow-right_icon.svg" width="20" alt="" /></i>
+                </button>
+              </div>
+
+              <div class="btn_mob"
+                *ngIf="((step <= STEPS.DOB && !form.invalid) && step==STEPS.PROVINCE && hideProvinces) && mobile">
+                <button #nextButton type="submit" class="btn btn-primary" (click)="nextStep(step)">
+                  <!-- <i><img src="assets/img/icons/next_icon.svg" alt="" /></i> -->
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </form>
+
+        <!-- <ul *ngIf="step < 11" class="d-flex justify-content-center dots w-100">
+          <span *ngFor="let item of [].constructor(11); let i = index">
+            <li (click)="goToStep(i)" [ngClass]="{'active':(i+1)==step}"><span>{{item}}</span></li>
+          </span>
+        </ul> -->
+
+        <div *ngIf="(step<=STEPS.DOB || step==STEPS.VALIDATE_CODE) && !openCountry && !showStreets" class="keyboard_mob"
+          (click)="focusInput()">
+          <span></span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<ng-template #closePage>
+  <div *ngIf="closeModal;else alreadyExists;" class="signupForm" role="document">
+    <div class="modal-body">
+      <div class="singPupForm d-flex p-4 align-items-center">
+        <div class="cancel-confirm">
+          <div class="cancel-form w-100 text-center">
+            <h2 class="mb-4" translate>title.why_not_try_us</h2>
+            <p translate>text.new_quick_signup</p>
+            <div class="btn-contain btn_column d-flex flex-column">
+              <button (click)="close('back')" class="btn btn-md btn-primary">{{'links_text.back' | translate }}</button>
+              <button (click)="close('yes')" class="btn btn-md btn-transparent">{{'links_text.close' | translate
+                }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #alreadyExists>
+  <div class="signupForm"  *ngIf="currentCountry!='US'; else restrictedAccess" role="document">
+    <div class="modal-body">
+      <div class="singPupForm d-flex p-4 align-items-center">
+        <div class="cancel-confirm">
+          <div class="cancel-form w-100 text-center">
+            <h2 class="mb-4" translate>title.seems_like_already_account</h2>
+            <p translate>text.just_click_login_btn_and <br />
+              text.then_forgot_pw_or<br />
+              text.contact_us_we_help_you
+            </p>
+            <div class="btn-contain btn_column d-flex flex-column">
+              <button (click)="gotoLogin()" class="btn btn-md btn-primary">{{'links_text.login' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #restrictedAccess>
+  <div class="inner_bg align-items-center justify-content-center signupForm" role="document">    
+    <div class="modal-body">
+    <div class="error_not_Found">
+      <div>
+        <h2>Cashback Casino</h2>
+        <h1>403</h1>
+        <h6>Forbidden</h6>
+      </div>
+      <p>This internet site is not accepting visitors from your country.</p>
+      <p><span>Should you have questions please contact us  at <a href="mailto:support@cashbackcasino.com">support@cashbackcasino.com</a></span></p>
+    </div>
+  </div>
+  </div>
+  </ng-template>

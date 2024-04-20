@@ -1,0 +1,22 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 170 170"
+>
+  <path
+    fill="currentColor"
+    d="m46.371652,155.01842c-40.225,0 -42.158,-140 0,-140s108.154,45 108.154,70s-67.929,70 -108.154,70zm13.704,-37.333c12.873,0 52.39,-23.52 52.39,-32.667c0,-9.147 -37.262,-32.667 -52.39,-32.667c-15.127,0 -12.872,65.334 0,65.334z"
+  >
+    <animateTransform
+      attributeName="transform"
+      calcMode="spline"
+      type="rotate"
+      from="0 77 85"
+      to="1080 77 85"
+      values="0 77 85; 360 77 85; 1080 77 85"
+      keyTimes="0; 0.5; 1"
+      keySplines=".39 0.575 0.565 1; .39 0.575 0.565 1"
+      dur="1.8s"
+      repeatCount="indefinite"
+    />
+  </path>
+</svg>

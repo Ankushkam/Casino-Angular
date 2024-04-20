@@ -1,0 +1,30 @@
+<ng-container *ngIf="displayKeys?.length; else empty">
+  <div class="game_slick_slider">
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="{slidesToShow:limit, slidesToScroll: 1}">
+      <div class="" ngxSlickItem *ngFor="let key of displayKeys; let i=index;" >
+        <div (click)="(width <= 767) ? playGame(key):null;" class="game_col position-relative">
+          <figure class="m-0">
+            <img src="{{getImageURL(key)}}" alt="" class="img-fluid" />
+            <!-- {{JSON.stringify(allGames[key])}} -->
+            <!-- <figcaption>{{allGames[key]?.title}}</figcaption> -->
+          </figure>
+          <div class="overlay_bg"></div>
+          <div class="g_ovelay text-center">
+            <h4>{{allGames[key]?.title}}</h4>
+            <a (click)="playGame(key)" class="btn-play text-uppercase d-flex align-items-center">
+              <i><img src="assets/img/icons/play_icon.svg" alt="" /></i>
+              <span translate>links_text.play</span>
+            </a>
+            <a href="javascript:void(0)" (click)="playForFun(key)" translate>links_text.play_for_fun</a>
+          </div>
+        </div>
+      </div>
+    </ngx-slick-carousel>
+
+  </div>
+</ng-container>
+<ng-template #empty>
+  <div class="title text-center py-4">
+    <h5 translate>text.no_games_avaliable</h5>
+  </div>
+</ng-template>

@@ -1,0 +1,816 @@
+<div *ngIf="!closeModal;else closePage" class="signupForm accounts_form" role="document">
+
+    <div class="modal-body">
+        <div class="singPupForm d-flex">
+            <!-- Start Left Side Bar-->
+            <aside *ngIf="showSidebar==undefined || showSidebar" class="form_lft_sidebar my_accounts">
+                <app-button type="mobile_close" (click)="close()"></app-button>
+                <div class="sign_logo">
+                    <span><img src="assets/img/logo.svg" width="167" alt="Cashback Casino"></span>
+                </div>
+
+                <div class="nav" role="tablist">
+                    <a [ngClass]="!goToDeposits && !goToLimits && !goToHistory && !goToDocuments?'active':null" class="" data-toggle="tab"
+                        href="#nav-profile" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/account_icon.svg" alt="" /></i>
+                        links_text.my_profile
+                    </a>
+                    <a [ngClass]="goToDeposits?'active':null" class="" data-toggle="tab" href="#nav-deposit"
+                        (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/deposit_limit_icon.svg" alt="" /></i>
+                        links_text.responsible_gaming
+                    </a>
+                    <!-- <a [ngClass]="goToLimits?'active':null" class="" data-toggle="tab" href="#nav-Loss" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/los_limit_icon.svg" alt="" /></i>
+                        links_text.loss_limits
+                    </a>
+                    <a class="" data-toggle="tab" href="#nav-Wagering" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/wagering_icon.svg" alt="" /></i>
+                        links_text.wagering_limits
+                    </a> -->
+                    <!-- <a class="" data-toggle="tab" href="#nav-exclusion" (click)="changeTab($event,'Self-exclusion confirmation')" translate>
+                        <i><img src="assets/img/icons/account_icons/self_icon.svg" alt="" /></i>
+                        links_text.self_exclusion
+                    </a>
+                    <a class="" data-toggle="tab" href="#nav-timeout" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/timeout_icons.svg" alt="" /></i>
+                        links_text.time_out
+                    </a>
+                    <a class="" data-toggle="tab" href="#nav-reality" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/los_limit_icon.svg" alt="" /></i>
+                        links_text.reality_check
+                    </a> -->
+                    <!-- <a class="" data-toggle="tab" href="#nav-reality" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/los_limit_icon.svg" alt="" /></i>
+                        links_text.cool_off
+                    </a> -->
+                    <a class="" data-toggle="tab" href="#nav-receipt" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/reality_check_icon.svg" alt="" /></i>
+                        links_text.receipts
+                    </a>
+                    <a [ngClass]="goToHistory?'active':null" class="" data-toggle="tab" href="#nav-history" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/receipts_icon.svg" alt="" /></i>
+                        links_text.history
+                    </a>
+                    <a class="" data-toggle="tab" href="#nav-changePassword" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/password2.svg" alt="" /></i>
+                        links_text.change_password
+                    </a>
+                    <a [ngClass]="goToDocuments?'active':null" class="" data-toggle="tab" href="#nav-documents" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/documents.svg" alt="" /></i>
+                        title.verification
+                    </a>
+                    <a class="" data-toggle="tab" href="#nav-promocode" (click)="changeTab($event)" translate>
+                        <i><img src="assets/img/icons/account_icons/documents.svg" alt="" /></i>
+                        title.promocode
+                    </a>
+                </div>
+            </aside>
+            <!-- End Left Side Bar-->
+
+            <aside *ngIf="showSidebar==undefined || !showSidebar" class="form_rht_sidebar tab-content accounts_div">
+                <div class="form_header d-flex align-items-center justify-content-center">
+                    <button *ngIf="showSidebar!=undefined" class="btn-back btn-transparent btn_res"
+                        (click)="showSidebar=true;">
+                        <i><img src="assets/img/icons/back_icon.svg" alt="Cashback Casino"></i>
+                    </button>
+                    <h5 class="text-uppercase">{{title}}</h5>
+                    <button type="button" class="close" (click)="close()" data-dismiss="modal" aria-label="Close">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                fill="#ffffff"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="tab-pane fade" [ngClass]="!goToDeposits && !goToLimits&& !goToHistory && !goToDocuments?'show active':null" id="nav-profile"
+                    role="tabpanel">
+                    <div class="form_screens scroll" *ngIf="profile">
+                        <div class="my_profile">
+                            <p translate>text.profile_note</p>
+                            <div *ngIf="!profileEdit" class="profile_info">
+                                <div class="edit_btn">
+                                    <button (click)="profileEdit=true" class="btn btn-primary text-uppercase"
+                                        [disabled]="!fields">{{'links_text.edit' | translate }}</button>
+                                </div>
+                                <ul class="list-unstyled">
+                                    <li *ngIf="profile.first_name">
+                                        <!-- <i><img src="assets/img/user_pic.png" width="24" alt="" /></i> -->
+                                        <i><img src="assets/img/icons/profile_icon_green.svg" width="24" alt="" /></i>
+                                        <span class="userName">{{profile.first_name}} {{profile.last_name}}</span>
+                                    </li>
+                                    <li>
+                                        <i><img src="assets/img/icons/account_icons/mail_icon.svg" width="22"
+                                                alt="" /></i>
+                                        <span> {{profile.email}}</span>
+                                    </li>
+                                    <li *ngIf="profile.mobile_phone">
+                                        <i><img src="assets/img/icons/account_icons/phone_icon.svg" width="21"
+                                                alt="" /></i>
+                                        <span> {{profile.mobile_phone}}</span>
+                                    </li>
+                                    <li *ngIf="profile.date_of_birth">
+                                        <i><img src="assets/img/icons/account_icons/dob_ico.svg" width="24" alt="" /></i>
+                                        <span>{{profile.date_of_birth}}</span>
+                                    </li>
+                                    <li *ngIf="profile.gender">
+                                        <i><img src="assets/img/icons/account_icons/gender_icon.svg" width="24" alt="" /></i>
+                                        <span>{{profile.gender?getGender(profile.gender):''}}</span>
+                                    </li>
+                                    <li>
+                                        <i><img src="assets/img/icons/account_icons/location_icon.svg" width="15"
+                                                alt="" /></i>
+                                        <span>{{profile.address}}, {{profile.city}} {{profile.country}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <form *ngIf="profileEdit" class="edit_profile" [formGroup]="profileForm"
+                                (ngSubmit)="submitProfile()">
+                                <div class="form-fields" *ngIf="!hide.first_name">
+                                    <div class="form-group">
+                                        <input type="text" class="input-fields" formControlName="first_name"
+                                            [readonly]="checkField('first_name')" />
+                                        <label translate>forms.label.first_name</label>
+                                        <display-field-error fieldName="first_name" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.last_name">
+                                    <div class="form-group">
+                                        <input type="text" class="input-fields" formControlName="last_name"
+                                            [readonly]="checkField('last_name')" />
+                                        <label translate>forms.label.last_name</label>
+                                        <display-field-error fieldName="last_name" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields dob_label" *ngIf="!hide.date_of_birth">
+                                    <label translate>forms.label.dob</label>
+                                    <div formGroupName="dob" class="d-flex">
+                                        <div class="dob-input">
+                                            <div class="form-group">
+                                                <input #year (keydown.backspace)="onBackspaceKeydown($event,'yy',month)"
+                                                    [attr.disabled]="checkField('date_of_birth')?true:null" type="text"
+                                                    [ngClass]="invalidDate && dobControls.yy.invalid?'change-color':''"
+                                                    (keypress)="dateInputFilter($event,2,2,'yy')" formControlName="yy"
+                                                    placeholder="{{getTranslatedText('date.yyyy')}}" class="input-fields" />
+                                                <span>-</span>
+                                            </div>
+                                        </div>
+                                        <div class="dob-input">
+                                            <div class="form-group">
+                                                <input (keydown.backspace)="onBackspaceKeydown($event,'mm',date)"
+                                                    [attr.disabled]="checkField('date_of_birth')?true:null" #month type="text"
+                                                    (keypress)="dateInputFilter($event,2,1,'mm',year,12,'yy')"
+                                                    [ngClass]="invalidDate && dobControls.mm.invalid?'change-color':''" formControlName="mm"
+                                                    placeholder="{{getTranslatedText('date.mm')}}" class="input-fields" />
+                                                <span>-</span>
+                                            </div>
+                                        </div>
+                                        <div class="dob-input">
+                                            <div class="form-group">
+                                                <input #date type="text" [ngClass]="invalidDate && dobControls.dd.invalid?'change-color':''"
+                                                    [attr.disabled]="checkField('date_of_birth')?true:null"
+                                                    (keypress)="dateInputFilter($event,2,1,'dd',month,31,'mm')" formControlName="dd"
+                                                    placeholder="{{getTranslatedText('date.dd')}}" class="input-fields" />
+                                             
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div *ngIf="invalidDate" class="change-color" translate>
+                                        forms.error.reconfirm_date_value
+                                      </div>
+                                      <div *ngIf="!isEighteen" class="change-color" translate>
+                                        forms.error.confirm_age_18
+                                      </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.email">
+                                    <div class="form-group">
+                                        <input type="email" class="input-fields" formControlName="email"
+                                            [readonly]="checkField('email')" />
+                                        <label translate>forms.label.email</label>
+                                        <display-field-error fieldName="email" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.mobile_phone">
+                                    <div class="form-group">
+                                        <input type="text" class="input-fields" formControlName="mobile_phone"
+                                            [readonly]="checkField('mobile_phone')" />
+                                        <label translate>forms.label.phone_number</label>
+                                        <display-field-error fieldName="mobile_phone" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.address">
+                                    <div class="form-group">
+                                        <input type="text" class="input-fields" formControlName="address"
+                                            [readonly]="checkField('address')" />
+                                        <label translate>forms.label.street</label>
+                                        <display-field-error fieldName="address" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.postal_code">
+                                    <div class="form-group">
+                                        <input type="text" class="input-fields" formControlName="postal_code"
+                                            [readonly]="checkField('postal_code')" />
+                                        <label translate>forms.label.zip_code</label>
+                                        <display-field-error fieldName="postal_code" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.city">
+                                    <div class="form-group">
+                                        <input type="text" class="input-fields" formControlName="city"
+                                            [readonly]="checkField('city')" />
+                                        <label translate>forms.label.city</label>
+                                        <display-field-error fieldName="city" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.country">
+                                    <div class="form-group">
+                                        <!-- <input type="text" class="input-fields" formControlName="country"
+                                            [readonly]="checkField('country')" /> -->
+                                        <select class="input-fields" formControlName="country" [attr.disabled]="checkField('country')?true:null">
+                                            <option disabled selected value="null">{{getTranslatedText('forms.label.select_country')}}</option>
+                                            <option *ngFor="let country of countries;" [value]="country.code">{{country.name}}</option>
+                                        </select>
+                                        <label translate>forms.label.country</label>
+                                        <display-field-error fieldName="country" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields" *ngIf="!hide.gender">
+                                    <div class="form-group">
+                                        <!-- <input type="text" class="input-fields" formControlName="gender"
+                                            [readonly]="checkField('gender')" /> -->
+                                            <select class="input-fields" formControlName="gender"  [attr.disabled]="checkField('gender')?true:null" >                                             
+                                                <option value="" selected disabled>{{getTranslatedText('forms.label.select_gender')}}</option>
+                                                <option  value="m">Male</option>
+                                                <option  value="f">Female</option>
+                                            </select>
+                                        <label translate>forms.label.gender</label>
+                                        <display-field-error fieldName="gender" [formControls]="formControls">
+                                        </display-field-error>
+                                    </div>
+                                </div>
+                                <div class="form-fields check_fields">
+                                    <div class="form-group">
+                                        <div class="checkbox checkbox_form" *ngIf="!hide.receive_sms_promos" translate>
+                                            <input type="checkbox" formControlName="receive_sms_promos" />
+                                            <span class="checkmark"></span>
+                                            text.allow_contacts_via_sms
+                                        </div>
+                                        <div class="checkbox checkbox_form" *ngIf="!hide.receive_promos" translate>
+                                            <input type="checkbox" checked="checked" formControlName="receive_promos" />
+                                            <span class="checkmark"></span>
+                                            text.allow_contacts_via_email
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="btn-contain d-flex">
+                                    <button class="btn btn-sd btn-cancel text-uppercase"
+                                        (click)="updateProfile()">{{'links_text.cancel' | translate }}</button>
+                                    <button type="submit"
+                                        class="btn btn-sd btn-primary text-uppercase">{{'links_text.save' | translate }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- deposte limit -->
+                <div class="tab-pane fade" [ngClass]="goToDeposits?'show active':null" id="nav-deposit" role="tabpanel">
+
+                    <div class="form_screens ac_limits scroll" *ngIf="limitData['deposit']">
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <div
+                                    class="d-flex align-items-center justify-content-center switch_toggle advanced_toggle">
+                                    <span [style.color]="!limitsAdvancedMode?'#FFC400':'#06651B'"
+                                        class="text-uppercase" translate>title.advanced_mode</span>
+                                    <label class="switch">
+                                        <input (click)="advancedMode($event,'limit')" type="checkbox" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-uppercase text-center" translate>links_text.deposit_limits</h3>
+
+                        <!-- Desposit Limits -->
+                        <div>
+                            <p translate>text.deposit_limit_note </p>
+                            <account-limit-form label="{{getTranslatedText('date.daily')}}"
+                                [payload]="limitData['deposit']['day']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                            <account-limit-form label="{{getTranslatedText('date.weekly')}}"
+                                [payload]="limitData['deposit']['week']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                            <account-limit-form label="{{getTranslatedText('date.monthly')}}"
+                                [payload]="limitData['deposit']['month']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                        </div>
+
+                        <!-- Loss Limits -->
+                        <div *ngIf="limitsAdvancedMode">
+                            <h3 class="text-capitalize" translate>links_text.loss_limits</h3>
+                            <p translate>text.loss_limit_note</p>
+
+                            <account-limit-form label="{{getTranslatedText('date.daily')}}"
+                                [payload]="limitData['loss']['day']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                            <account-limit-form label="{{getTranslatedText('date.weekly')}}"
+                                [payload]="limitData['loss']['week']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                            <account-limit-form label="{{getTranslatedText('date.monthly')}}"
+                                [payload]="limitData['loss']['month']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                        </div>
+
+                        <!-- Wager Limits -->
+                        <div *ngIf="limitsAdvancedMode">
+                            <h3 class="text-capitalize" translate>links_text.wagering_limits</h3>
+                            <p translate>text.wager_limit_note</p>
+
+                            <account-limit-form label="{{getTranslatedText('date.daily')}}"
+                                [payload]="limitData['wager']['day']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                            <account-limit-form label="{{getTranslatedText('date.weekly')}}"
+                                [payload]="limitData['wager']['week']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                            <account-limit-form label="{{getTranslatedText('date.monthly')}}"
+                                [payload]="limitData['wager']['month']" (onSuccess)="initAccountLimitData()">
+                            </account-limit-form>
+                        </div>
+
+                        <!-- Start CoolOff-->
+                        <div id="nav-reality">
+                            <h3 class="text-uppercase text-center" translate>links_text.reality_check</h3>
+
+                            <!-- <div class="row mb-3">
+                                    <div class="col-md-12 text-center">
+                                        <div class="d-flex align-items-center justify-content-center switch_toggle">
+                                            <span [style.color]="!coolOffAdvancedMode?'#EB8106':'#8119bb'" class="text-uppercase">Advanced
+                                                Mode</span>
+                                            <label class="switch">
+                                                <input (click)="advancedMode($event,'coolOff')" type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            <!-- Reality Check -->
+                            <div class="form-contents">
+                                <div class="self_excution">
+                                    <p translate>text.reality_check_note</p>
+                                    <form [formGroup]="limitForm" (ngSubmit)="submitLimitForm('reality_check')">
+                                        <h6 *ngIf="currentRealityCheckTime">{{'forms.label.current_limit' | translate}}
+                                            {{currentRealityCheckTime}}
+                                            {{'date.minutes' | translate}}</h6>
+                                        <div class="form-group">
+                                            <div class="w-100">
+                                                <select class="input-fields custom-select"
+                                                    (change)="changePeriod($event)" formControlName="period">
+                                                    <option value="15">15 {{'date.minutes' | translate}}</option>
+                                                    <option value="30">30 {{'date.minutes' | translate}}</option>
+                                                    <option value="45">45 {{'date.minutes' | translate}}</option>
+                                                    <option value="60">60 {{'date.minutes' | translate}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="button-wrapper disable">
+                                            <button class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                                                {{'links_text.save' | translate }} <i class="ml-2"><img
+                                                        src="assets/img/icons/arrow-right_icon.svg" width="20"
+                                                        alt=""></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- End reality check -->
+
+                            <!-- Start Time Out -->
+                            <div class="mt-5" *ngIf="limitsAdvancedMode">
+                                <!-- <h3 class="text-capitalize" translate>links_text.time_out</h3> -->
+                                <h3 class="text-capitalize" translate>links_text.cool_off</h3>
+                                <div *ngIf="!timeOutLimitSuccess" class="form-contents">
+                                    <div class="self_excution">
+                                        <!-- <p translate>text.time_out_note</p> -->
+                                        <p translate>text.session_limit_note</p>
+                                        <form [formGroup]="limitForm" (ngSubmit)="submitLimitForm('coolingoff')">
+                                            <h6 translate>title.period</h6>
+                                            <div class="form-group">
+                                                <div class="w-100">
+                                                    <select class="input-fields custom-select"
+                                                        (change)="changePeriod($event)" formControlName="period">
+                                                        <option value="day">1 {{'date.day' | translate}}</option>
+                                                        <option value="day_3">3 {{'date.days' | translate}}</option>
+                                                        <option value="week">1 {{'date.week' | translate}}</option>
+                                                        <option value="month">1 {{'date.month' | translate}}</option>
+                                                        <option value="month_3">3 {{'date.months' | translate}}</option>
+                                                        <option value="month_6">6 {{'date.months' | translate}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="button-wrapper">
+                                                <button class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                                                    {{'links_text.save' | translate }} <i class="ml-2"><img
+                                                            src="assets/img/icons/arrow-right_icon.svg" width="20"
+                                                            alt=""></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- step 2 -->
+                                <div *ngIf="timeOutLimitSuccess" class="register_success d-flex align-items-center">
+                                    <div class="self_excution_success">
+                                        <div class="text-center">
+                                            <i><img src="assets/img/success_casino.svg" alt=""></i>
+                                            <h3 class="m-0" translate>title.successful_time_out </h3>
+                                            <p translate>text.successfully_timeout_locked_account</p>
+                                            <p translate>text.successfully_timeout_able_to_play<br />
+                                                text.contact_support_team</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Time Out -->
+                            <!--Start Self Exclusion -->
+                            <div *ngIf="limitsAdvancedMode">
+                                <h3 class="text-capitalize" translate>links_text.self_exclusion</h3>
+                                <div *ngIf="!selfExclusionLimitSuccess" class="form-contents">
+                                    <div class="self_excution">
+                                        <p translate>text.self_excution_note</p>
+                                        <form [formGroup]="limitForm" (ngSubmit)="submitLimitForm('selfexclusion')">
+                                            <!-- <div class="form-fields mt-5"> -->
+                                            <h6 translate>title.period</h6>
+                                            <div class="form-group">
+                                                <div class="w-100">
+                                                    <select class="input-fields custom-select"
+                                                        (change)="changePeriod($event)" formControlName="period">
+                                                        <option value="month_6">6 {{'date.months' | translate}}</option>
+                                                        <option value="month_9">9 {{'date.months' | translate}}</option>
+                                                        <option value="month_12">1 {{'date.year' | translate}}</option>
+                                                        <option value="forever">{{'date.indefinite' | translate}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- </div> -->
+                                            <div class="button-wrapper">
+                                                <button class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                                                    {{'links_text.save' | translate }} <i class="ml-2"><img
+                                                            src="assets/img/icons/arrow-right_icon.svg" width="20"
+                                                            alt=""></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- step 2 -->
+                                <div *ngIf="selfExclusionLimitSuccess"
+                                    class="register_success d-flex align-items-center">
+                                    <div class="self_excution_success">
+                                        <div class="text-center">
+                                            <i><img src="assets/img/success_casino.svg" alt=""></i>
+                                            <h3 class="m-0" translate>title.successful_se </h3>
+                                            <p translate>text.successfully_se_locked_account</p>
+                                            <p translate>text.successfully_se_logout<br /> text.contact_support_team</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Self Exclusion -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Loss limit -->
+                <div [ngClass]="goToLimits?'show active':null" class="tab-pane fade" id="nav-Loss" role="tabpanel">
+                    <div class="form_screens ac_limits scroll" *ngIf="limitData['loss']" translate>
+                        <p translate>text.loss_limit_note</p>
+
+                        <account-limit-form label="{{getTranslatedText('date.daily')}}"
+                            [payload]="limitData['loss']['day']" (onSuccess)="initAccountLimitData()">
+                        </account-limit-form>
+                        <account-limit-form label="{{getTranslatedText('date.weekly')}}"
+                            [payload]="limitData['loss']['week']" (onSuccess)="initAccountLimitData()">
+                        </account-limit-form>
+                        <account-limit-form label="{{getTranslatedText('date.monthly')}}"
+                            [payload]="limitData['loss']['month']" (onSuccess)="initAccountLimitData()">
+                        </account-limit-form>
+
+                    </div>
+                </div>
+
+                <!-- Wagering limit -->
+                <div class="tab-pane fade" id="nav-Wagering" role="tabpanel">
+                    <div class="form_screens ac_limits scroll" *ngIf="limitData['wager']" translate>
+                        <p translate>text.wager_limit_note</p>
+
+                        <account-limit-form label="{{getTranslatedText('date.daily')}}"
+                            [payload]="limitData['wager']['day']" (onSuccess)="initAccountLimitData()">
+                        </account-limit-form>
+                        <account-limit-form label="{{getTranslatedText('date.weekly')}}"
+                            [payload]="limitData['wager']['week']" (onSuccess)="initAccountLimitData()">
+                        </account-limit-form>
+                        <account-limit-form label="{{getTranslatedText('date.monthly')}}"
+                            [payload]="limitData['wager']['month']" (onSuccess)="initAccountLimitData()">
+                        </account-limit-form>
+
+                    </div>
+                </div>
+
+                <!-- self-exclusion -->
+                <div class="tab-pane fade" id="nav-exclusion" role="tabpanel">
+                    <div class="form_screens ac_limits scroll">
+                        <div *ngIf="!limitSuccess" class="form-contents">
+                            <div class="self_excution">
+                                <p translate>text.self_excution_note</p>
+                                <form [formGroup]="limitForm" (ngSubmit)="submitLimitForm('selfexclusion')">
+                                    <!-- <div class="form-fields mt-5"> -->
+                                    <h6 translate>title.period</h6>
+                                    <div class="form-group">
+                                        <div class="w-100">
+                                            <select class="input-fields custom-select" (change)="changePeriod($event)"
+                                                formControlName="period">
+                                                <option value="month_6">6 {{'date.months' | translate}}</option>
+                                                <option value="month_9">9 {{'date.months' | translate}}</option>
+                                                <option value="month_12">1 {{'date.year' | translate}}</option>
+                                                <option value="forever">{{'date.indefinite' | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- </div> -->
+                                    <div class="button-wrapper">
+                                        <button class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                                            {{'links_text.save' | translate }} <i class="ml-2"><img
+                                                    src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- step 2 -->
+                        <div *ngIf="limitSuccess" class="register_success d-flex align-items-center">
+                            <div class="self_excution_success">
+                                <div class="text-center">
+                                    <i><img src="assets/img/success_casino.svg" alt=""></i>
+                                    <h3 class="m-0" translate>title.successful_se </h3>
+                                    <p translate>text.successfully_se_locked_account</p>
+                                    <p translate>text.successfully_se_logout<br /> text.contact_support_team</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time out -->
+                <div class="tab-pane fade" id="nav-timeout" role="tabpanel">
+                    <div class="form_screens ac_limits scroll">
+                        <div *ngIf="!limitSuccess" class="form-contents">
+                            <div class="self_excution">
+                                <!-- <p translate>text.time_out_note</p> -->
+                                <p translate>text.session_limit_note</p>
+                                <form [formGroup]="limitForm" (ngSubmit)="submitLimitForm('coolingoff')">
+                                    <h6 translate>title.period</h6>
+                                    <div class="form-group">
+                                        <div class="w-100">
+                                            <select class="input-fields custom-select" (change)="changePeriod($event)"
+                                                formControlName="period">
+                                                <option value="day">1 {{'date.day' | translate}}</option>
+                                                <option value="day_3">3 {{'date.days' | translate}}</option>
+                                                <option value="week">1 {{'date.week' | translate}}</option>
+                                                <option value="month">1 {{'date.month' | translate}}</option>
+                                                <option value="month_3">3 {{'date.months' | translate}}</option>
+                                                <option value="month_6">6 {{'date.months' | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <button class="btn btn-md btn-primary text-uppercase" tabindex="0">
+                                            {{'links_text.save' | translate }} <i class="ml-2"><img
+                                                    src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- step 2 -->
+                        <div *ngIf="limitSuccess" class="register_success d-flex align-items-center">
+                            <div class="self_excution_success">
+                                <div class="text-center">
+                                    <i><img src="assets/img/success_casino.svg" alt=""></i>
+                                    <h3 class="m-0" translate>title.successful_time_out </h3>
+                                    <p translate>text.successfully_timeout_locked_account</p>
+                                    <p translate>text.successfully_timeout_able_to_play<br /> text.contact_support_team
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="nav-receipt" role="tabpanel">
+                    <div class="historyTab">
+                        <div class="form_screens history_sec scroll">
+                            <div class="form-contents">
+                                <div class="histroy_cal">
+                                    <button (click)="getHistory('30')" [ngClass]="show30?'show':'null'"
+                                        class="btn btn-md btn-cancel">30 {{'date.days' | translate}}</button>
+                                    <button (click)="getHistory('60')" [ngClass]="show60?'show':'null'"
+                                        class="btn btn-md btn-cancel">60 {{'date.days' | translate}}</button>
+                                    <button (click)="getHistory('90')" [ngClass]="show90?'show':'null'"
+                                        class="btn btn-md btn-cancel">90 {{'date.days' | translate}}</button>
+                                </div>
+
+                                <div class="inner_tab">
+                                    <ul class="nav r_tab">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" (click)="changeReceiptsTab('receipts')"
+                                                data-toggle="tab"
+                                                href="#receipt">{{'links_text.receipts' | translate }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" (click)="changeReceiptsTab('bonus')" data-toggle="tab"
+                                                href="#Bonuses">{{'links_text.bonuses' | translate }}</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="receipt" class="tab-pane active">
+                                            <div *ngIf="betsData.length>0; else noReceipts;"
+                                                class="receipt_list scroll">
+                                                <div *ngFor="let record of betsData"
+                                                    class="r_list d-flex align-items-center">
+                                                    <figure><img [src]="getImageURL(record.game)" alt="" /></figure>
+                                                    <div class="r_list_rht">
+                                                        <div class="w-100 d-flex justify-content-between">
+                                                            <div class="b_title">
+                                                                <h5>{{record.currency | currencySymbol}}
+                                                                    {{record.total_wins | convertCurrency:[record.currency,allCurrencies] }},
+                                                                    {{record.total_bets | convertCurrency:[record.currency,allCurrencies] }}
+                                                                </h5>
+                                                                <span>Result</span>
+                                                            </div>
+                                                            <div class="b_date">
+                                                                <span
+                                                                    class="add_date">{{record.created_at | date:'dd.MM.yyyy'}}</span>
+                                                                <span>{{record.created_at | date:'hh:mm'}}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <h6>{{record.title}}</h6>
+                                                    </div>
+                                                </div>
+
+                                            </div><!-- List-->
+                                        </div>
+                                        <!-- Start Bonuses -->
+                                        <div *ngIf="bonuses && bonuses?.length>0; else noBonuses;" id="Bonuses"
+                                            class="tab-pane fade">
+                                            <div class="receipt_list scroll">
+                                                <div *ngFor="let record of bonuses"
+                                                    class="r_list d-flex align-items-center">
+                                                    <figure><img src="assets/img/games/bonus.svg" alt="" /></figure>
+                                                    <div class="r_list_rht">
+                                                        <div class="w-100 d-flex justify-content-between">
+                                                            <div class="b_title">
+                                                                <h5>{{record.currency}}
+                                                                    {{(record.amount_wager_cents)| convertCurrency:[record.currency,allCurrencies]}},{{(record.amount_wager_requirement_cents| convertCurrency:[record.currency,allCurrencies] )}}
+                                                                </h5>
+                                                                <span>{{'title.bonus' | translate}}</span>
+                                                            </div>
+                                                            <div class="b_date">
+                                                                <span
+                                                                    class="add_date">{{record.created_at | date:'dd.MM.yyyy'}}</span>
+                                                                <span>{{record.created_at | date:'hh:mm'}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div><!-- List-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="goToHistory?'show active':null" class="tab-pane fade" id="nav-history" role="tabpanel">
+                    <div class="historyTab">
+                        <div class="form_screens history_sec scroll">
+                            <div class="form-contents">
+                                <div class="histroy_cal">
+                                    <button (click)="getHistory('30')" [ngClass]="show30?'show':'null'"
+                                        class="btn btn-md btn-cancel">30 {{'date.days' | translate}}</button>
+                                    <button (click)="getHistory('60')" [ngClass]="show60?'show':'null'"
+                                        class="btn btn-md btn-cancel">60 {{'date.days' | translate}}</button>
+                                    <button (click)="getHistory('90')" [ngClass]="show90?'show':'null'"
+                                        class="btn btn-md btn-cancel">90 {{'date.days' | translate}}</button>
+                                </div>
+
+                                <div class="history_list">
+                                    <h6 translate>title.transactions</h6>
+                                    <div class="div_table">
+                                        <div class="table_header">
+                                            <div class="d-flex div_row">
+                                                <div class="table_th" translate>title.capitalize_type</div>
+                                                <div class="table_th" translate>title.payment_mode</div>
+                                                <div class="table_th" translate>title.amount</div>
+                                                <div class="table_th" translate>title.status</div>
+                                                <div class="table_th" translate>title.date</div>
+                                            </div>
+                                        </div>
+                                        <div class="table_body scroll">
+                                            <div *ngFor="let record of history" class="d-flex div_row">
+                                                <div class="table_td" data-th="Type">{{getTranslatedPayment(record.action) | titlecase}}</div>
+                                                <div class="table_td" data-th="Payment Mode">{{record.payment_system}}
+                                                </div>
+                                                <div class="table_td" data-th="Amount, €">
+                                                    {{record.amount_cents | convertCurrency:[record.currency,allCurrencies] }}
+                                                    <span>{{record.currency}}</span></div>
+                                                <div class="table_td" data-th="Status">
+                                                    {{getStatus(record.success, record.finished_at)}}</div>
+                                                <div class="table_td" data-th="Date">
+                                                    {{record.created_at | date:'dd.MM.yy  hh:mm'}} </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- End History Table -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-changePassword" role="tabpanel">
+                    <div class="form_screens ac_limits scroll">
+                        <div class="form-contents">
+                            <change-password></change-password>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-changePassword" role="tabpanel">
+                    <div class="form_screens ac_limits scroll">
+                        <div class="form-contents">
+                            <change-password></change-password>
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="goToDocuments?'show active':null" class="tab-pane fade" id="nav-documents" role="tabpanel">
+                    <div class="form_screens scroll">
+                        <div class="form-contents">
+                            <app-documents></app-documents>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-promocode" role="tabpanel">
+                    <div class="form_screens add_promo login_form ac_limits scroll">
+                        <h6 translate>{{'links_text.add_promocode' | translate}}</h6>
+                            <div class="form-fields">
+                            <div class="form-group">
+                                <input (keyup)="promocodeMsg=''" [(ngModel)]="promocode" type="text" class="form-control" />
+                               
+                                <div class="btn-join">
+                                    <button (click)="applyPromocode()" class="btn btn-md mr-1 btn-primary text-uppercase">{{'links_text.add_promocode' | translate}}</button>
+                                </div>
+                                <div class="invalid-feedback text-capitalize" >{{promocodeMsg}}</div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+
+            </aside>
+            <!-- End Right Side Bar-->
+        </div>
+    </div>
+
+</div>
+
+<ng-template #closePage>
+    <close-modal (response)="close($event)"></close-modal>
+</ng-template>
+<ng-template #noBonuses>
+    <div class="no-result text-center" *ngIf="activeTab=='bonus'">
+        <span translate>text.no_bonuses_avaliable</span>
+    </div>
+</ng-template>
+<ng-template #noReceipts>
+    <div class="no-result text-center" *ngIf="activeTab=='receipts'">
+        <span translate>text.no_receipts_avaliable</span>
+    </div>
+</ng-template>

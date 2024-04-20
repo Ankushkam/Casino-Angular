@@ -1,0 +1,158 @@
+<app-header [showProgressBar]="false"></app-header>
+<div class="payment_page">
+    <div class="pay_shadow">
+        <div class="payment_banner">
+            <div class="wrapper">
+                <div class="pay_summary text-center">
+                    <h1>{{'page_titles.payment_methods' | translate}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="wrapper">
+
+            <div class="payment_card_sec">
+                <div class="title text-center text-uppercase">
+                    <h2 translate>title.deposit_methods</h2>
+                </div>
+
+                <div class="payment_method">
+                    <table class="w-100" cellspacing="2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="pay_group">
+                                        <i class="empty_logo">&nbsp;</i>
+                                        <span class="p-title" translate>title.type</span>
+                                    </div>
+                                </th>
+                                <th translate>title.fee</th>
+                                <th translate>title.processing_time</th>
+                                <th translate>title.limit_per_transation</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="depositMethods.length>0; else noAvaliableMethods">
+                            <tr *ngFor="let method of depositMethods">
+                                <td data-th="TYPE">
+                                    <div class="pay_group">
+                                        <i class="p_logo"><img [src]="getUrl(method)" width="60px" alt="" /></i>
+                                        <span *ngIf="getName(method.brand,method)!=='MiFinity'" class="p-type-title">{{getName(method.brand,method) | titlecase}}</span>
+                                        <span *ngIf="getName(method.brand,method)=='MiFinity'" class="p-type-title">{{getName(method.brand,method) }}</span>
+                                    </div>
+                                </td>
+                                <td data-th="FEE" translate>
+                                    text.free
+                                </td>
+                                <td data-th="PROCESSING TIME">
+                                    {{getProcessingTime(method.deposit.processing_time)}}
+                                </td>
+                                <td data-th="MIN/MAX LIMIT PER TRANSACTION" >
+                                   <span *ngIf="method.deposit.min || method.deposit.max"> {{'text.min'|translate}}.
+                                    {{method?.deposit?.min | currency:currency:'symbol':'1.0'}}/{{'text.max'|translate}}.
+                                    {{method?.deposit?.max | currency:currency:'symbol':'2.0'}}</span>
+                                </td>
+                                <td data-th="">
+                                    <!-- <button *ngIf="!loggedIn && !isPNPAllowed" (click)="onSignUp()" class="btn btn-md btn-primary text-uppercase">{{'links_text.sign_up' | translate  }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i></button>
+                                    <button *ngIf="!loggedIn && isPNPAllowed" (click)="onSignUp()"
+                                        class="btn btn-md btn-primary text-uppercase">{{'links_text.sign_up_pnp' | translate }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i></button> -->
+                                    <button *ngIf="loggedIn" (click)="openDeposits(method)"
+                                        class="btn btn-md btn-primary text-uppercase">
+                                        {{'links_text.deposit' | translate }} <i class="ml-2">
+                                            <img src="assets/img/icons/arrow-right_icon.svg" width="20" alt="">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" class="img-fluid" />
+            </div>
+
+            <div class="payment_card_sec">
+                <div class="title text-center text-uppercase">
+                    <h2 translate>title.withdraw_methods</h2>
+                </div>
+
+                <div class="payment_method">
+                    <table class="w-100" cellspacing="2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="pay_group">
+                                        <i class="empty_logo">&nbsp;</i>
+                                        <span class="p-title" translate>title.type</span>
+                                    </div>
+                                </th>
+                                <th translate>title.fee</th>
+                                <th translate>title.processing_time</th>
+                                <th translate>title.limit_per_transation</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="cashoutMethods.length>0; else noAvaliableMethods">
+                            <tr *ngFor="let method of cashoutMethods">
+                                <td data-th="TYPE">
+                                    <i class="p_logo"><img [src]="getUrl(method)" width="60px" alt="" /></i>
+                                    <span class="p-type-title" *ngIf="getName(method.brand,method)!=='MiFinity'">{{getName(method.brand,method) | titlecase}}</span>
+                                    <span class="p-type-title" *ngIf="getName(method.brand,method)=='MiFinity'">{{getName(method.brand,method) }}</span>
+                                </td>
+                                <td data-th="FEE" translate>
+                                    text.free
+                                </td>
+                                <td data-th="PROCESSING TIME">
+                                    {{getProcessingTime(method.cashout.processing_time)}}
+                                </td>
+                                <td data-th="MIN/MAX LIMIT PER TRANSACTION">
+                                    <span *ngIf="method.cashout.min || method.cashout.max">{{'text.min'|translate}}.
+                                    {{method?.cashout?.min | currency:currency:'symbol':'1.0'}}/{{'text.max'|translate}}.
+                                    {{method?.cashout?.max | currency:currency:'symbol':'2.0'}}</span>
+                                </td>
+                                <td data-th="">
+                                    <!-- <button *ngIf="!loggedIn && !isPNPAllowed" (click)="onSignUp()" class="btn btn-md btn-primary text-uppercase">{{'links_text.sign_up' |translate }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i></button>
+                                    <button *ngIf="!loggedIn && isPNPAllowed" (click)="onSignUp()" class="btn btn-md btn-primary text-uppercase">{{'links_text.sign_up_pnp' | translate }}
+                                        <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i></button> -->
+                                    <button *ngIf="loggedIn" (click)="openWithdrawals(method)"
+                                        class="btn btn-md btn-primary text-uppercase">
+                                        {{'links_text.withdraw' | translate }} <i class="ml-2">
+                                            <img src="assets/img/icons/arrow-right_icon.svg" width="20" alt="">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="divider my-4 clearfix"><img src="assets/img/icons/divider-lg.svg" alt="" class="img-fluid" />
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>
+
+<ng-template #noAvaliableMethods>
+    <tbody class="no_payment">
+        <tr>
+            <td colspan="5">
+                <div class="w-100 p-2 text-center">
+                    <span translate>text.no_pm_avaliable</span>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</ng-template>

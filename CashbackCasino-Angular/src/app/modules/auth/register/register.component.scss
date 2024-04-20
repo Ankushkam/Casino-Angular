@@ -1,0 +1,101 @@
+@import '../../../../assets/css/base.scss';
+
+.show_div{display: $block;}
+.hide_div{display: $none;}
+a {cursor: pointer;}
+::ng-deep{
+    .modal-content{
+        background-color: $transparent!important;
+    }
+    input:disabled {
+        background-color: $white-color;
+    }
+    // .pac-container {  //this is a fix for google autocomplete not showing up
+    //     z-index: 111111 !important;
+    //     display: block !important;
+    //     border-top: 0px!important;
+    //     // top: 0!important;
+    //     // position: relative!important;
+    // }
+
+    .pac-container {
+        z-index: 10000 !important;
+        // width: auto !important;
+        // position: initial !important;
+        border-top: 0px!important;
+        // left: 0 !important;
+        // right: 0 !important;
+        display: block !important;
+    }
+    .pac-container:empty{
+        display: none !important;
+    }
+
+    .pac-logo:after{
+        background-position: center!important;
+    }
+}
+.fadeOutDiv {
+    animation:fade-out 5s both; 
+    -webkit-animation:fade-out 5s both;
+}
+  
+@keyframes fade-out{
+    0%{opacity:1}
+    100%{opacity:0}
+}
+@-webkit-keyframes fade-out{
+    0%{opacity:1}
+    100%{opacity:0}
+}
+.change-color {
+    color:$base-color;
+}
+
+.static_content {
+    overflow-y: auto;
+    height: calc(100% - 80px);    
+}
+
+/** Gender Css **/
+.select_gender {
+    label {
+        font-size: $f16+2;
+        font-weight: $font-semi-bold;
+    }
+    ul {
+        @include flexbox;
+        margin:30px -5px 0;
+        li { 
+            position: $relative;
+            width: 50%;
+            margin:5px;
+            text-align: center;
+            input {
+                position: $absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                cursor: pointer;
+                @include opacity (0);
+                &:checked {
+                    + span {
+                        background: $base-color;
+                        color:$white-color;
+                    }
+                }
+            }
+            span {
+                @include border-radius (7px);
+                background:$grey-color8;
+                padding:13px 15px;
+                display: $block;
+                margin: 0;
+            }
+        }
+    }
+} 
+.iden_error {
+    color:$red-color;
+}

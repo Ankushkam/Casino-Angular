@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="form-fields">
+        <div class="form-group input_group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{currency | uppercase}}</span>
+                </div>
+                <input type="number" formControlName="amount_cents"
+                    placeholder="{{getTranslatedText('forms.messages.no_limit_have_been_set')}}"
+                    class="input-fields" [readonly]="btn !=='form'" (keydown)="onKeydown($event)" />
+                <label>{{label}}</label>
+            </div>
+            <span class="divider_input"><img src="assets/img/divider_line_input.svg" alt="" /></span>
+            <div class="btn-join">
+                <button *ngIf="btn == 'edit'" class="btn btn-md btn-primary text-uppercase"
+                    (click)="btn='form'">{{'links_text.edit' | translate }}</button>
+                <button *ngIf="btn == 'form'" class="btn btn-md btn-cancel text-uppercase" type="reset"
+                    (click)="reset()">{{'links_text.cancel' | translate }}</button>
+                <button *ngIf="btn == 'form'" class="btn btn-md btn-primary text-uppercase" type="submit"
+                    [disabled]="!form.valid">{{'links_text.save' | translate }}</button>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-7">
+                    <div *ngIf="otherLimit && otherLimit.status == 'unconfirmed' && btn == 'edit'" class="remove_limit">
+                        <span>Limit {{otherLimit.accounts[0].currency}} {{otherLimit.accounts[0].amount_cents / 100}}
+                            will be confirmed in</span>
+                        <h4>{{countDownString}}</h4>
+                    </div>
+                </div>
+                <div class="col-5 text-right">
+                    <button *ngIf="otherLimit && otherLimit.status == 'unconfirmed' && btn == 'edit'"
+                        class="btn btn-md btn-cancel undo_btn text-uppercase" (click)="deleteLimit()">{{'links_text.undo' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

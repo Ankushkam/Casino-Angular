@@ -1,0 +1,57 @@
+<app-header [showProgressBar]="false"></app-header>
+<div class="inner_bg">
+  <div class="container-fluid">
+    <div class="page_title">
+      <div class="wrapper">
+        <div class="title text-center">
+          <h2>{{title}}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <section *ngIf="categoryType==types.LIVE_CASINO; else all" class="game-section">
+        <app-games *ngIf="providerSpecificKeys"  [tab]="tab"  [providerKeys]="providerSpecificKeys" [mainCategory]="categoryType" [allGames]="allGames" [type]="categoryGames" [gameProviders]="gameProviders" [categories]="subcategoriesList"></app-games>
+      </section>
+      <ng-template #all>
+        <div class="pay_sec">
+          <div class="tab-content py-3 px-sm-0" id="nav-tabContent">
+            <div class="row py-2">
+              <div class="col-sm-6 col-12">
+                <app-search (onKeyPress)="onSearch($event)"></app-search>
+              </div>
+              <div class="col-sm-6 col-12">
+                <div class="select-drop form-group ml-auto">
+                  <div class="dropdown text-uppercase btn-black">
+                    <button type="button" class="dropdown-toggle btn-transparent"
+                      data-toggle="dropdown">{{(currentProvider || {}).title ||('title.suppliers' | translate)}}
+                    </button>
+                    <div class="dropdown-menu text-uppercase">
+                      <a class="dropdown-item" routerLlink="." (click)="onSelectProvider()" translate>links_text.all</a>
+                      <a class="dropdown-item" routerLlink="." *ngFor="let provider of gameProviders"
+                        (click)="onSelectProvider(provider)">{{provider.title}}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <div class="tab-pane fade show active" id="nav-Games" role="tabpanel">
+              <div class="game_lists">
+                <app-games-list *ngIf="allGames" [displayKeys]="displayKeys" [allGames]="allGames" [isNew]="new" [isLive]="live"
+                  (onPlayGame)="playGame($event)">
+                </app-games-list>
+              </div>
+              <!-- <div class="row mb-0 mb-md-4 show_more" *ngIf="displayKeys?.length || displayKeys?.length==endIndex-1">
+                <div class="col-12 text-center">
+                  <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'" (click)="showMore()">
+                  </app-button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </ng-template>
+     
+    </div>
+  </div>
+</div>

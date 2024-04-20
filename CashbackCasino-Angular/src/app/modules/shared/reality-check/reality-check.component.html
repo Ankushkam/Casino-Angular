@@ -1,0 +1,46 @@
+<div class="modal-body">
+    <div class="singPupForm d-flex align-items-center position-relative">
+        <div class="cancel-confirm text-center">
+            <button type="button" (click)="close()" class="c_close" data-dismiss="modal" aria-label="Close">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                        fill="#ffffff" />
+                </svg>
+            </button>
+            <div class="bet_items" *ngIf="realityCheckData">
+                {{'forms.label.you_have_played' | translate}}:
+                <span class="form__alert form__alert--bold">
+                    {{(realityCheckData?.period?.time)}} {{'date.minutes' | translate}}</span>
+            </div>
+
+            <div class="bet_items" *ngIf="realityCheckData?.wager_sum">
+                <h5>{{'forms.label.total_bets' | translate}}:</h5>
+                <span *ngFor="let bet of realityCheckData?.wager_sum | keyvalue">
+                    {{(bet?.value * -1) | convertCurrency:[bet?.key,allCurrencies] | currency:bet?.key:true:'1.0'}}</span>
+                <!-- <span *ngIf="!realityCheckData?.wager_sum"> 0 </span> -->
+            </div>
+
+            <div class="bet_items">
+                <h5>{{'forms.label.total_wins' | translate}}:</h5>
+                <span *ngFor="let win of realityCheckData?.win | keyvalue">
+                    {{(win?.value) | convertCurrency:[win?.key,allCurrencies] | currency: win?.key:true:'1.0'}}</span>
+                <!-- <span *ngIf="!realityCheckData.win || realityCheckData.win==0"> 0 </span> -->
+            </div>
+
+            <div class="bet_items">
+                <h5>{{'forms.label.total_lost'| translate}}:</h5>
+                <span *ngFor="let loss of realityCheckData?.lost | keyvalue">
+                    {{(loss?.value) | convertCurrency:[loss?.key,allCurrencies] | currency: loss?.key: true:'1.0'}}</span>
+                <!-- <span *ngIf="!realityCheckData?.lost || realityCheckData.lost==0"> 0 </span> -->
+            </div>
+
+            <div class="mt-2 d-flex justify-content-center">
+                <button class="btn btn-md btn-cancel m-1" (click)="logout()">{{'links_text.logout' |
+                    translate}}</button>
+                <button class="btn btn-md btn-primary m-1" (click)="close()">{{'links_text.close' | translate }}</button>
+            </div>
+
+        </div>
+    </div>
+</div>

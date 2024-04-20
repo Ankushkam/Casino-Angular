@@ -1,0 +1,8 @@
+.login_form{
+  color: #000000 !important;
+}
+::ng-deep{
+  .modal-content{
+      background-color: transparent!important;
+  }
+}

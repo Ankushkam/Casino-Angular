@@ -1,0 +1,96 @@
+@import '../../../../assets/css/base.scss';
+#nav-tabContent {
+    .select-drop {
+        margin-bottom: 10px;
+    }
+}
+
+.game_tab_group  {
+    .slick-arrow {
+        @media (max-width:1800px){
+            top:-66px;           
+        }
+        &.slick-prev {
+            right:85px; 
+        }
+        &.slick-next{
+            right: 51px;
+        }
+    }
+}
+
+// .move_down_arrow {
+//     text-align: center;
+//     position: fixed;
+//     left:calc(50% - 20px);
+//     bottom: 35px;    
+//     z-index: 11;
+//     a {
+//         width: 40px;
+//         height: 40px;
+//         text-align: center;
+//         background: $base-color; 
+//         box-shadow: 0 0 10px rgba(0,0,0,.6);
+//         @include border-radius (40px);
+//         @include flexbox;
+//         @include align-items (center);
+//         @include justify-content (center);
+//         animation: up-down 1s 1s ease-out infinite;
+//         img {
+//             width: 20px;
+//         }
+//     }
+// }
+
+
+// .hide{
+//     display: none;
+// }
+
+// @keyframes up-down{
+//     0% {
+//       transform:  translate(1px,20px);
+//     }   
+//     50% {
+//       transform:  translate(1px,12px);
+//     }
+//     100% {
+//       transform:  translate(1px,22px);
+//     }
+// }
+
+// @-moz-keyframes up-down{
+//   0% {
+//     -moz-transform:  translate(1px,20px)  ;
+//   }
+//   24% {
+//     -moz-transform:  translate(1px,30px)  ;
+//   }
+//   50% {
+//     -moz-transform:  translate(1px,12px)  ;
+//   }
+//   74% {
+//     -moz-transform:  translate(1px,22px)  ;
+//   }
+//   100% {
+//     -moz-transform:  translate(1px,22px)  ;
+//   }
+// }
+
+// @-webkit-keyframes up-down {
+//   0% {
+//     -webkit-transform:  translate(1px,20px)  ;
+//   }
+//   24% {
+//     -webkit-transform:  translate(1px,30px)  ;
+//   }
+//   50% {
+//     -webkit-transform:  translate(1px,12px)  ;
+//   }
+//   74% {
+//     -webkit-transform:  translate(1px,22px)  ;
+//   }
+//   100% {
+//     -webkit-transform:  translate(1px,22px)  ;
+//   }
+// }

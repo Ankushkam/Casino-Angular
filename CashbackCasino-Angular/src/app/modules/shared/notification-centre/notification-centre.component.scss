@@ -1,0 +1,180 @@
+@import '../../../../assets/css/base.scss';
+
+.noti_count {
+    position: $absolute;
+    font-size: $f12;
+    top: -13px;
+    width: 20px;
+    height: 20px;
+    right: -15px;
+    line-height:20px;
+    color: $black-color2;
+    background: linear-gradient(131.04deg, #FFC400 8.69%, #FFEC4A 76.92%);
+	background: -moz-linear-gradient(131.04deg, #FFC400 8.69%, #FFEC4A 76.92%); 
+	background: -webkit-linear-gradient(131.04deg, #FFC400 8.69%, #FFEC4A 76.92%); 	
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+    @include border-radius(10px);
+}
+.mobile_bar {
+    .noti_count {
+        top: -9px;
+    }
+}
+.noti_select {
+	@media (max-width:991px){
+		max-width:48px;
+    }    
+	.dropdown-menu {
+		overflow-x:hidden;		
+        max-width: 400px;
+        min-width: 370px;
+        max-height: 360px;
+        border: 0;
+        @media (min-width:1820px){
+            max-height: 630px;
+        }
+        @media (max-width:991px){
+            margin-left: 0px;
+            max-width: 310px;
+            min-width: 240px;
+            max-height: 320px;
+            overflow-x: hidden;
+        }
+        .not_title {
+            margin: -12px -15px 11px;        
+            background: $green-color1;
+            padding: 10px 20px;
+            min-height:60px; 
+            box-shadow: 0px 62px 65px rgba(0, 0, 0, 0.22), 0px 28.6645px 62.6184px rgba(0, 0, 0, 0.163169), 0px 16.4012px 56.563px rgba(0, 0, 0, 0.137892), 0px 9.95539px 41.4775px rgba(0, 0, 0, 0.118789), 0px 5.99856px 18.6093px rgba(0, 0, 0, 0.101211), 0px 3.34039px 7.32849px rgba(0, 0, 0, 0.0821082), 0px 1.43668px 2.25434px rgba(0, 0, 0, 0.0568314);
+            @media (max-width:991px) {
+                min-height:50px; 
+            }
+            h5 {
+                margin:0;
+                color: $white-color;  
+                font-size: $f16;
+                font-weight: $font-medium;
+                @include flexbox;   
+                @include align-items (center);
+                @include justify-content (center);
+            }
+        }       
+		a {
+			white-space: normal;
+			text-align: left;	
+			padding-left: 0;
+			padding-right: 0;
+			h6 {
+				font-size: $f12+1;	
+				margin: 0 0 3px;			
+			}	
+			span {
+				font-size: $f12;	
+                line-height: $f12+2; 
+				text-transform: initial;
+                display: $block;			
+			}	
+		}		
+	}
+	.dropdown-toggle {
+		&:after {
+			display: $none;
+		}
+	}
+}
+
+.notification_bonus {
+    margin:0;
+    padding:0;
+    li {        
+        padding-top: 10px;
+        padding-bottom: 15px;
+        margin-bottom: 10px;
+        padding-right:40px;
+        position: $relative;
+        &:last-child {
+            border-bottom:0;
+            margin-bottom:0;
+            padding-bottom: 10px;
+            &:after {
+                display:$none;
+            }
+        }
+        .close_li {
+            position: $absolute;
+            right: 10px;
+            top:10px;
+        }
+        &:after {
+            content:'';
+            background:url(../../../../assets/img/icons/divider.svg)no-repeat;
+            width:100%;
+            height:2px;
+            position: $absolute;
+            bottom:0;
+        }
+    }
+    figure {
+        margin: 0;
+        background: $black-color10;
+        border: 1px solid rgba(93, 96, 130, .3);
+        padding: 6px;
+        text-align: center;
+        @include border-radius (20px);
+        box-shadow: inset 0 0 10px rgba(0,0,0,.5);
+        width: 80px;
+        height: 80px;
+        @include flexbox;
+        @include align-items (center);
+        @include justify-content (center);
+        img {
+            max-width:48px;            
+        }
+    }
+    .noti_sum {
+        h6 {
+            font-size: $f12+2;
+            line-height: 19px;
+            color:$white-color;
+            white-space: normal;
+            margin: 0 0 4px;
+        }
+        a {
+            color:$base-color;
+            font-size: $f12;
+            font-weight: $font-bold;
+            padding-bottom: 0;
+            border:0;
+        }        
+    }
+    p {
+        color:$grey-color2;
+        line-height: $f16+3;
+        white-space: normal;
+        margin: 0;
+    }
+    .btn {
+        margin-top: 15px;
+    }
+}
+
+.n_close {
+    position: $absolute;
+    right: 10px;
+    top: 15px;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    @include flexbox;
+    @include align-items (center);
+    @include justify-content (center);
+    @include border-radius (20px);
+    background:rgba(0,0,0,0.2);
+    @include opacity(1); 
+    cursor: pointer;
+    z-index: 1;
+    @media (max-width:991px) {
+        top: 10px;
+    }
+}

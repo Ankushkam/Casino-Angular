@@ -1,0 +1,234 @@
+@import '../../../../assets/css/base.scss';
+
+::ng-deep {
+    .modal-content{
+        // background-color: $black-color16!important;
+        // background-image:url('../../../../assets/img/inner_bg.jpg');
+        // background-repeat: no-repeat;
+        // background-attachment: fixed;
+        // background-size: 100%;
+        // background-position: center top;
+        background: $transparent;
+        @include border-radius (21px);        
+        @media (max-width:820px){
+            min-height: 100vh;
+            @include border-radius (0); 
+        }
+        .update_terms {
+            @media (min-width:821px){
+                width: 572px;
+                margin: 0 auto;
+            }
+            .modal-body {
+                background: $transparent;
+                @include border-radius (21px);      
+                // overflow-x: hidden;
+                @media (max-width:820px){
+                    @include border-radius (0);
+                }
+                .singPupForm {
+                    // background:$transparent;
+                    // max-height: 100%;
+                    background-color: rgba(11,28,16,.9);
+                    background-image:url('/assets/img/pnp/pnp_Bg.jpg');
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    background-size: contain;
+                    background-position: center top;
+                    min-height: 537px;
+                     @include border-radius (10px);
+                    // overflow: hidden;
+                    @media (max-width:820px){
+                        @include border-radius (0);
+                        min-height: 100vh;
+                    }
+                    .term_content {
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        height:calc(524px - 150px);
+                        @media (max-width:820px){
+                            height: calc(100% - 150px);
+                        }
+                        .sticky_box {
+                            padding: 0 25px;
+                            position: $absolute;
+                            bottom: 0;
+                            width: 100%;
+                            left: 0;                    
+                        }
+                    }
+                    .form_screens {
+                        height:auto;
+                        overflow: hidden;
+                        .checkbox_form {
+                            padding-left: 38px;
+                            font-size: $f12+3;
+                            .checkmark {
+                                height: 25px;
+                                width: 25px;
+                            }
+                        }
+                        .input-fields{
+                            padding-left: 10px;
+                            font-size: $f16+2;
+                            @include border-radius (7px);
+                        }
+                    }               
+                    .form-contents {
+                        max-height: 100%;
+                        h2 {
+                            text-transform: uppercase;
+                            position:$relative;
+                            overflow-x: hidden;
+                            @include flexbox;
+                            @include align-items (center);
+                            @include justify-content (center);
+                            padding: 30px 0 15px;
+                            font-size: $f20+8;
+                            width: 100%;
+                            z-index: 1;
+                            margin: 0;
+                            &:before, &:after {
+                                content: "";
+                                flex: 1 1 0%;
+                                border-top: 1px solid rgba(235,129,6,.79);
+                            }
+                            span {
+                                font-weight: $font-bold;
+                                color: rgba(235, 129, 6, 0.79);
+                                line-height: 38px;
+                                padding: 10px 40px;
+                                display: $inline;
+                                position: $relative;
+                                border-width: 1px;
+                                border-style: solid;
+                                border-color: rgba(235, 129, 6, 0.79);                                
+                            }
+                        }
+                    }
+                    input[type="tel"] {
+                        border-color: $white-color;
+                        background: $white-color;
+                        height: 50px;
+                    }      
+                    .btn_input {
+                        .iti {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // .modal-dialog {
+    //     max-width: 100%;        
+    //     min-width: 100%;
+    //     margin:0;
+    // }
+}
+.change-color {
+    color:$base-color;
+}
+.term_form {
+    margin:0 auto;
+    max-width: 390px;
+    padding: 20px 0 0;
+    @media (max-width:767px){
+        max-width:100%;
+    }
+    label {
+        color:$base-color;
+        font-size:$f12+3;
+        top:-26px;
+        @media (max-width:575px){
+            font-size:$f16;
+        }
+    }
+    .input-fields {
+        height: 48px;
+    }
+    button {
+        position: $absolute;
+        right: 4px;
+        top: 4px;
+        font-size: $f12+2;
+        @media (max-width:575px){
+            right: 5px;
+            top: 5px;
+        }
+    }
+    .checkbox_form {
+        padding-top:5px;
+    }
+}
+.sent_email { 
+    min-height: 560px; padding: 0 20px;
+    @media (max-width:820px){
+        height:100%;
+    }
+    form {
+        margin-top: 20px;
+    }
+    .checkbox_form {
+        padding-left: 45px;
+        font-size: $f12+3;
+        .checkmark {
+            // height: 25px;
+            // width: 25px;
+            .checkmark:after {
+                left: 8px;
+                top:2px;
+            }
+        }
+    }
+    .btn {
+        padding: 9px 15px;
+    }
+}
+::ng-deep {
+    .term_content {
+        .title {
+            h1 {
+                font-size: $f16+10;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+        .responsible_games {
+            h4 {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+.btn_input {
+    position: $relative;
+    color: $black-color;
+    max-width: 380px;
+    margin:0 $auto;
+    @media (max-width:479px){
+        width: 330px;
+    }
+    .btn {
+        position: $absolute;
+        right: 4px;
+        top: 4px;
+        font-size: 14px;
+        height: 42px;
+        @media (max-width:479px){               
+            position: $static;   
+            margin:10px 0 0;      
+        }
+    }
+}
+.terms_up_chk {
+    max-width:380px;
+    margin:20px auto 0;
+    .checkbox_form {
+        text-align: left;
+        padding-top:6px;
+    }
+    @media (max-width:479px){
+        max-width: 328px;
+    }
+}

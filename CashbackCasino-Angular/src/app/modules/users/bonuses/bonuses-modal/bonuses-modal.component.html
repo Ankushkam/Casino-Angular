@@ -1,0 +1,224 @@
+<div class="signupForm bonus_forms" role="document">
+
+    <div class="modal-body">
+        <div class="singPupForm d-flex">
+
+            <aside *ngIf="showSidebar==undefined || showSidebar" class="form_lft_sidebar my_accounts">
+                <button type="button" (click)="closeModal()" class="close res_btn" data-dismiss="modal"
+                    aria-label="Close">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                            fill="#ffffff" />
+                    </svg>
+                </button>
+                <div class="sign_logo">
+                    <span><img src="assets/img/logo.svg" width="167" alt="Cashback Casino"></span>
+                </div>
+
+                <div class="nav" role="tablist">
+                    <a class="active" data-toggle="tab" href="#nav-bonus" (click)="changeTab($event)">
+                        <i><img src="assets/img/icons/offers_icon.svg" alt="" /></i>
+                        {{'links_text.offers' | translate}} <span *ngIf="isLoggedIn">({{offers.length}})
+                            <!-- <div>{{ timeleft | date: "hh 'h' mm 'm' ss 's'" }}</div> -->
+                        </span>
+                        <span *ngIf="!isLoggedIn">({{offersCount}})</span>
+                    </a>
+                    <a *ngIf="isLoggedIn" class="" data-toggle="tab" href="#nav-inventory" (click)="changeTab($event)">
+                        <i><img src="assets/img/icons/inventory_icon.svg" alt="" /></i>
+                        {{'links_text.inventory' | translate}} <span>({{inventory.length}})</span>
+                    </a>
+                </div>
+
+            </aside>
+            <!-- End Left Side Bar-->
+
+            <aside *ngIf="(showSidebar==undefined || !showSidebar)" class="form_rht_sidebar tab-content offers_tab">
+
+                <div class="tab-pane fade show active" id="nav-bonus" role="tabpanel">
+                    <div *ngIf="isLoggedIn" class="bonus_tab">
+                        <div class="form_header d-flex align-items-center justify-content-center">
+                            <button *ngIf="showSidebar!=undefined" class="btn-back btn-transparent btn_res"
+                                (click)="showSidebar=true;">
+                                <i><img src="assets/img/icons/back_icon.svg" alt="Cashback Casino"></i>
+                            </button>
+                            <h5 class="text-uppercase" translate>title.bonuses</h5>
+                            <button (click)="closeModal()" type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                        fill="#ffffff"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div *ngIf="offers.length>0; else noOffers" class="form_screens bonuses_options">
+
+                            <div *ngFor="let offer of offers;" class="d-flex bonus_col">
+                                <div class="bonus_col_lft">
+                                    <figure><img src="assets/img/bonus/offer_pic.svg" class="img-fluid" alt="" />
+                                    </figure>
+                                    <span *ngIf="offer.activatable_until" class="offer_end" translate>text.end_in
+                                        <app-timer [date]="offer.activatable_until" [type]="'bonus'"></app-timer>
+                                        <!-- <span>{{getDays(offer.activatable_until)}} {{'text.days' | translate}}</span> -->
+                                    </span>
+                                </div>
+                                <div class="bonus_col_rht">
+                                    <h6>{{offer.title}}</h6>
+                                    <!-- <p>Earn even more Boom Cash on Crazy Time because we've increased the Boom
+                                                Cash contribution to 150%!</p> -->
+                                    <span class="mr-3" *ngIf="offer.type==offerTypes.FREESPIN">{{'title.freespins' | translate}} :
+                                        <span>{{(offer.freespins_performed) || noFreespins}}/{{(offer.freespins_total)}}</span></span>
+                                    <span class="mr-3" *ngIf="offer.bet_level" >{{'title.bet_level' | translate}} :
+                                        <span>{{(offer.bet_level)}}</span></span>
+                                    <span class="mr-3" *ngIf="offer.type==offerTypes.BONUS">{{'title.wager' | translate}} :
+                                        <span>{{(offer.amount_wager_cents)| convertCurrency:[offer.currency,allCurrencies]}}/{{(offer.amount_wager_requirement_cents| convertCurrency:[offer.currency,allCurrencies])}}
+                                            {{offer.currency}}</span></span>
+                                    <span *ngIf="offer.amount_cents" translate>title.bonus:
+                                        <span>{{(offer.amount_cents| convertCurrency:[offer.currency,allCurrencies])}}
+                                            {{offer.currency}}</span></span>
+
+                                    <a (click)="goTo('/bonus-terms-conditions')" href="javascript:void(0);"
+                                        class="d-block" translate>links_text.general_t&c</a>
+                                    <button *ngIf="offer.activatable" (click)="activate(offer)" class="btn btn-md btn-primary text-uppercase">
+                                        {{'links_text.claim_now' | translate }}<i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="!isLoggedIn" class="bonus_tab">
+                        <div class="form_header d-flex align-items-center justify-content-center">
+                            <button *ngIf="showSidebar!=undefined" class="btn-back btn-transparent btn_res"
+                                (click)="showSidebar=true;">
+                                <i><img src="assets/img/icons/back_icon.svg" alt="Cashback Casino"></i>
+                            </button>
+                            <h5 class="text-uppercase" translate>title.bonuses</h5>
+                            <button (click)="closeModal()" type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                        fill="white"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- <div *ngIf="offers.length>0; else noOffers" class="form_screens bonuses_options">
+
+                            <div *ngFor="let offer of offers;" class="d-flex bonus_col">
+                                <div class="bonus_col_lft">
+                                    <figure><img src="assets/img/bonus/offer_pic.svg" class="img-fluid" alt="" />
+                                    </figure>
+                                    <span *ngIf="offer.activatable_until" class="offer_end">Ends in
+                                        <span>{{getDays(offer.activatable_until)}} days</span></span>
+                                </div>
+                                <div class="bonus_col_rht">
+                                    <h6>{{offer.title}}</h6>
+                               
+                                    <span class="mr-3" *ngIf="offer.type==offerTypes.FREESPIN">Freespins :
+                                        <span>{{(offer.freespins_performed)}}/{{(offer.freespins_total)}}</span></span>
+                                    <span class="mr-3" *ngIf="offer.bet_level">Bet Level :
+                                        <span>{{(offer.bet_level)}}</span></span>
+                                    <span class="mr-3" *ngIf="offer.type==offerTypes.BONUS">Wager :
+                                        <span>{{(offer.amount_wager_cents)| convertCurrency:[offer.currency,allCurrencies]}}/{{(offer.amount_wager_requirement_cents| convertCurrency:[offer.currency,allCurrencies])}}
+                                            {{offer.currency}}</span></span>
+                                    <span *ngIf="offer.amount_cents">Bonus :
+                                        <span>{{(offer.amount_cents| convertCurrency:[offer.currency,allCurrencies])}}
+                                            {{offer.currency}}</span></span>
+
+                                    <a (click)="goTo('/cashback-terms')" href="javascript:void(0);"
+                                        class="d-block">Terms & conditions</a>
+                                    <button *ngIf="offer.activatable" (click)="activate(offer)"
+                                        class="btn btn-md btn-primary text-uppercase">
+                                        Claim Now<i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg"
+                                                width="20" alt=""></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div> -->
+                        <app-deposit-bonuses [type]="'register'" (totalCount)="getTotalCount($event)"
+                            (goTo)="goTo($event)"></app-deposit-bonuses>
+                    </div>
+
+                </div><!-- Tab bonus End -->
+
+                <div *ngIf="isLoggedIn" class="tab-pane fade" id="nav-inventory" role="tabpanel">
+                    <div class="bonus_tab">
+                        <div class="form_header d-flex align-items-center justify-content-center">
+                            <button *ngIf="showSidebar!=undefined" class="btn-back btn-transparent btn_res"
+                                (click)="showSidebar=true;">
+                                <i><img src="assets/img/icons/back_icon.svg" alt="Cashback Casino"></i>
+                            </button>
+                            <h5 class="text-uppercase" translate>title.bonuses</h5>
+                            <button (click)="closeModal()" type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.4459 5L9.70027 8.25436C10.0989 8.65304 10.1012 9.29712 9.69918 9.69918C9.29991 10.0985 8.65272 10.0986 8.25436 9.70027L5 6.4459L1.74564 9.70027C1.34696 10.0989 0.702876 10.1012 0.300817 9.69918C-0.0984575 9.29991 -0.0986209 8.65272 0.299735 8.25436L3.5541 5L0.299735 1.74564C-0.0989423 1.34696 -0.101241 0.702876 0.300817 0.300817C0.700092 -0.0984575 1.34728 -0.0986208 1.74564 0.299735L5 3.5541L8.25436 0.299735C8.65304 -0.0989423 9.29712 -0.101241 9.69918 0.300817C10.0985 0.700092 10.0986 1.34728 9.70027 1.74564L6.4459 5Z"
+                                        fill="#ffffff"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="form_screens bonuses_options" *ngIf="inventory.length>0; else noOffers">
+
+                            <div *ngFor="let offer of inventory;" class="d-flex bonus_col">
+                                <div class="bonus_col_lft">
+                                    <figure><img src="assets/img/bonus/offer_pic.svg" class="img-fluid" alt="" />
+                                    </figure>
+
+                                    <span *ngIf="offer.valid_until" class="offer_end">{{'text.end_in' | translate}}
+                                        <!-- <span>{{getDays(offer.valid_until)}} days</span> -->
+                                        <app-timer [date]="offer.valid_until" [type]="'bonus'"></app-timer>
+                                    </span>
+                                </div>
+                                <div class="bonus_col_rht">
+                                    <h6>{{offer.title}}</h6>
+                                    <!-- <p>
+                                                Earn even more Boom Cash on Crazy Time because we've increased the Boom
+                                                                                            Cash contribution to 150%!
+                                               </p> -->
+                                    <span class="mr-3" *ngIf="offer.type==offerTypes.FREESPIN">{{'title.freespins' | translate}} :
+                                        <span>{{(offer.freespins_performed) || noFreespins}}/{{(offer.freespins_total)}}</span></span>
+                                    <span class="mr-3" *ngIf="offer.bet_level">Bet Level :
+                                        <span>{{(offer.bet_level)}}</span></span>
+                                    <span class="mr-3" *ngIf="offer.type==offerTypes.BONUS">{{'title.wager' | translate}} :
+                                        <span>{{(offer.amount_wager_cents)| convertCurrency:[offer.currency,allCurrencies] }}/{{(offer.amount_wager_requirement_cents| convertCurrency:[offer.currency,allCurrencies] )}}
+                                            {{offer.currency}}</span></span>
+                                    <span *ngIf="offer.amount_cents">{{'title.bonus' | translate}} :
+                                        <span>{{(offer.amount_cents| convertCurrency:[offer.currency,allCurrencies] )}}
+                                            {{offer.currency}}</span></span>
+
+                                    <a (click)="goTo('/bonus-terms-conditions')" href="javascript:void(0);"
+                                        class="d-block" translate>links_text.general_t&c</a>
+                                    <button (click)="cancel(offer)" *ngIf="offer.cancelable" class="btn btn-md btn-cancel text-uppercase">
+                                        {{'links_text.cancel' | translate }}
+                                    </button>
+                                    <button (click)="playNow(offer)" *ngIf="offer.games" class="btn btn-md btn-primary text-uppercase ml-2">
+                                        {{'links_text.play_now' | translate }} <i class="ml-2"><img src="assets/img/icons/arrow-right_icon.svg" width="20" alt=""></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- End Tab Inventory  -->
+
+            </aside>
+            <!-- End Right Side Bar-->
+        </div>
+    </div>
+
+</div>
+<ng-template #noOffers>
+    <div class="form_screens d-flex align-items-center justify-content-center">
+        <div class="no-result text-center border-0" translate>
+            text.no_bonuses_avaliable
+        </div>
+    </div>
+</ng-template>

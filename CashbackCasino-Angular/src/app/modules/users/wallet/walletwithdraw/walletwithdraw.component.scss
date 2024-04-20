@@ -1,0 +1,191 @@
+@import '../../../../../assets/css/base.scss';
+
+::ng-deep{
+    .modal-content{
+        background-color: $transparent!important;
+    }
+    .wallat_popup {
+        .input-group {
+            .input-fields{
+                background-color: #0c360d;
+                border:1px solid $black-color14!important;
+                @include border-radius (8px); 
+                color:$white-color; 
+                font-weight: $font-medium; 
+                font-size: $f16;
+                padding: 10px;     
+            }
+        } 
+        .input-fields.custom-select {
+            // background: $black-color5 url(../../../../../assets/img/icons/arw_down-white.svg) no-repeat;
+            background-color: #0c360d;
+            border:1px solid $black-color14!important;
+            background-position: 95% center;
+            border-radius: 8px!important;
+            color:$white-color;
+            font-size: $f16;
+            padding: 10px; 
+        }
+    }
+}
+.change-color {color:$base-color;}
+a {cursor: pointer;}
+
+.wallet_list {
+    margin:15px 0 0;
+    max-width:210px;
+    padding: 0;
+    li {
+        font-weight:$font-regular;
+        color: $white-color;
+        font-size: $f12+2;
+        padding:5px 0;
+        strong {
+            font-weight: $font-regular;
+            color:inherit;
+        }
+    }
+}
+
+.input_currency {
+    color:$white-color;
+    position: $relative;
+    background: $green-dark-color;
+    @include border-radius (8px);
+    border:1px solid $black-color14;
+    @include flexbox;
+    @include align-items ($center);
+    padding-right:20px;
+    max-width:350px;
+    @media (max-width:575px){
+        max-width:100%;
+        padding-right:10px;
+    }
+    input {
+        background: $green-dark-color;
+        @include border-radius (8px); 
+        font-weight: $font-medium; 
+        color:$white-color; 
+        text-align: $right; 
+        font-size: $f16+1;
+        padding:5px 10px; 
+        @media (max-width:575px){
+            width: 78%;
+        }
+    }
+    .dropdown-toggle{
+        color: $black-light-color;
+        &::after {
+            content: "";
+            background: url(src/assets/img/icons/down_arw_yellow.svg) no-repeat;
+        }
+    }
+    .btn-black {
+        height:auto;
+        box-shadow: $none;
+        .dropdown-menu {
+            min-width: 100%;
+        }
+    }    
+}
+.d_payment {
+    .sub-title {
+        color:$white-color;
+    }
+    .pay_methods { 
+        @include flexbox;
+        @include flex-wrap (wrap);
+        margin:0 -10px;
+        .pay_block {
+            padding:10px 15px;
+            min-height: 140px;
+            margin:0 10px 20px;
+            background: $green-dark-color;
+            @include border-radius (7px);
+            max-width:calc(33.33% - 20px);
+            min-width:calc(33.33% - 20px);
+            border:1px solid $green-color5;
+            box-shadow: 0 0 20px rgba(0,0,0,.5);
+            @media (max-width:575px){
+                min-width:calc(50% - 20px);
+                max-width:calc(50% - 20px);
+            }
+            &.active, &:hover {
+                border:1px solid $base-color;
+            }
+            i {
+                @include flexbox;
+                @include align-items (center);
+                @include justify-content (center);
+                min-height:50px;
+                img {width: 100%; max-height:60px;}
+            }
+            .price_limit {
+                font-weight: $font-medium;
+                color: $grey-color2;
+                text-align: center;
+                font-size: $f12+1;
+                margin:12px 0 0;
+            }
+        }
+    }
+}
+
+.selectedPayment{
+    border:1px solid $base-color;
+}
+
+.slider {
+    background-color: #2e2c31;
+	color:$white-color;
+	position:$absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    -webkit-transition: .4s;
+    &::before {
+        content: "";
+        position:$absolute;
+        height:31px;
+        width:31px;
+        left:5px;
+        bottom:4px;
+        text-indent:7px;
+        padding-left:25px;
+        transition:.4s;
+        -webkit-transition:.4s;
+		background-color:$base-color;		
+	}
+}
+
+.switch input:checked + .slider {
+  background-color: #242334;
+  &::before {
+	background-color:$green-dark-color;
+  }
+}
+
+.switch input:checked + .slider:before {
+    content: '';
+    transform: translateX(30px);
+}
+.switch input:checked + .slider:after {
+    content: ""; 
+	left: 11px;
+}
+
+.slider.round {
+    @include border-radius (34px);
+    &::before {        
+        @include border-radius (50%);
+    }
+    &::after {        
+        content: ""; 
+        position: $absolute;
+        top: 5px;
+        left: 35px;
+    }
+}

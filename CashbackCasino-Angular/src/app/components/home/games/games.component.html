@@ -1,0 +1,293 @@
+<div class="title text-center">
+  <h2 *ngIf="pageTitle == GAME_LIST.HOME_TITLE; else titles">{{'page_titles.our_games' | translate}}</h2>
+  <ng-template #titles>
+    <h2>{{pageTitle}}</h2>
+  </ng-template>
+
+</div>
+<div class="row gaming-tabs">
+  <div class="col-12">
+
+    <app-category-list *ngIf="page!=='tournaments'" [categories]="categories" [initCategory]="currentCategory"
+      (onSelectCategory)="onClickCategory($event)"></app-category-list>
+    <div class="tab-content py-md-3 py-0 px-sm-0" id="nav-tabContent">
+
+
+      <div *ngIf="page!=='tournaments'" class="row py-md-2 pt-3 pb-0">
+
+        <div class="col-sm-6 col-12">
+          <app-search (onKeyPress)="onSearch($event)"></app-search>
+        </div>
+
+        <div class="col-sm-6 col-12">
+          <div class="select-drop form-group ml-auto">
+            <div class="dropdown text-uppercase btn-black">
+              <button type="button" class="dropdown-toggle btn-transparent"
+                data-toggle="dropdown">{{(currentProvider || {}).title ||('title.suppliers' | translate)}}
+              </button>
+              <div class="dropdown-menu text-uppercase scroll">
+                <a class="dropdown-item" routerLlink="." (click)="onSelectProvider()" translate>links_text.all_games</a>
+                <a class="dropdown-item" routerLlink="." *ngFor="let provider of gameProviders"
+                  (click)="onSelectProvider(provider)">{{provider.title}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="pageTitle == GAME_LIST.HOME_TITLE && index==0; else elseTemplate">
+        <!-- <ng-container *ngIf="newGames.length || popularGames?.length || live?.length || jackpots?.length; else empty"> -->
+          <ng-container *ngIf="providerSpecificKeys.length>0; else empty">  
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="newGames?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate>
+                  <i class="mr-2"> <img src="assets/img/icons/nGame_icon.svg" width="27px" alt=""></i>
+                  page_titles.new_games
+                </h5>
+                <a *ngIf="type!=GAME_LIST.CATEGORY_GAMES" routerLlink="." class="see_all"
+                  (click)="seeAll(1)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="newGames" [allGames]="allGames" [isNew]="true"
+                (onPlayGame)="playGame($event)"></app-games-list>
+            </div>
+
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class="col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(1)"></app-button>
+              </div>
+
+            </div>
+          </div>
+          
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="popularGames?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/icons/star_icon.svg" width="27px" alt=""></i>
+                  page_titles.popular_games</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(2)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="popularGames" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class="col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(2)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="live?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/icons/lCasino.svg" width="27px" alt=""></i>
+                  page_titles.live_casino</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(3)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="live" [allGames]="allGames" [isLive]="true"
+                (onPlayGame)="playGame($event)"></app-games-list>
+            </div>
+
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(3)"></app-button>
+              </div>
+
+            </div>
+          </div>
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="bonusBuys?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5><i class="mr-2"> <img src="assets/img/New categories/bonus_hunt.svg" width="27px"
+                      alt=""></i> {{'page_titles.bonus_hunt' | translate}}</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(4)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="bonusBuys" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(4)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="jackpots?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/New categories/jackport_icon.svg" width="27px" alt=""></i>
+                  links_text.jackpot_games</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(5)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="jackpots" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(5)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="megaways?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/New categories/Megaways/18px.svg" width="27px"
+                      alt=""></i> page_titles.megaways</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(6)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="megaways" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(6)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="epicWins?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/New categories/Epic wins over x10.000/18px.svg"
+                      width="27px" alt=""></i> page_titles.epic_wins_over*10.000</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(7)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="epicWins" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(7)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="fruitMachine?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/New categories/Classic fruit machines/18px.svg"
+                      width="27px" alt=""></i> page_titles.classic_fruit_machines</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(8)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="fruitMachine" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(8)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="winBothWays?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/New categories/Win both ways/18px.svg" width="27px"
+                      alt=""></i> page_titles.win_both_ways</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(9)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="winBothWays" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(9)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane fade show active" id="nav-Games" role="tabpanel" *ngIf="clusterPlays?.length>0">
+            <div class="game_lists">
+              <div class="title-divider">
+                <h5 translate><i class="mr-2"> <img src="assets/img/New categories/Cluster plays/18px.svg" width="27px"
+                      alt=""></i> page_titles.cluster_plays</h5>
+                <a routerLlink="." class="see_all" (click)="seeAll(10)">{{'links_text.see_all' | translate }}</a>
+              </div>
+
+              <app-games-list [displayKeys]="clusterPlays" [allGames]="allGames" (onPlayGame)="playGame($event)">
+              </app-games-list>
+            </div>
+            <div class="row mb-0 mb-md-4 show_more">
+              <div class=" col-12 text-center">
+                <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                  (click)="seeAll(10)"></app-button>
+              </div>
+
+            </div>
+          </div>
+
+        </ng-container>
+
+
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="tab-pane fade show active" id="nav-Games" role="tabpanel">
+          <div class="game_lists">
+            <div class="title-divider">
+              <h5><i class="mr-2"> <img src="{{(currentCategory || {}).src}}" width="27px" alt=""></i>
+                {{title | translate}}</h5>
+              <a routerLlink="." class="see_all" (click)="seeAll()"
+                *ngIf="displayKeys?.length && type!=GAME_LIST.CATEGORY_GAMES">{{'links_text.see_all' | translate }}</a>
+            </div>
+
+            <app-games-list [displayKeys]="displayKeys" [isLive]="islive" [isNew]="new" [allGames]="allGames"
+              (onPlayGame)="playGame($event)"></app-games-list>
+          </div>
+
+          <!-- <div class="row mb-0 mb-md-4 show_more" *ngIf="displayKeys?.length && pageTitle == GAME_LIST.HOME_TITLE"> -->
+          <div class="row mb-0 mb-md-4 show_more" *ngIf="(displayKeys?.length && displayKeys?.length >= endIndex)">
+            <div class="col-12 text-center">
+              <app-button [btnText]="'links_text.show_more'" [src]="'assets/img/icons/arrow-right_icon.svg'"
+                (click)="showMore()"></app-button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- <div class="move_down_arrow" >
+         
+          <a href="#"><img src="assets/img/icons/arw_down.svg" alt="" width="22" /></a>
+        </div> -->
+
+      </ng-template>
+      <ng-template #empty>
+        <div class="title text-center py-4">
+          <h4 translate>text.no_games_avaliable</h4>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #empty> </ng-template> -->

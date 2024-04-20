@@ -1,0 +1,12 @@
+@import '../../../../assets/css/base.scss';
+
+.promotion_bonuses {
+    .deposit_bonus {
+        min-height: 234px;
+        background-color:#0B1C11;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.22);
+    }
+    .dep_lft {
+        padding:30px;
+    }
+}

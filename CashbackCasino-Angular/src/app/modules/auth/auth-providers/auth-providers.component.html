@@ -1,0 +1,5 @@
+<div class="container">
+    <!-- <a class="btn btn-primary mr-2" *ngFor="let providers of allAuthProviders "[routerLink]="[providers.url]" >{{providers.name}}</a> -->
+    <a class="btn btn-primary mr-2" *ngFor="let provider of allAuthProviders" [href]="getPath(provider.url)" ><i class="fa fa-facebook mr-2" style="color:white" ></i>{{provider.name}}</a>
+    
+</div>

@@ -1,0 +1,18 @@
+<div class="modal-dialog modal-dialog-centered modal-lg signupForm" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="singPupForm d-flex p-4 align-items-center">
+                <div class="cancel-confirm">
+                    <div class="cancel-form w-100 text-center">
+                        <h2 class="mb-4" translate>title.want_to_close </h2>
+                        <!-- <p> Are you sure you want to close?  </p> -->
+                        <div class="btn-contain mt-3 btn_column d-flex flex-column">
+                            <button (click)="close('back')" class="btn btn-sd btn-primary">{{'links_text.back' | translate }}</button>
+                            <button (click)="close('yes')" class="btn btn-sd btn-transparent">{{'links_text.close' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

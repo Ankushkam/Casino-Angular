@@ -1,0 +1,34 @@
+<div class="container">
+    <form [formGroup]="twoFactorVerification" (ngSubmit)="submit()">
+        <h3 class="mb-3 mt-4">Two Step Verification</h3>
+        <div *ngIf="!otp;else otpField">
+            <div class="form-group">
+                <input formControlName="email" type="text" placeholder="Enter Email" class="form-control">
+                <div class="error-field" *ngIf="submitted && controls?.email?.invalid">
+                    <span *ngIf="submitted && controls?.email?.errors?.required" translate>forms.error.email_required</span>
+                    <span *ngIf="submitted && controls?.email?.errors?.email" translate>forms.error.email_invalid</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="password" type="password" placeholder="Enter password" class="form-control">
+                <div class="error-field" *ngIf="submitted && controls?.password?.invalid">
+                    <span *ngIf="submitted && controls?.password?.errors?.required" translate>forms.error.pw_required</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">{{'links_text.submit' | translate }}</button>
+        </div>
+    </form>
+</div>
+
+<ng-template #otpField>
+    <div>
+        <div class="form-group">
+            <input class="form-control" formControlName="otp" type="text" placeholder="Enter OTP">
+            <div class="error-field" *ngIf="submitted && controls?.otp?.invalid">
+                <span *ngIf="submitted && controls?.otp?.errors?.required" translate>forms.label.otp_required</span>
+            </div>
+        </div>
+    </div>
+</ng-template>

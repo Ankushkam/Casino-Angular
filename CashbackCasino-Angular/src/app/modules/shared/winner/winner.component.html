@@ -1,0 +1,51 @@
+<div class="title-new" *ngIf="allWinners?.length>0" >
+  <h2 [ngClass]="{'title_size': smallTitle}" translate>title.our_latest_winners</h2>
+</div>
+<div class="row" *ngIf="allWinners?.length>0">
+    <div class="col-md-6 scroll-hidden">
+      <div class="winner_results">
+        <ng-container>
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+
+              <div class="winner_items" *ngFor="let winner of allWinners;let i=index" ngxSlickItem (click)="playGame(winner)">
+                <div class="win_pic">
+                  <img src="{{winner.game_table_image_path.replace('s1','s4')}}" class="img-fluid"alt="" width="97" height="131" />   
+                </div>
+                <div class="d-flex align-items-center win-info-lft">
+                  <div class="win-info">
+                    <span class="win_title">{{winner.game_title}}</span>
+                    <span class="win_des">
+                      <span>{{winner.nickname}}</span>
+                      , {{'text.just_won_on' | translate:{game:winner.game_title} }}
+                    </span>
+                  </div>
+                  <span class="wins-payout">
+                    <span class="wins-amount">{{winner.humanized_win}}</span>
+                  </span>
+                </div>
+              </div>
+
+             
+            </ngx-slick-carousel>
+
+          <!-- <div class="rTableRow" *ngFor="let winner of winners" (click)="playGame(winner)">
+            <div class="rTableCell">
+              <div class="d-flex align-items-center">
+                <i><img src="{{winner.game_table_image_path}}" class="img-fluid" /></i>
+                <span>{{winner.nickname}}</span>
+              </div>
+            </div>
+            <div class="rTableCell">{{winner.game_title}}</div>
+            <div class="rTableCell text-right">{{winner.humanized_win}}</div>
+          </div> -->
+ 
+
+        </ng-container>
+      </div>
+    </div>
+</div>
+<ng-template #empty>
+  <div class="no-result text-center py-2 border-0">
+    <span translate>text.no_winners_list_available</span>
+  </div>
+</ng-template>

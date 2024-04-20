@@ -1,0 +1,154 @@
+@import '../../../../assets/css/base.scss';
+
+.mob_none {display: $none;}
+
+.doc_list {
+    background: $black-color7;
+    font-size:$f12+2;
+    margin:20px 0 0;
+    @include border-radius (16px);
+    table{
+        margin:0;
+        th, td {
+            color:$white-color;
+            border:0;
+            .edit-remove {
+                img {
+                    filter: invert(1);
+                    -webkit-filter: invert(1);
+                }
+            }
+        }
+    }	
+}
+.file_name {
+    @include flexbox;
+    @include flex-wrap (no-wrap);
+}
+
+.verification_card {
+    box-shadow: 0px 0 15px rgba(0, 0, 0, 0.22);
+    @include border-radius (20px);
+    background-color: $black-color7;
+    font-weight: $font-regular;
+    color:rgba(130,146,167);
+    padding:25px 20px 35px;
+    font-size: $f16;
+    .v_title {
+        i {display: $inline-block; max-width:200px; text-align:center; overflow:hidden;}
+        h4 {color:$white-color; margin:15px 0; text-transform:capitalize; font-size:$f20+2; display:$block;}
+    }
+    p {
+        margin-top:10px;
+        line-height:24px;
+        a {display:$block; color:$white-color; font-weight:$font-bold;}
+    }
+}
+.icon_verify {
+    @include flexbox;
+    @include align-items (center);
+    max-width:100px;
+    margin:0 auto;
+    overflow:hidden;
+    i {
+        min-width: 100px;
+        transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+    }
+}
+.file_box{
+    width:100%;
+    margin-top:20px;
+    min-height:133px;
+    @include flexbox;
+    @include align-items (center);
+    @include justify-content (center);
+    border:1px dashed $grey-color2;    
+    &.active {
+        border-color:$green-dark-color;
+    }
+    .box__input {
+        .box__file {
+            width: 0.1px;
+            height: 0.1px;
+            overflow:hidden;
+            position:$absolute;
+            @include opacity (0);
+            z-index: -1;
+        }
+        label {
+            margin:0;
+            padding:0 10px;
+            strong {
+                color:$white-color;
+                margin-left: 2px;
+            }
+            span {
+                display: $block;
+            }
+        }
+    }
+}
+.primary_id {
+    .ps_id {
+        position: $relative;
+        //  width: 110px; 
+        white-space: nowrap;
+        .id_txt {
+            // width: 220px;    
+            @include flexbox;
+            white-space:nowrap;    
+            word-break: keep-all;
+            transition: all .5s ease-in-out;
+            -webkit-transition: all .5s ease-in-out;             
+            .txt_identy {
+                // width:110px; 
+                text-align:center; color:rgba(130,146,167);
+                text-transform: uppercase; font-weight: $font-bold;
+            }
+        }
+    }
+    .btn-transparent {
+        position: $relative;
+        display: $inline-block;
+        margin: 0 5px;
+        top: -2px;
+    }
+    .btn-pree {
+        pointer-events:$none;       
+        @include opacity (0);
+        display:$none;
+        // left:8px;
+    }
+    // .btn-nxxt {
+    //     right:4px;
+    // }     
+}
+.changed_id {
+    .icon_verify {
+        i {
+            &:first-child {
+                margin-left:-100px;
+            }
+        }
+    }
+    .id_txt {
+        // transform: translate3d(-110px, 0px, 0px);
+        // -webkit-transform: translate3d(-110px, 0px, 0px);
+        .txt_identy {
+            &:first-child {
+                color:$white-color;
+            }
+        }
+    }
+    .btn-pree {
+        display: $inline-block;
+        @include opacity (1);
+        pointer-events: auto;
+    }
+    .btn-nxxt {
+        display: $none;
+        // @include opacity (0);
+        // pointer-events: $none;
+    }
+}  

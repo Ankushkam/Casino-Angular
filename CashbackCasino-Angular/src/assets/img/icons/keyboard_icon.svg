@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="37px" height="32px" viewBox="0 0 37 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Keyboard up</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iZettle-tablet-extra-01" transform="translate(-494.000000, -684.000000)" fill="#1C1E1E">
+            <g id="Group-3" transform="translate(30.000000, 663.000000)">
+                <g id="Keyboard-up" transform="translate(464.000000, 21.000000)">
+                    <polygon id="Back" fill-rule="nonzero" transform="translate(19.414214, 4.414214) scale(-1, 1) rotate(-90.000000) translate(-19.414214, -4.414214) " points="21 4.41421356 15 10.4142136 16.4142136 11.8284271 23.8284271 4.41421356 16.4142136 -3 15 -1.58578644"></polygon>
+                    <path d="M2,14 C1.44771525,14 1,14.4477153 1,15 L1,30 C1,30.5522847 1.44771525,31 2,31 L35,31 C35.5522847,31 36,30.5522847 36,30 L36,15 C36,14.4477153 35.5522847,14 35,14 L2,14 Z M2,13 L35,13 C36.1045695,13 37,13.8954305 37,15 L37,30 C37,31.1045695 36.1045695,32 35,32 L2,32 C0.8954305,32 0,31.1045695 0,30 L0,15 C0,13.8954305 0.8954305,13 2,13 Z" id="Rectangle-7" fill-rule="nonzero"></path>
+                    <rect id="Path" x="3" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="7" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="11" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="15" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="19" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="23" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="27" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="31" y="17" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="3" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="7" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="11" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="15" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="19" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="23" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="27" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="31" y="21" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="3" y="25" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="7" y="25" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="11" y="25" width="15" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="27" y="25" width="3" height="3" rx="1.5"></rect>
+                    <rect id="Path" x="31" y="25" width="3" height="3" rx="1.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

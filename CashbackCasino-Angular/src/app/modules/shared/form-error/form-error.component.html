@@ -1,0 +1,3 @@
+<div *ngIf="field && field.errors && field.touched" class="invalid-feedback">
+    <div *ngIf="field.errors">{{getFieldError(fieldName)}}</div>
+</div>

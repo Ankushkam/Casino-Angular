@@ -1,0 +1,10 @@
+.raid_tour_sec {
+    &:before {
+        @media (min-width: 1800px){
+                height: 26%;
+        }
+        @media (max-width: 767px){
+            height: 18%;
+        }
+    }
+}

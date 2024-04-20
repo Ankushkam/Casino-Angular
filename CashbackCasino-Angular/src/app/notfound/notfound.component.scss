@@ -1,0 +1,29 @@
+@import '../../assets/css/base.scss';
+
+.error_page {
+    max-width: 500px;
+    margin:0 auto;
+    padding:140px 40px 20px;
+    h2 {
+        color:#321454;
+        font-size: $f52+140;
+        line-height: 130px;
+        font-family: arial;
+        text-shadow: 0 0 10px rgba(0,0,0,1);;
+        @media (max-width:575px){
+            font-size: $f52+80;
+            line-height: 100px;
+        }
+    }
+    p {
+        font-weight: $font-bold;
+        color:$white-color;
+        font-size: $f16;
+        a {
+            color:$secondary-color;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

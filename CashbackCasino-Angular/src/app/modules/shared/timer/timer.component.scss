@@ -1,0 +1,10 @@
+@import '../../../../assets/css/base.scss';
+
+.timer{
+    // font-size: 12px;
+    color:$white-color;
+    padding:3px; 
+    @media (max-width:820px){
+        display: $none; 
+    }
+}

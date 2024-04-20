@@ -1,0 +1,19 @@
+@import '../../../../assets/css/base.scss';
+.coming_soon {    
+    .modal-content{border: 0; border-radius: 5px; overflow: hidden;}
+    .modal-body{padding: 0;}
+}
+.payment_detail { padding: 30px 40px; max-height: 564px; overflow-y: auto;
+    @media (max-width: 830px) {
+        padding: 30px;
+    }
+} 
+.payment_block {background: $green-dark-color;}
+.payment_block .close {position: absolute;right: 15px; top: 15px; z-index: 11;}
+.coming_soon_img{position: relative; max-height: 564px; overflow:hidden;
+    img{width:100%; height: 100%; object-fit: cover; object-position: center top;}
+}
+.coming_soon_img h2{position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; display: flex; align-items: center; justify-content: center; text-align:center;}
+@media (max-width: 830px) {
+    .coming_soon_img{max-height: 325px;}	   
+}

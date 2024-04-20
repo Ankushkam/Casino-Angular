@@ -1,0 +1,20 @@
+<app-header [showProgressBar]="false"></app-header>
+
+<div #dynamicData>
+  <dynamic-html [content]="content"></dynamic-html>
+</div>
+
+<ng-template #readLess>
+
+  <div class="wrapper">
+    <div class="tournament_des">
+      <div class="title text-left">
+        <h2 class="text-uppercase" translate>title.ty_4_choosing_us_and_loyalty</h2>
+      </div>
+      <p translate>text.ty_4_choosing_us_and_loyalty_note</p>
+      <button (click)="readMore=true;"
+        class="btn btn-md btn-primary text-uppercase">{{'links_text.read_more' | translate }}</button>
+    </div>
+  </div>
+
+</ng-template>

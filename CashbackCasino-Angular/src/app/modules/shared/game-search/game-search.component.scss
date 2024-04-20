@@ -1,0 +1,112 @@
+@import '../../../../assets/css/base.scss';
+ 
+.overlay-bg {
+    position: $fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow: hidden;
+	background: rgba(7,11,43,.4);
+	transition: all .5s ease-in-out;
+    z-index: 11;	
+}
+.search-ganme-form {	
+	max-width: 375px; 
+	margin:0 auto;
+	padding:15px 0;
+	position: $relative; 
+	@media (max-width:991px){
+		display: $none;
+	}
+	.search-form-inner{
+		background: rgba(255,255,255,.8);
+		height: 40px;
+		padding: 14px;
+		border-radius: 32px;
+		@include flexbox;
+		@include align-items (center);
+		position: $relative;
+    	z-index: 12;
+		.prefix-icon {
+			width: 24px;
+			height: 24px;
+			line-height:24px;
+		}
+		.suffix-icon {
+			img {
+				width:12px;
+				cursor: pointer;
+			}
+		}
+		input {
+			background-color: $transparent;
+			color: $black-color;
+			padding: 11px 0;
+			font-size:$f16;			
+			height: 40px;
+			width: 100%;
+			border:0;
+		}
+	}
+	.search-results {
+		width: 375px;
+		max-height: 460px;
+		padding: 16px 16px 0;
+		background: $white-color;
+		@include border-radius (16px);
+		position: $absolute;
+		top: 58px;
+		right: 0;		
+		z-index: 12;
+		.search-title {
+			font-weight: $font-bold;
+			color: #01062b;
+			font-size:$f12+2;
+			margin: 0;
+		}
+		.search-results-card{
+			width: calc(100% + 20px);
+			padding: 8px 4px 0;
+			overflow-x: hidden;
+			overflow-y: auto;
+			height: auto;
+			max-height: calc(435px - 40px);
+			transition: all .3s ease-in-out;
+			-webkit-transition: all .3s ease-in-out;
+			margin: 0 -8px;
+			.game-block {
+				margin: 0 auto 16px;
+				width:calc(100% / 3);
+				float: left;
+				padding: 0 4px;
+				overflow: hidden;
+				will-change: transform;
+				@include border-radius (4px);
+				transition: all .2s ease-in-out;
+				&:nth-child(3n+1) {
+					clear: both;
+				}
+			}
+		}
+	}
+}
+.imageTextFont{
+	color: $black-color;
+	font-size: $f12;
+	min-height: 34px;
+    line-height: 12px;
+    padding: 5px 0;
+}
+.cursorPointer{
+	cursor: pointer;
+}
+.no-data {
+	font-weight: $font-bold;
+    color: $black-color;
+    text-align: center;
+    min-height: 60px;
+    margin: 12px 0;
+	font-size:$f16;
+}
